@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+
+
+<ui:composition> 
+        
+     
+<div>
+	<div id="accordion">
+		<h3 style="font-family: arial,sans-serif; color: #36c"><b>Shift Management</b></h3>
+		<div >
+			<ol style="font-size: 10px; font-style:arial;  padding-left:0px; width: 100%">
+				<li id="item1" style="width: 100%">Shift Master</li>
+				<li id="item2" style="width: 100%">Break Master</li>
+				<li id="item3" style="width: 100%" >Shift Allotment</li>
+				<li id="item4" style="width: 100%">View Shift Allotment</li>
+			</ol>
+		</div>
+		<h3 style="font-family: arial,sans-serif; color: #36c"><b>Leave Management</b></h3>
+		<div >  
+			<ol style="font-size: 10px; font-style:arial;  padding-left:0px; width: 100% ">
+				<li id="item5" style="width: 100%">Holiday Master</li>
+				<li id="item6" style="width: 100%">Leave Master </li>
+				<li id="item7" style="width: 100%">Leave Allotment</li>
+				<li id="item8" style="width: 100%">Leave Application</li>
+			    <li id="item9" style="width: 100%">Leave Inquire</li>
+			</ol>
+		</div>
+		<h3 style="font-family: arial,sans-serif; color: #36c"><b>Attendance Management</b></h3>
+		<div >  
+			<ol style="font-size: 10px; font-style:arial;  padding-left:0px; width: 100%" >
+				<li id="item4" style="width: 100% ">Process Attendance</li>
+				
+			</ol>
+		</div>
+	</div>
+</div>
+  
+	<script>
+
+	function setMgmtSubmenuMode(mode) {
+
+		
+		//alert('reached mgmt sub menu set mode');
+		
+		switch(mode){
+		  case 'add': 
+			  //alert('hi');
+			  //alert('hi2');
+			 	 $J("#emp_mgmt_submenu").children().each(function() {
+
+			 			$J(this).removeClass('ui-selected');
+			 		 
+					   	if(this.id == "airticket_item" || this.id == "eid_item")
+					       	this.style.visibility = "hidden";
+				       	else
+					       	this.style.visibility = "visible";
+				       
+				    });
+			 	
+									
+
+			  break;
+		  case 'update': 
+			  $J("#emp_mgmt_submenu").children().each(function() {
+
+				  	$J(this).removeClass('ui-selected');
+				  
+				   	if(this.id == "airticket_item" || this.id == "eid_item")
+				       	this.style.visibility = "hidden";
+			       	else
+				       	this.style.visibility = "visible";
+			       
+			    });
+
+			  break;
+		  case 'view': 
+			  $J("#emp_mgmt_submenu").children().each(function() {
+				  		$J(this).removeClass('ui-selected');
+				       	this.style.visibility = "visible";
+			    });
+
+			  break;
+			  
+		  case 'none': 
+			  $J("#emp_mgmt_submenu").children().each(function() {
+				  		$J(this).removeClass('ui-selected');
+				   	   	this.style.visibility = "hidden";
+			    });
+
+			  break;
+		}
+	 }
+
+	$J("#item1").not('.emptyMessage').click(function() {
+		setMgmtSubmenuMode("add");
+		changeCenterPage('/application/register_employee/file.xhtml','file_item');
+		changeMode("add");
+		//$J("#emp_mgmt_submenu")
+		//$J("#emp_management_add").css("visibility", "visible");
+		//$J("#emp_management_update").css("visibility", "hidden");
+		//$J("#emp_management_view").css("visibility", "hidden");
+		
+		
+	});
+	$J("#item2").click(function() {  
+
+		setMgmtSubmenuMode("update");
+		changeMode("update");
+		//$J("#emp_management_add").css("visibility", "hidden");
+		//$J("#emp_management_update").css("visibility", "visible");
+		//$J("#emp_management_view").css("visibility", "hidden");
+		
+	});
+	$J("#item3").click(function() {  
+
+		setMgmtSubmenuMode("view");
+		changeMode("view");
+		//$J("#emp_management_add").css("visibility", "hidden");
+		//$J("#emp_management_update").css("visibility", "hidden");
+		//$J("#emp_management_view").css("visibility", "visible");
+		
+	});
+
+	function resetRightMenu()
+	{
+		setMgmtSubmenuMode("none");
+//			$J("#emp_management_add").css("visibility", "hidden");
+//			$J("#emp_management_update").css("visibility", "hidden");
+//			$J("#emp_management_view").css("visibility", "hidden");
+	}
+	
+	$J("#item4").click(function() {  
+		changePage('/application/update_employee/search.xhtml');
+		changeMode("saladj");
+		 
+		//setMgmtSubmenuMode("view");
+		//$J("#emp_management_add").css("visibility", "hidden");
+		//$J("#emp_management_update").css("visibility", "hidden");
+		//$J("#emp_management_view").css("visibility", "visible");
+		
+	});
+
+	$J("#item5").click(function() {  
+		changePage('/application/salary_process/salary_process.xhtml');
+		changeMode("salary_procee");
+		//setMgmtSubmenuMode("view");
+		//$J("#emp_management_add").css("visibility", "hidden");
+		//$J("#emp_management_update").css("visibility", "hidden");
+		//$J("#emp_management_view").css("visibility", "visible");
+		
+	});
+	$J("#item6").click(function() {  
+		changePage('/application/salary_process/payslip.xhtml');
+		changeMode("payslip");
+		//setMgmtSubmenuMode("view");
+		//$J("#emp_management_add").css("visibility", "hidden");
+		//$J("#emp_management_update").css("visibility", "hidden");
+		//$J("#emp_management_view").css("visibility", "visible");
+		
+	});
+	$J("#item7").click(function() {  
+		changePage('/application/salary_process/wps_file.xhtml');
+		changeMode("wps");
+		//setMgmtSubmenuMode("view");
+		//$J("#emp_management_add").css("visibility", "hidden");
+		//$J("#emp_management_update").css("visibility", "hidden");
+		//$J("#emp_management_view").css("visibility", "visible");
+		
+	});
+	$J("#item8").click(function() {  
+		changePage('/application/hr_documents/hr_documents.xhtml');
+		changeMode("hrdocument");
+		//setMgmtSubmenuMode("view");  
+		//$J("#emp_management_add").css("visibility", "hidden");
+		//$J("#emp_management_update").css("visibility", "hidden");
+		//$J("#emp_management_view").css("visibility", "visible");
+		
+	   });
+
+</script>
+
+	
+</ui:composition>
+
+</html>

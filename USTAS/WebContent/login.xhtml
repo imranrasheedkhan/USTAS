@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+    <style>
+	
+	</style>
+    <title>Time Attendance System - Unique Solutions</title>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+
+       <h:outputScript name="jquery.snippet.min.js" library="javascript"></h:outputScript>
+
+        <h:outputScript name="kickstart.js" library="javascript"></h:outputScript>
+
+     <h:outputStylesheet name="kickstart-buttons.css"  library="css"/>
+      <h:outputStylesheet name="kickstart.css"  library="css"/>
+     <h:outputStylesheet name="style.css"   library="css"/>
+     <h:outputStylesheet name="reset.css"   library="css"/>
+     <h:outputStylesheet name="kickstart-menue.css"   library="css"/>
+     <h:outputStylesheet name="core.css"   library="css"/>
+     <h:outputStylesheet name="accordion.core.css"   library="css"/>
+     <h:outputStylesheet name="jquery.fancybox-1.3.4.css"   library="css"/>
+     <h:outputStylesheet name="jquerycss.css"   library="css"/>
+     <h:outputStylesheet name="kickstart-grid.css"   library="css"/>  
+     <h:outputStylesheet name="zellner.css"   library="css"/>
+     
+	<!-- KICKSTART -->
+	
+
+</h:head>              
+<h:body style="background:#efefef url(/resources/images/grid.png) repeat center top;">   
+     <div id="wrap" class="clearfix">  
+		 <h:form>
+                <div class="col_12">
+				<center>
+					<h:graphicImage   name="title.jpg" library="images"></h:graphicImage>  
+				</center>
+			</div>
+			<div class="col_3"></div>
+			<div class="col_6">
+				 <fieldset>   
+					   <legend >
+						<font size="4" color="#e15do4">Sign In...</font>
+					   </legend>
+
+
+					<!-- Placeholder Text -->
+				   <h:outputText value="Login" />	<h:inputText  styleClass="input-text"/>
+					<!-- Placeholder Text -->     
+					<h:outputText id="text2" value="Password" style="align:left"/>  
+					 <h:inputSecret   styleClass="input-text" />   
+				   <h:commandButton value="Login" action="#{menuBean.login}"
+									styleClass="medium green" />
+				
+				 <h:button  class="medium orange" value="Reset"></h:button>					
+				</fieldset>
+			   </div>
+			<div class="col_3"></div>
+
+
+			<!-- ===================================== START FOOTER ===================================== -->
+			<div class="clear"></div>
+			<div id="footer">&copy; Copyrights Reserved - Unique Solutions.
+
+			</div>
+	
+	<!-- END WRAP -->
+	</h:form>
+	</div>
+</h:body>
+</html>
