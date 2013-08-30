@@ -1,9 +1,107 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   
+<h:head></h:head> 
+
+<h:body>
+<ui:composition>
+	  <fieldset class="fieldset">
+		<legend class="legend"><font color="orange" size="4">Shift Creation</font></legend>
+       <table id="shift_Creation" class="table" cellpadding="10" style="width: 75%" align="center">
+               <tbody>
+               <tr>
+				<td style="width: 100px"><h:outputText value="Shift Name:" /></td>
+				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+				<td style="width: 100px"><h:outputText value="In Time:" /></td>
+				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+              
+			 </tr>
+			  <tr>
+			
+				<td style="width: 100px"><h:outputText value="Out Time:" /></td>
+				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+				<td style="width: 100px"><h:outputText value="Late Coming Limit:" /></td>
+				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+              
+			 </tr>
+			 
+			   <tr>
+			
+				<td style="width: 100px"><h:outputText value="Early Going Limit:" /></td>
+				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+				
+              </tr>
+              <tr>
+                  
+                <td style="width: 100px"><h:outputText value="Description:" /></td>
+				<td style="width: 50px"><h:inputTextarea styleClass="inputText" value="" rows="2" cols="10" /></td>
+              </tr>
+              
+		     </tbody>
+            </table>
+          </fieldset>
 	
-	</html>
+	    <fieldset class="fieldset">
+		
+		<legend class="legend"><font color="orange" size="4">Week OFF</font></legend>
+        <table id="weekOff" class="table" cellpadding="10" style="width: 75%" align="center">  
+			<tbody>
+			   <tr>
+			    <td></td>
+			      <td>Monday</td>
+			      <td>Tuesday</td>
+			      <td>Wednesday</td>
+			      <td>Thursday</td>
+			      <td>Friday</td>
+			      <td>Saturday</td>
+			      <td>Sunday</td>
+			   </tr> 
+			   <tr>
+			    <td>OFF</td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			   </tr>  
+			   
+			    <tr>
+			    <td>Alternate OFF</td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			      <td><h:selectBooleanCheckbox /></td>
+			   </tr>    
+			  <tr>
+			  
+			  </tr>
+			  
+			  <tr>
+			   <td>Allowed Over Times</td>
+			  	<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+			  </tr>
+			</tbody>
+			
+
+	
+			
+            </table>
+            </fieldset>
+            <br/>
+            
+    
+    	
+    </ui:composition>
+</h:body> 
+          
+</html>

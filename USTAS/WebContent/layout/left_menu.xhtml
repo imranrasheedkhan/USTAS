@@ -99,21 +99,21 @@
 		}
 	 }
 
-	$J("#item1").not('.emptyMessage').click(function() {
-		setMgmtSubmenuMode("add");
-		changeCenterPage('/application/register_employee/file.xhtml','file_item');
-		changeMode("add");
+	$J("#item1").click(function() {
+	//	setMgmtSubmenuMode("add");
+		changePage('/application/shift_management/shift_master.xhtml');
+		
 		//$J("#emp_mgmt_submenu")
 		//$J("#emp_management_add").css("visibility", "visible");
 		//$J("#emp_management_update").css("visibility", "hidden");
 		//$J("#emp_management_view").css("visibility", "hidden");
 		
 		
-	});
+	});  
 	$J("#item2").click(function() {  
 
 		setMgmtSubmenuMode("update");
-		changeMode("update");
+	
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "visible");
 		//$J("#emp_management_view").css("visibility", "hidden");
@@ -122,7 +122,7 @@
 	$J("#item3").click(function() {  
 
 		setMgmtSubmenuMode("view");
-		changeMode("view");
+		
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
 		//$J("#emp_management_view").css("visibility", "visible");
@@ -139,7 +139,7 @@
 	
 	$J("#item4").click(function() {  
 		changePage('/application/update_employee/search.xhtml');
-		changeMode("saladj");
+		
 		 
 		//setMgmtSubmenuMode("view");
 		//$J("#emp_management_add").css("visibility", "hidden");
@@ -150,7 +150,7 @@
 
 	$J("#item5").click(function() {  
 		changePage('/application/salary_process/salary_process.xhtml');
-		changeMode("salary_procee");
+		
 		//setMgmtSubmenuMode("view");
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
@@ -159,7 +159,7 @@
 	});
 	$J("#item6").click(function() {  
 		changePage('/application/salary_process/payslip.xhtml');
-		changeMode("payslip");
+		
 		//setMgmtSubmenuMode("view");
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
@@ -168,7 +168,7 @@
 	});
 	$J("#item7").click(function() {  
 		changePage('/application/salary_process/wps_file.xhtml');
-		changeMode("wps");
+	
 		//setMgmtSubmenuMode("view");
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
@@ -177,7 +177,7 @@
 	});
 	$J("#item8").click(function() {  
 		changePage('/application/hr_documents/hr_documents.xhtml');
-		changeMode("hrdocument");
+		
 		//setMgmtSubmenuMode("view");  
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
