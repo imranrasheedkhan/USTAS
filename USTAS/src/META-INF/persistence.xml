@@ -17,10 +17,17 @@
 		<class>com.ustas.db.model.EmpLaborInfo</class>
 		<class>com.ustas.db.model.EmpSalaryInfo</class>
 		<class>com.ustas.db.model.EmpBankInfo</class>
-		<class>com.ustas.db.model.HrDocuments</class>
-		<class>com.ustas.db.model.EmployerDetail</class>
+		<class>com.ustas.db.model.HrDocuments</class>  
+		<class>com.ustas.db.model.EmployerDetail</class>  
+		
 		<class>com.ustas.db.model.ShiftInfo</class>
 		<class>com.ustas.db.model.BreakInfo</class>
+		<class>com.ustas.db.model.HolidayInfo</class>
+		<class>com.ustas.db.model.LeaveInfo</class>
+		<class>com.ustas.db.model.EmpLeaveAllotment</class>
+	    <class>com.ustas.db.model.EmpShiftAllotment</class>
+	    <class>com.ustas.db.model.EmpLeaveAppEntry</class>
+	     <class>com.ustas.db.model.EmpAttendanceProcess</class>
 	     <properties>
 			<property name="eclipselink.logging.level.sql" value="FINE"/>
 			<property name="eclipselink.cache.shared.default" value="false"/> 
