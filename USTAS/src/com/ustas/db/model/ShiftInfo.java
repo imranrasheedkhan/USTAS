@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="shift_master")
@@ -61,8 +63,11 @@ public class ShiftInfo implements Serializable {
 	private boolean isActive ;
 	
 	@ManyToMany(mappedBy="shiftInfos")
-	private List<BreakInfo> breakInfo;
-	 
+	private List <BreakInfo>  breakInfos;
+	
+	@OneToMany(mappedBy="shiftInfos")
+	private List <EmpAttendanceProcess> empAttendanceProcess;
+	
 	public int getIndexNo() {
 		return indexNo;
 	}
@@ -176,11 +181,11 @@ public class ShiftInfo implements Serializable {
 	}
 
 	public List<BreakInfo> getBreakInfo() {
-		return breakInfo;
+		return breakInfos;
 	}
 
 	public void setBreakInfo(List<BreakInfo> breakInfo) {
-		this.breakInfo = breakInfo;
+		this.breakInfos = breakInfo;
 	}
 
 	

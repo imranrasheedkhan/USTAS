@@ -116,7 +116,21 @@ public class EmpInfo implements Serializable {
 	//bi-directional many-to-one association to hrdocuments( added by TARIQ)
 	@OneToMany(mappedBy="empInfo", cascade=CascadeType.ALL)
 	private List <HrDocuments> hrDocuments;
-
+    
+	
+	//releations for the TimeAttandance
+	@OneToMany(mappedBy="empInfo")
+	private List <EmpAttendanceProcess> empAttendanceProcess;
+	
+	@OneToMany(mappedBy="empInfo")
+	private List <EmpLeaveAllotment> empLeaveAllotment;
+	
+	@OneToMany(mappedBy="empInfo")
+	private List <EmpLeaveAppEntry> empLeaveAppEntry;
+	
+	@OneToMany(mappedBy="empInfo")
+	private List <EmpShiftAllotment> empShiftAllotments;
+	
 	public EmpInfo() {
 		
 		
@@ -340,6 +354,8 @@ public class EmpInfo implements Serializable {
 	public void setHrDocuments(List<HrDocuments> hrDocuments) {
 		this.hrDocuments = hrDocuments;
 	}
+	
+	
 
 	@Transient
 	public void getTotalAdj(int year , int month,List<EmpAdjTrx> list,float total)
