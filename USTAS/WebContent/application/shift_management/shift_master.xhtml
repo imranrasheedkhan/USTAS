@@ -16,30 +16,105 @@
                <tbody>
                <tr>
 				<td style="width: 100px"><h:outputText value="Shift Name:" /></td>
-				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+				<td style="width: 50px"><h:inputText styleClass="inputText" value="#{shiftMasterMB.model.shiftInfo.shiftName}" size="25" /></td>
 				<td style="width: 100px"><h:outputText value="In Time:" /></td>
-				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+				<td style="width: 100px">
+                <h:panelGroup>
+				<div align="left" style="float:left; ">
+					<rich:inputNumberSpinner
+					value="#{shiftMasterMB.model.inTomeHr}"
+					id="shiftStartTimeDetail1" required="true" minValue="0" maxValue="23" inputSize="2"/>
+				</div>
+				<div style="float:left; margin-left: 9px">	
+					<rich:inputNumberSpinner
+					value="#{shiftMasterMB.model.inTimeMin}"
+					id="shiftStartTimeDetail2" required="true" minValue="0" maxValue="59" inputSize="2"/>
+				</div>
+				<div style="float:left; margin-left: 10px">	
+					<rich:inputNumberSpinner
+					value="#{shiftMasterMB.model.inTimeSec}"
+					id="shiftStartTimeDetail3" required="true" minValue="0" maxValue="59" inputSize="2"/>
+				</div>
+		    </h:panelGroup>   
+              
+               </td>   
               
 			 </tr>
 			  <tr>
 			
 				<td style="width: 100px"><h:outputText value="Out Time:" /></td>
-				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
-				<td style="width: 100px"><h:outputText value="Late Coming Limit:" /></td>
-				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
-              
+				<td style="width: 50px">
+				<h:panelGroup>
+				<div align="left" style="float:left; ">
+					<rich:inputNumberSpinner
+					value="#{shiftMasterMB.model.outTimeHr}"
+					id="shiftEndTimeDetail1" required="true" minValue="0" maxValue="23" inputSize="2"/>
+				</div>
+				<div style="float:left; margin-left: 9px">	
+					<rich:inputNumberSpinner
+					value="#{shiftMasterMB.model.outTimeMin}"
+					id="shiftEndTimeDetail2" required="true" minValue="0" maxValue="59" inputSize="2"/>
+				</div>
+				<div style="float:left; margin-left: 10px">	
+					<rich:inputNumberSpinner
+				value="#{shiftMasterMB.model.outTimeSec}"
+					id="shiftEndTimeDetail3" required="true" minValue="0" maxValue="59" inputSize="2"/>
+				</div>
+		    </h:panelGroup>
+				
+				</td>
+				<td style="width: 100px"><h:outputText value="Late Coming Limit(Min):" /></td>
+				<td style="width: 200px">
+				   <h:panelGroup>
+				<div align="left" style="float:left; ">
+					<rich:inputNumberSpinner
+						value="#{shiftMasterMB.model.shiftInfo.lateComingLimit}"
+					id="shiftLateTimeDetail1" required="true" minValue="0" maxValue="200" inputSize="2"/>
+				</div>
+<!-- 				<div style="float:left; margin-left: 9px">	 -->
+<!-- 					<rich:inputNumberSpinner -->
+<!-- 					value="50" -->
+<!-- 					id="shiftEndLateDetail2" required="true" minValue="0" maxValue="59" inputSize="2"/> -->
+<!-- 				</div> -->
+<!-- 				<div style="float:left; margin-left: 10px">	 -->
+<!-- 					<rich:inputNumberSpinner -->
+<!-- 					value="50" -->
+<!-- 					id="shiftEndLateDetail3" required="true" minValue="0" maxValue="59" inputSize="2"/> -->
+<!-- 				</div> -->
+		      </h:panelGroup>
+				</td>
+                 
 			 </tr>
 			 
 			   <tr>
 			
-				<td style="width: 100px"><h:outputText value="Early Going Limit:" /></td>
-				<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
+				<td style="width: 100px"><h:outputText value="Early Going Limit(Min):" /></td>
+				<td style="width: 50px">
+				     <h:panelGroup>
+				<div align="left" style="float:left; ">
+					<rich:inputNumberSpinner
+						value="#{shiftMasterMB.model.shiftInfo.earlyGoingLimit}"
+					id="shiftEarlyTimeDetail1" required="true" minValue="0" maxValue="200" inputSize="2"/>
+				</div>
+<!-- 				<div style="float:left; margin-left: 9px">	 -->
+<!-- 					<rich:inputNumberSpinner -->
+<!-- 					value="50" -->
+<!-- 					id="shiftEarlyDetail2" required="true" minValue="0" maxValue="59" inputSize="2"/> -->
+<!-- 				</div> -->
+<!-- 				<div style="float:left; margin-left: 10px">	 -->
+<!-- 					<rich:inputNumberSpinner -->
+<!-- 					value="50" -->
+<!-- 					id="shiftEarlyDetail3" required="true" minValue="0" maxValue="59" inputSize="2"/> -->
+<!-- 				</div> -->
+		      </h:panelGroup>
+				
+				</td>
 				
               </tr>
               <tr>
                   
                 <td style="width: 100px"><h:outputText value="Description:" /></td>
-				<td style="width: 50px"><h:inputTextarea styleClass="inputText" value="" rows="2" cols="10" /></td>
+				<td style="width: 50px"><h:inputTextarea styleClass="inputText" value="#{shiftMasterMB.model.shiftInfo.shiftDesc}" rows="2" cols="20" /></td>
               </tr>
               
 		     </tbody>
@@ -52,55 +127,120 @@
         <table id="weekOff" class="table" cellpadding="10" style="width: 75%" align="center">  
 			<tbody>
 			   <tr>
-			    <td></td>
-			      <td>Monday</td>
-			      <td>Tuesday</td>
-			      <td>Wednesday</td>
-			      <td>Thursday</td>
-			      <td>Friday</td>
-			      <td>Saturday</td>
-			      <td>Sunday</td>
+			      <td style="width: 10%"></td>
+			      <td style="width: 10%">Monday</td>
+			      <td style="width: 10%" >Tuesday</td>
+			      <td style="width: 10%">Wednesday</td>
+			      <td style="width: 10%">Thursday</td>
+			      <td style="width: 10%">Friday</td>
+			      <td style="width: 10%">Saturday</td>
+			      <td style="width: 10%">Sunday</td>
 			   </tr> 
 			   <tr>
-			    <td>OFF</td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
+			    <td style="width: 10%">OFF</td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox  value="#{shiftMasterMB.model.monWeekOff}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.tueWeekOff}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox  value="#{shiftMasterMB.model.wedWeekOff}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox  value="#{shiftMasterMB.model.thursWeekOff}" /></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox  value="#{shiftMasterMB.model.friWeekOff}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox  value="#{shiftMasterMB.model.satWeekOff}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.sunWeekOff}" /></td>
 			   </tr>  
 			   
 			    <tr>
-			    <td>Alternate OFF</td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
-			      <td><h:selectBooleanCheckbox /></td>
+			    <td style="width: 10%">Alternate OFF</td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.monAlternateOFF}"/></td>  
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.tueAlternateOFF}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.wedAlternateOFF}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.thursAlternateOFF}"/></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.friAlternateOFF}" /></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.satAlternateOFF}" /></td>
+			      <td style="width: 10%"><h:selectBooleanCheckbox value="#{shiftMasterMB.model.sunAlternateOFF}" /></td>
 			   </tr>    
-			  <tr>
 			  
-			  </tr>
 			  
-			  <tr>
-			   <td>Allowed Over Times</td>
-			  	<td style="width: 50px"><h:inputText styleClass="inputText" value="" size="25" /></td>
-			  </tr>
+			  
 			</tbody>
 			
 
 	
-			
+			  
             </table>
+             <table  class="table" cellpadding="10" style="width: 50%" align="center">
+			  <tr>
+			   <td>Allowed Over Times</td>
+			  	<td >
+			  	      <h:panelGroup>
+				<div align="left" style="float:left; ">
+					<rich:inputNumberSpinner
+					value="50"
+					id="shiftOverTimeDetail1" required="true" minValue="0" maxValue="23" inputSize="2"/>
+				</div>
+				<div style="float:left; margin-left: 9px">	
+					<rich:inputNumberSpinner
+					value="50"
+					id="shiftOverDetail2" required="true" minValue="0" maxValue="59" inputSize="2"/>
+				</div>
+				<div style="float:left; margin-left: 10px">	
+					<rich:inputNumberSpinner
+					value="50"
+					id="shiftOverDetail3" required="true" minValue="0" maxValue="59" inputSize="2"/>
+				</div>
+		      </h:panelGroup>
+			  	</td>
+			  </tr>
+			  </table>
             </fieldset>
             <br/>
-            
-    
-    	
+        <fieldset class="fieldset">
+		 <legend class="legend"><font color="orange" size="4">Break details</font></legend>
+         <table id="breakDetails" class="table" cellpadding="10" style="width: 75%" align="center"> 
+        <rich:dataTable  value=""  var="breakrecord"  id="table" style="width:70%;height:100%;text-align:center"
+                 styleClass="searchTable"  rows="5"
+                 headerClass="searchTableHeader"
+                 onrowmousemove="this.style.backgroundColor='#FFEBDA'"
+                 onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+                rowClasses="odd-row,even-row">
+        <rich:column  width="15%">
+        <f:facet name="header">
+        <h:outputText  value="Break Type" ></h:outputText>
+        </f:facet>
+        <h:selectOneMenu style="width:100px">
+         <f:selectItem  itemLabel="First"></f:selectItem>
+         <f:selectItem  itemLabel="Second" ></f:selectItem>
+         <f:selectItem itemLabel="Third" ></f:selectItem>
+        </h:selectOneMenu> 
+        </rich:column>
+        <rich:column   width="10%">
+        <f:facet name="header">
+         <h:outputText  value="Start Time :" ></h:outputText> 
+        </f:facet>
+        <h:outputText  ></h:outputText>
+       </rich:column>
+       
+       <rich:column   width="10%">
+        <f:facet name="header">
+         <h:outputText  value="End Time :" ></h:outputText> 
+        </f:facet>
+          <h:outputText  ></h:outputText>
+       </rich:column>
+           
+       </rich:dataTable>
+           
+         </table>
+         <div style="width:70%" align="right"> 
+          <a4j:commandButton value="Add More" style="Width:70px;height:30px"></a4j:commandButton>
+         </div>
+       </fieldset>
+    	<br/>
+    	 <div style="width:100%" align="right"> 
+           <h:button value="Clear" style="Width:70px;height:30px"></h:button>
+             &nbsp;&nbsp; 
+           <a4j:commandButton value="Save" style="Width:70px;height:30px"></a4j:commandButton>
+             &nbsp;&nbsp;
+           <a4j:commandButton value="Update" style="Width:70px;height:30px"></a4j:commandButton>
+         </div>
+         <br/><br/><br/>
     </ui:composition>
 </h:body> 
           
