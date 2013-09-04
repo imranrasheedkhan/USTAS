@@ -1,22 +1,35 @@
 package com.ustas.view.model;
 
+import java.io.Serializable;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.faces.model.SelectItem;
 
 import com.ustas.db.model.BreakInfo;
 import com.ustas.db.model.ShiftInfo;
 
-public class SwiftMasterViewModel {
-	     
-	 public SwiftMasterViewModel()
-	    {
-		 
+public class SwiftMasterViewModel implements Serializable {
+	   
+	private static final long serialVersionUID = 1L;
+
+
+
+
+	public    SwiftMasterViewModel(){
+		   
 	    }
+	  
 	
 	private  ShiftInfo shiftInfo=new ShiftInfo();
 	   
     private  BreakInfo breakInfo=new BreakInfo();
-    
+        
     
    
     
@@ -283,8 +296,48 @@ public class SwiftMasterViewModel {
 	
 	 //........................break List..................
 	
-	List<BreakInfo>  breakList=new  ArrayList<>();
+	List<BreakInfo>  breakList=new  ArrayList<BreakInfo>();
 	
+	List<SelectItem>  breakSelectItemList=new  ArrayList<SelectItem>();
+
+
+
+
+	public List<BreakInfo> getBreakList() {
+		return breakList;
+	}
+
+	public void setBreakList(List<BreakInfo> breakList) {
+		this.breakList = breakList;
+	}
+
+	public List<SelectItem> getBreakSelectItemList() {
+		return breakSelectItemList;
+	}
+
+	public void setBreakSelectItemList(List<SelectItem> breakSelectItemList) {
+		this.breakSelectItemList = breakSelectItemList;
+	}
+	
+	 public void consolidateShift(ShiftInfo shiftInfo) 
+    	{
+		  String tempIntime=Integer.toString(this.inTomeHr)+":"+Integer.toString(this.inTimeMin)+":"+Integer.toString(this.inTimeMin);
+		  String tempOuttime=Integer.toString(this.outTimeHr)+":"+Integer.toString(outTimeMin)+":"+Integer.toString(outTimeSec);
+		  String tempOvertime=Integer.toString(overTimeHr)+":"+Integer.toString(overTimeMin)+":"+Integer.toString(overTimeSec);
+		  try
+		  {
+		      DateFormat df = new SimpleDateFormat("HH:mm:ss");
+		      Date inTime=(Date) df.parse(tempIntime);
+		      Date outTime=(Date) df.parse(tempOuttime);
+		      Date overTime=(Date) df.parse(tempOvertime);
+		      shiftInfo.setInTime(new Time(inTime.getTime()));
+		      shiftInfo.setOutTime(new Time(outTime.getTime()));
+		      shiftInfo.setOutTime(new Time(overTime.getTime()));
+		  
+		   }catch(Exception e){e.getStackTrace();}
+		  
+		 
+	    }
 	
 	
 	
