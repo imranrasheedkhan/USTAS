@@ -43,6 +43,9 @@ public class BreakInfo implements Serializable {
 	
     @Column(name="remarks")
 	private String comments;
+    
+    @Column(name="IS_ACTIVE")
+	private boolean isActive;
 
 	public int getIndexNo() {
 		return indexNo;
@@ -98,6 +101,14 @@ public class BreakInfo implements Serializable {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 	
     

@@ -1,6 +1,7 @@
 package com.ustas.db.model;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -30,16 +31,16 @@ public class ShiftInfo implements Serializable {
 	private String ShiftDesc;
 	
 	@Column(name="IN_TIME")
-	private Timestamp inTime;
+	private Time inTime;
 	
 	@Column(name="OUT_TIME")
-	private Timestamp outTime;
+	private Time outTime;
 	
 	@Column(name="LATE_COMING_LIMIT")
-	private Timestamp lateComingLimit;
+	private int lateComingLimit;
 	
 	@Column(name="EARLY_GOING_LIMIT")
-	private Timestamp earlyGoingLimit;
+	private int earlyGoingLimit;
 	
 	@Column(name="WEEK_OFF_NO")
 	private int weekOfNo;
@@ -57,7 +58,7 @@ public class ShiftInfo implements Serializable {
 	private String alternateWeekOff;
 	
 	@Column(name="OVERTIME_LIMIT")
-	private Timestamp overtimeLimit;
+	private Time overtimeLimit;
    
 	@Column(name="IS_ACTIVE")
 	private boolean isActive ;
@@ -92,35 +93,35 @@ public class ShiftInfo implements Serializable {
 		ShiftDesc = shiftDesc;
 	}
 
-	public Timestamp getInTime() {
+	public Time getInTime() {
 		return inTime;
 	}
 
-	public void setInTime(Timestamp inTime) {
+	public void setInTime(Time inTime) {
 		this.inTime = inTime;
 	}
 
-	public Timestamp getOutTime() {
+	public Time getOutTime() {
 		return outTime;
 	}
 
-	public void setOutTime(Timestamp outTime) {
+	public void setOutTime(Time outTime) {
 		this.outTime = outTime;
 	}
 
-	public Timestamp getLateComingLimit() {
+	public int getLateComingLimit() {
 		return lateComingLimit;
 	}
 
-	public void setLateComingLimit(Timestamp lateComingLimit) {
+	public void setLateComingLimit(int lateComingLimit) {
 		this.lateComingLimit = lateComingLimit;
 	}
 
-	public Timestamp getEarlyGoingLimit() {
+	public int getEarlyGoingLimit() {
 		return earlyGoingLimit;
 	}
 
-	public void setEarlyGoingLimit(Timestamp earlyGoingLimit) {
+	public void setEarlyGoingLimit(int earlyGoingLimit) {
 		this.earlyGoingLimit = earlyGoingLimit;
 	}
 
@@ -164,11 +165,11 @@ public class ShiftInfo implements Serializable {
 		this.alternateWeekOff = alternateWeekOff;
 	}
 
-	public Timestamp getOvertimeLimit() {
+	public Time getOvertimeLimit() {
 		return overtimeLimit;
 	}
 
-	public void setOvertimeLimit(Timestamp overtimeLimit) {
+	public void setOvertimeLimit(Time overtimeLimit) {
 		this.overtimeLimit = overtimeLimit;
 	}
 

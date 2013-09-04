@@ -3,11 +3,6 @@ package com.ustas.db.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.eclipse.persistence.annotations.Property;
-
-import sun.security.krb5.internal.PAData.SaltAndParams;
-
-import java.util.ArrayList;
 import java.util.List;
 
 

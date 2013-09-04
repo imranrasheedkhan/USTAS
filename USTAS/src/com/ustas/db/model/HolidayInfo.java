@@ -36,7 +36,7 @@ public class HolidayInfo implements Serializable {
 	private Date fromDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="FROM_DATE")
+	@Column(name="TO_DATE")
 	private Date toDate;
 	
 	@Column(name="IS_ACTIVE")
