@@ -29,10 +29,10 @@ public class HolidayInfo implements Serializable {
 	private String holidayName;
 	
 	@Column(name="HOLIDAY_DES")
-	private String holidayDesc;
+	private String holidayDesc;  
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="FROM_DATE")
+	@Column(name="FROM_DATE")   
 	private Date fromDate;
 	
 	@Temporal(TemporalType.DATE)
