@@ -25,6 +25,9 @@ public class EmpLeaveAllotment implements Serializable {
 	@Column(name="FOR_YEAR")
 	private int forYear;
 	
+	@Column(name="NO_OF_DAYS")
+	private float noOfDays;
+	
 	@Column(name="REMARKS")
 	private String remarks;   
 	
@@ -74,6 +77,14 @@ public class EmpLeaveAllotment implements Serializable {
 
 	public void setEmpInfo(EmpInfo empInfo) {
 		this.empInfo = empInfo;
+	}
+
+	public float getNoOfDays() {
+		return noOfDays;
+	}
+
+	public void setNoOfDays(float noOfDays) {
+		this.noOfDays = noOfDays;
 	}
 
 	
