@@ -1,6 +1,7 @@
 package com.ustas.db.model;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -32,13 +33,13 @@ public class BreakInfo implements Serializable {
 	private String desc;
 	
     @Column(name="START_TIME")
-	private  Timestamp startTime;
+	private  Time startTime;
 	
     @Column(name="END_TIME")
-	private Timestamp endTime;
+	private Time endTime;
 	
-    @ManyToMany
-    @JoinTable(name="SHIFT_BREAK_MASTER",joinColumns={ @JoinColumn(name="BREAK_INDEX")},inverseJoinColumns={@JoinColumn(name="SHIFT_INDEX")})
+    @ManyToMany(mappedBy="breakInfos")
+    
 	private List<ShiftInfo> shiftInfos;
 	
     @Column(name="remarks")
@@ -71,19 +72,19 @@ public class BreakInfo implements Serializable {
 		this.desc = desc;
 	}
 
-	public Timestamp getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 
@@ -105,7 +106,7 @@ public class BreakInfo implements Serializable {
 
 	public boolean isActive() {
 		return isActive;
-	}
+	}  
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;

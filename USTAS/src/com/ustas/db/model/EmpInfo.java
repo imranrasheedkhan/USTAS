@@ -114,17 +114,20 @@ public class EmpInfo implements Serializable {
     
 	
 	//releations for the TimeAttandance
-	@OneToMany(mappedBy="empInfo")
+	@OneToMany(mappedBy="empInfo",cascade=CascadeType.ALL)
 	private List <EmpAttendanceProcess> empAttendanceProcess;
 	
-	@OneToMany(mappedBy="empInfo")
+	@OneToMany(mappedBy="empInfo",cascade=CascadeType.ALL)
 	private List <EmpLeaveAllotment> empLeaveAllotment;
 	
-	@OneToMany(mappedBy="empInfo")
+	@OneToMany(mappedBy="empInfo",cascade=CascadeType.ALL)
 	private List <EmpLeaveAppEntry> empLeaveAppEntry;
 	
 	@OneToMany(mappedBy="empInfo")
 	private List <EmpShiftAllotment> empShiftAllotments;
+	
+	@OneToMany(mappedBy="approvedBy")
+	private List <EmpLeaveAppEntry> empLeaveApprovedBy;
 	
 	public EmpInfo() {
 		
@@ -352,6 +355,59 @@ public class EmpInfo implements Serializable {
 	
 	
 
+	public List<EmpAttendanceProcess> getEmpAttendanceProcess() {
+		return empAttendanceProcess;
+	}
+
+
+	public void setEmpAttendanceProcess(
+			List<EmpAttendanceProcess> empAttendanceProcess) {
+		this.empAttendanceProcess = empAttendanceProcess;
+	}
+
+
+	public List<EmpLeaveAllotment> getEmpLeaveAllotment() {
+		return empLeaveAllotment;
+	}
+
+
+	public void setEmpLeaveAllotment(List<EmpLeaveAllotment> empLeaveAllotment) {
+		this.empLeaveAllotment = empLeaveAllotment;
+	}
+
+
+	public List<EmpLeaveAppEntry> getEmpLeaveAppEntry() {
+		return empLeaveAppEntry;
+	}
+
+
+	public void setEmpLeaveAppEntry(List<EmpLeaveAppEntry> empLeaveAppEntry) {
+		this.empLeaveAppEntry = empLeaveAppEntry;
+	}
+
+
+	public List<EmpShiftAllotment> getEmpShiftAllotments() {
+		return empShiftAllotments;
+	}
+
+
+	public void setEmpShiftAllotments(List<EmpShiftAllotment> empShiftAllotments) {
+		this.empShiftAllotments = empShiftAllotments;
+	}
+
+	
+	
+
+	public List<EmpLeaveAppEntry> getEmpLeaveApprovedBy() {
+		return empLeaveApprovedBy;
+	}
+
+
+	public void setEmpLeaveApprovedBy(List<EmpLeaveAppEntry> empLeaveApprovedBy) {
+		this.empLeaveApprovedBy = empLeaveApprovedBy;
+	}
+
+
 	@Transient
 	public void getTotalAdj(int year , int month,List<EmpAdjTrx> list,float total)
 	   {
@@ -372,5 +428,7 @@ public class EmpInfo implements Serializable {
 		 this.tatalPayable=total+this.totalAdj;
 		 
 	   }
+	
+	
 
 }

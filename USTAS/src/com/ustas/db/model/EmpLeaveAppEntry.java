@@ -18,21 +18,18 @@ public class EmpLeaveAppEntry implements Serializable {
 	@Temporal(TemporalType.DATE)  
 	@Column(name="APPLICATION_DATE")
 	private Date applicationDate;
-
-	@Column(name="APPROVED_BY")
-	private String approvedBy;  
    
 	@Column(name="APPROVER_COMMENTS")
 	private String approverComments;
 
 
-
+  
 	@Temporal(TemporalType.DATE)
 	@Column(name="FROM_DATE")
 	private Date fromDate;
 
 	@Column(name="HALF_DAY_LEAVE")
-	private String halfDayLeave;
+	private boolean halfDayLeave;
 
 	
 
@@ -40,7 +37,7 @@ public class EmpLeaveAppEntry implements Serializable {
 	private String leaveReason;
 
 	@Column(name="LEAVE_STATUS")
-	private byte leaveStatus;
+	private boolean leaveStatus;
 
 	@Column(name="NO_OF_DAYS")
 	private float noOfDays;
@@ -67,8 +64,11 @@ public class EmpLeaveAppEntry implements Serializable {
 	
 	@OneToOne
 	@JoinColumn(name="LEAVE_MASTER_INDEX")
-	private LeaveInfo leaveInfo;
+	private LeaveInfo leaveInfo;  
 	
+	@ManyToOne
+	@JoinColumn(name="APPROVED_BY")
+	private EmpInfo approvedBy;    
 	
 	public EmpLeaveAppEntry() {
 	}
@@ -78,7 +78,7 @@ public class EmpLeaveAppEntry implements Serializable {
 	}
 
 	public void setIndexNo(int indexNo) {
-		this.indexNo = indexNo;
+		this.indexNo = indexNo;  
 	}
 
 	public Date getApplicationDate() {
@@ -89,11 +89,11 @@ public class EmpLeaveAppEntry implements Serializable {
 		this.applicationDate = applicationDate;
 	}
 
-	public String getApprovedBy() {
+	public EmpInfo getApprovedBy() {
 		return this.approvedBy;
 	}
 
-	public void setApprovedBy(String approvedBy) {
+	public void setApprovedBy(EmpInfo approvedBy) {
 		this.approvedBy = approvedBy;
 	}
 
@@ -115,11 +115,11 @@ public class EmpLeaveAppEntry implements Serializable {
 		this.fromDate = fromDate;
 	}
 
-	public String getHalfDayLeave() {
+	public boolean getHalfDayLeave() {
 		return this.halfDayLeave;
 	}
 
-	public void setHalfDayLeave(String halfDayLeave) {
+	public void setHalfDayLeave(boolean halfDayLeave) {
 		this.halfDayLeave = halfDayLeave;
 	}
 
@@ -133,11 +133,11 @@ public class EmpLeaveAppEntry implements Serializable {
 		this.leaveReason = leaveReason;
 	}
 
-	public byte getLeaveStatus() {
+	public boolean getLeaveStatus() {
 		return this.leaveStatus;
 	}
 
-	public void setLeaveStatus(byte leaveStatus) {
+	public void setLeaveStatus(boolean leaveStatus) {
 		this.leaveStatus = leaveStatus;
 	}
 

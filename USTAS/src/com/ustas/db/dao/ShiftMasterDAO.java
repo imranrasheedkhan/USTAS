@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import com.ustas.db.model.BreakInfo;
 import com.ustas.db.model.ShiftInfo;
 
 public class ShiftMasterDAO implements Serializable {
@@ -29,15 +30,15 @@ public class ShiftMasterDAO implements Serializable {
   //  @Resource  
   //  UserTransaction utt;
     
-    public List<SelectItem> selectBreakList(UserTransaction ut, EntityManager em)
+    public List<BreakInfo> selectBreakList(UserTransaction ut, EntityManager em)
       {
     	System.out.println("In the select Breaklist DAO");
-    	List<SelectItem> list=null;
+    	List<BreakInfo> list=null;
     	
     	try {
 		     ut.begin();
 		   //   em.getTransaction().begin();
-			  Query q = em.createQuery("Select A.indexNo,A.breakType from BreakInfo A where A.isActive=:isActive"); 
+			  Query q = em.createQuery("Select A from BreakInfo A where A.isActive=:isActive"); 
 			  q.setParameter("isActive", true);
 			  list = q.getResultList();
 		//	  em.getTransaction().commit();
@@ -82,4 +83,54 @@ public class ShiftMasterDAO implements Serializable {
 	               }
 	     }
      }
+    
+    public List<ShiftInfo> selectShift(String shiftName ,EntityManager em,UserTransaction ut)
+       {
+    	 List <ShiftInfo> list=null; 
+    	  try{
+    	   ut.begin();
+	
+			  Query q = em.createQuery("Select A from ShiftInfo A  where  A.shiftName Like :shift  and A.isActive=:isActive"); 
+			  q.setParameter("isActive", true);
+			  q.setParameter("shift", "%"+shiftName+"%");
+			  list = q.getResultList();
+		   
+	     	ut.commit();    
+			
+    	    }catch (Exception e)   
+		     {
+		    System.out.println(e.getMessage());
+			  try
+			    {   
+					ut.rollback();
+			     } catch (IllegalStateException | SecurityException | SystemException e1)
+			  {  
+
+					e1.printStackTrace();
+		      }
+		  }
+    	  return list;
+       }
+    
+    public void updateShift(ShiftInfo shiftInfo,EntityManager em,UserTransaction ut)
+        {
+    	 try{
+    		 ut.begin();
+    		 em.merge(shiftInfo);  
+    		 ut.commit();
+    		 
+    	   }catch (Exception e)   
+	       {
+	         System.out.println(e.getMessage());
+		  try
+		    {   
+				ut.rollback();
+		     } catch (IllegalStateException | SecurityException | SystemException e1)
+		    {  
+
+				e1.printStackTrace();
+	        }
+	      }
+    	
+        }
 }

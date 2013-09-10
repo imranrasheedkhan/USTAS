@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="USTAS">
-	<jta-data-source>jdbc/USTAS</jta-data-source>
-
+		<jta-data-source>jdbc/USTAS</jta-data-source>
 		<class>com.ustas.db.model.EmpEducationInfo</class>
 		<class>com.ustas.db.model.AddressInfo</class>
 		<class>com.ustas.db.model.EIdInfo</class>
@@ -17,21 +18,21 @@
 		<class>com.ustas.db.model.EmpLaborInfo</class>
 		<class>com.ustas.db.model.EmpSalaryInfo</class>
 		<class>com.ustas.db.model.EmpBankInfo</class>
-		<class>com.ustas.db.model.HrDocuments</class>  
-		<class>com.ustas.db.model.EmployerDetail</class>  
-		
+		<class>com.ustas.db.model.HrDocuments</class>
+		<class>com.ustas.db.model.EmployerDetail</class>
+
 		<class>com.ustas.db.model.ShiftInfo</class>
 		<class>com.ustas.db.model.BreakInfo</class>
 		<class>com.ustas.db.model.HolidayInfo</class>
 		<class>com.ustas.db.model.LeaveInfo</class>
 		<class>com.ustas.db.model.EmpLeaveAllotment</class>
-	    <class>com.ustas.db.model.EmpShiftAllotment</class>
+		<class>com.ustas.db.model.EmpShiftAllotment</class>
+		<class>com.ustas.db.model.EmpAttendanceProcess</class>
 	    <class>com.ustas.db.model.EmpLeaveAppEntry</class>
-	     <class>com.ustas.db.model.EmpAttendanceProcess</class>
-	     <properties>
-			<property name="eclipselink.logging.level.sql" value="FINE"/>
-			<property name="eclipselink.cache.shared.default" value="false"/> 
+		<properties>
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.cache.shared.default" value="false" />
 		</properties>
-	</persistence-unit>
-	
+	</persistence-unit>   
+
 </persistence>

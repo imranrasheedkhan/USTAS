@@ -15,24 +15,39 @@ public class MenuBean implements Serializable {
 	 
 	 private String pageName;
 	 
+	 private String mode;
+	 
 	 private int count;
 
 	public String getPageName() {
 		return pageName;
 	}
-
+  
 	public void setPageName(String pageName) {
 		this.pageName = pageName;
+		System.out.println("Page name="+pageName);
+		
 	}
 
 	public int getCount() {
 		return count;
-	}
+	}  
 
 	public void setCount(int count) {
 		this.count = count;
 	}
 	 
+	
+	
+	
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
 	public void logout(ActionEvent event)
 	{
 		HttpSession session;

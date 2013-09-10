@@ -3,13 +3,17 @@ package com.ustas.db.model;
 import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -63,17 +67,20 @@ public class ShiftInfo implements Serializable {
 	@Column(name="IS_ACTIVE")
 	private boolean isActive ;
 	
-	@ManyToMany(mappedBy="shiftInfos")
-	private List <BreakInfo>  breakInfos;
+	@ManyToMany
+	@JoinTable(name="SHIFT_BREAK_MASTER",joinColumns=@JoinColumn(name="SHIFT_INDEX"),
+	          inverseJoinColumns=@JoinColumn(name="BREAK_INDEX"))
+    
+	private List <BreakInfo>  breakInfos=new ArrayList<>();
 	
 	@OneToMany(mappedBy="shiftInfos")
 	private List <EmpAttendanceProcess> empAttendanceProcess;
 	
 	public int getIndexNo() {
-		return indexNo;
+		return indexNo;  
 	}
 
-	public void setIndexNo(int indexNo) {
+	public void setIndexNo(int indexNo) {  
 		this.indexNo = indexNo;
 	}
 

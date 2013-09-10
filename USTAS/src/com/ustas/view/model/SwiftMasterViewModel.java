@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.richfaces.component.UIDataTable;
+
 import com.ustas.db.model.BreakInfo;
 import com.ustas.db.model.ShiftInfo;
 
@@ -221,7 +223,7 @@ public class SwiftMasterViewModel implements Serializable {
 	
 	 // AlterNate week off.
 	
-    private boolean monAlternateOFF;
+    private boolean mondayAlternateOFF=false; 
 	
 	private boolean tueAlternateOFF;
 	
@@ -238,12 +240,14 @@ public class SwiftMasterViewModel implements Serializable {
 
 
 
-	public boolean isMonAlternateOFF() {
-		return monAlternateOFF;
+	
+
+	public boolean isMondayAlternateOFF() {
+		return mondayAlternateOFF;
 	}
 
-	public void setMonAlternateOFF(boolean monAlternateOFF) {
-		this.monAlternateOFF = monAlternateOFF;
+	public void setMondayAlternateOFF(boolean mondayAlternateOFF) {
+		this.mondayAlternateOFF = mondayAlternateOFF;
 	}
 
 	public boolean isTueAlternateOFF() {
@@ -300,8 +304,31 @@ public class SwiftMasterViewModel implements Serializable {
 	
 	List<SelectItem>  breakSelectItemList=new  ArrayList<SelectItem>();
 
+	 //........................Shift Detail List..................
+   
+	 private List<ShiftInfo> shiftDetailList=new ArrayList<>();
+     
+	 //........................Search..................
+	 
+	 private String searchShift;
+	 
+	 
+	 
+	public String getSearchShift() {
+		return searchShift;
+	}
 
+	public void setSearchShift(String searchShift) {
+		this.searchShift = searchShift;
+	}
 
+	public List<ShiftInfo> getShiftDetailList() {
+		return shiftDetailList;
+	}
+
+	public void setShiftDetailList(List<ShiftInfo> shiftDetailList) {
+		this.shiftDetailList = shiftDetailList;
+	}
 
 	public List<BreakInfo> getBreakList() {
 		return breakList;
@@ -319,8 +346,14 @@ public class SwiftMasterViewModel implements Serializable {
 		this.breakSelectItemList = breakSelectItemList;
 	}
 	
-	 public void consolidateShift(ShiftInfo shiftInfo) 
+	 //........................row number..................
+	
+
+
+	public void consolidateShift(ShiftInfo shiftInfo) 
     	{
+		  
+		  shiftInfo.setBreakInfo(breakList);
 		  String tempIntime=Integer.toString(this.inTomeHr)+":"+Integer.toString(this.inTimeMin)+":"+Integer.toString(this.inTimeMin);
 		  String tempOuttime=Integer.toString(this.outTimeHr)+":"+Integer.toString(outTimeMin)+":"+Integer.toString(outTimeSec);
 		  String tempOvertime=Integer.toString(overTimeHr)+":"+Integer.toString(overTimeMin)+":"+Integer.toString(overTimeSec);
@@ -336,8 +369,190 @@ public class SwiftMasterViewModel implements Serializable {
 		  
 		   }catch(Exception e){e.getStackTrace();}
 		  
-		 
+		  if(this.monWeekOff==true)
+		   {
+			  if(shiftInfo.getWeekOfDay1()==null)
+			    shiftInfo.setWeekOfDay1("Monday");
+			  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null)
+			    shiftInfo.setWeekOfDay2("Monday");
+		      if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				shiftInfo.setWeekOfDay3("Monday");
+		   }
+		  if(this.tueWeekOff==true)
+		   {
+			  if(shiftInfo.getWeekOfDay1()==null)
+			   shiftInfo.setWeekOfDay1("Tuesday");
+			  
+			  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null)
+			   shiftInfo.setWeekOfDay2("Tuesday");
+			  
+			  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				shiftInfo.setWeekOfDay3("Tuesday");
+			 
+			 
+		    }
+		  if(this.wedWeekOff==true)
+		      {
+			      if(shiftInfo.getWeekOfDay1()==null)
+				   shiftInfo.setWeekOfDay1("Wednesday");
+				  
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
+				   shiftInfo.setWeekOfDay2("Wednesday");
+				  
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				    shiftInfo.setWeekOfDay3("Wednesday");
+		      }
+		  if(this.thursWeekOff==true)
+		     {
+			      if(shiftInfo.getWeekOfDay1()==null)
+				   shiftInfo.setWeekOfDay1("Thursday");
+				  
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
+				   shiftInfo.setWeekOfDay2("Thursday");
+				  
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				    shiftInfo.setWeekOfDay3("Thursday");
+		     }
+		   if(this.friWeekOff==true)
+		     {
+			      if(shiftInfo.getWeekOfDay1()==null)
+				   shiftInfo.setWeekOfDay1("Friday");
+				  
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
+				   shiftInfo.setWeekOfDay2("Thursday");
+				  
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				    shiftInfo.setWeekOfDay3("Thursday");
+		     }
+		   if(this.satWeekOff==true)
+		     {
+			      if(shiftInfo.getWeekOfDay1()==null )
+				   shiftInfo.setWeekOfDay1("Saturday");
+				  
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null ) 
+				   shiftInfo.setWeekOfDay2("Saturday");
+				  
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				    shiftInfo.setWeekOfDay3("Saturday");
+		     }
+		   if(this.sunWeekOff==true)
+		     {
+			      if(shiftInfo.getWeekOfDay1()==null)
+				   shiftInfo.setWeekOfDay1("Sunday");
+				  
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
+				   shiftInfo.setWeekOfDay2("Sunday");
+				  
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				    shiftInfo.setWeekOfDay3("Sunday");
+		     }
+		   if(this.mondayAlternateOFF=true && shiftInfo.getAlternateWeekOff()==null)
+		       shiftInfo.setAlternateWeekOff("Monday");
+		   
+		   if(this.tueAlternateOFF=true && shiftInfo.getAlternateWeekOff()==null)
+			  shiftInfo.setAlternateWeekOff("Tuesday");  
+		   if(this.wedAlternateOFF=true && shiftInfo.getAlternateWeekOff()==null)
+			  shiftInfo.setAlternateWeekOff("Wednesday");
+		   if(this.thursAlternateOFF=true && shiftInfo.getAlternateWeekOff()==null)
+			  shiftInfo.setAlternateWeekOff("Thursday");
+		    if(this.friAlternateOFF=true && shiftInfo.getAlternateWeekOff()==null)
+			  shiftInfo.setAlternateWeekOff("Friday");
+		   if(this.satAlternateOFF=true && shiftInfo.getAlternateWeekOff()==null)
+			  shiftInfo.setAlternateWeekOff("Saturday");
+		    if(this.sunAlternateOFF=true && shiftInfo.getAlternateWeekOff()==null)
+			  shiftInfo.setAlternateWeekOff("Sunday");
+		  
 	    }
+	
+	public void breakShift()
+	  {
+		 inTomeHr=shiftInfo.getInTime().getHours();
+		 inTimeMin=shiftInfo.getInTime().getMinutes();
+		 inTimeSec=shiftInfo.getInTime().getSeconds();
+		 outTimeHr=shiftInfo.getOutTime().getHours();
+		 outTimeMin=shiftInfo.getOutTime().getMinutes();
+		 outTimeSec=shiftInfo.getOutTime().getSeconds();
+		 overTimeHr=shiftInfo.getOvertimeLimit().getHours();
+		 overTimeMin=shiftInfo.getOvertimeLimit().getMinutes();
+		 overTimeSec=shiftInfo.getOvertimeLimit().getSeconds();
+		 if(shiftInfo.getWeekOfDay1()!=null);
+		  {
+			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Monday"))
+			  monWeekOff=true;
+			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Tuesday"))
+			  tueWeekOff=true;
+			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Wednesday"))
+			 wedWeekOff=true;
+			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Thursday"))
+			 thursWeekOff=true;
+			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Friday"))
+			 friWeekOff=true;
+			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Saturday"))
+			 satWeekOff=true;
+			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Sunday"))
+			 sunWeekOff=true;
+			  
+		  }
+		  
+		  if(shiftInfo.getWeekOfDay2()!=null)
+		  {
+			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Monday"))
+			  monWeekOff=true;
+			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Tuesday"))
+			  tueWeekOff=true;
+			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Wednesday"))
+			 wedWeekOff=true;  
+			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Thursday"))
+			 thursWeekOff=true;
+			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Friday"))
+			 friWeekOff=true;
+			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Saturday"))
+			 satWeekOff=true;
+			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Sunday"))
+			 sunWeekOff=true;
+			  
+		  }
+		  
+		  if(shiftInfo.getWeekOfDay3()!=null)
+		  {
+			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Monday"))
+			  monWeekOff=true;
+			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Tuesday"))
+			  tueWeekOff=true;
+			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Wednesday"))
+			 wedWeekOff=true;
+			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Thursday"))
+			 thursWeekOff=true;
+			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Friday"))
+			 friWeekOff=true;
+			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Saturday"))
+			 satWeekOff=true;
+			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Sunday"))
+			 sunWeekOff=true;
+			  
+		  }
+		  if(shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Monday"))
+			  mondayAlternateOFF=true;
+		  if(shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Tuesday"))
+			  tueAlternateOFF=true;
+		  if(shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Wednesday"))
+			  wedAlternateOFF=true;
+		  if(shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Thursday"))
+			 thursAlternateOFF=true;
+		  if(shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Friday"))
+			 friAlternateOFF=true;
+		  if(shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Saturday"))
+				 satWeekOff=true;
+		  if(shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Sunday"))
+				 sunAlternateOFF=true;
+		  if(shiftInfo.getBreakInfo()!=null) 
+		   setBreakList(shiftInfo.getBreakInfo());
+		   
+		  
+		 
+	  }
+	 
+	
 	
 	
 	

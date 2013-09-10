@@ -1,12 +1,15 @@
 package com.ustas.db.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,15 +27,18 @@ public class LeaveInfo implements Serializable{
 	
 	@Column(name="LEAVE_DESC")
 	private String desc;
-	  
+	      
 	@Column(name="CF_ALLOWED")
 	private boolean cfAllowed;
 	
 	@Column(name="IS_ACTIVE")
 	private boolean isActive;
+	
+	@OneToMany(mappedBy="leaveInfos",cascade=CascadeType.ALL)
+	private List<EmpLeaveAllotment> empLeaveAllotments;  
 
 	public int getIndexNo() {
-		return indexNo;
+		return indexNo;       
 	}
 
 	public void setIndexNo(int indexNo) {

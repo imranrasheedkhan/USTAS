@@ -20,7 +20,7 @@ public class EmployerDetail {
 	private String employerId;
 	
 	@Column(name="CBR_CODE")
-	private String cbrCode;
+	private String cbrCode;   
 	public int getId() {
 		return id;
 	}   
