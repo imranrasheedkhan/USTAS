@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition>
+
+		<fieldset class="fieldset">
+			<legend class="legend">
+				<font color="orange" size="4">Holiday Creation</font>
+			</legend>
+
+			<table id="Holiday_master" class="table" cellpadding="10"
+				style="width: 75%" align="center">
+				<tbody>
+
+
+					<tr>
+						<td style="width: 100px"><h:outputText value="Holiday Name :" /></td>
+						<td style="width: 50px"><h:inputText styleClass="inputText"
+								value="#{holidayMasterMB.model.holidayInfo.holidayName}"
+								size="25" /></td>
+
+					</tr>
+					<tr>
+						<td style="width: 100px"><h:outputText value="Description :" /></td>
+						<td style="width: 50px"><h:inputText styleClass="inputText"
+								value="#{holidayMasterMB.model.holidayInfo.holidayDesc}"
+								size="25" /></td>
+
+					</tr>
+
+					<tr>
+						<td style="width: 100px"><h:outputText value="Holiday Type :" /></td>
+						<td style="width: 50px"><h:inputText
+								value="#{holidayMasterMB.model.holidayInfo.holidayType}"
+								size="25" /></td>
+
+					</tr>
+					<tr>
+						<td><h:outputText value="From Date:" /></td>
+						<td><rich:calendar id="From_dt"
+								value="#{holidayMasterMB.model.holidayInfo.fromDate}"
+								enableManualInput="true" datePattern="yyyy/mm/dd">
+							</rich:calendar> <!-- <h:inputText styleClass="inputText" value="#{holidayMasterMB.model.holidayInfo.fromDate}"></h:inputText> -->
+
+						</td>
+					</tr>
+					<tr>
+
+						<td><h:outputText value="To Date:" /></td>
+						<td><rich:calendar
+								value="#{holidayMasterMB.model.holidayInfo.toDate}"
+								enableManualInput="true" datePattern="yyyy/mm/dd">
+							</rich:calendar></td>
+
+
+
+
+					</tr>
+					<tr>
+						<td style="width: 100px"><h:outputText value="IS Active:" /></td>
+						<td style="width: 50px"><h:selectBooleanCheckbox
+								value="#{holidayMasterMB.model.holidayInfo.active}" size="25" /></td>
+
+					</tr>
+					<tr>
+
+						<td style="width: 100px"><h:outputText value="Remarks:" /></td>
+						<td style="width: 50px"><h:inputTextarea
+								styleClass="inputText"
+								value="#{holidayMasterMB.model.holidayInfo.remarks}" rows="2"
+								cols="10" /></td>
+					</tr>
+
+					<tr>
+						<td></td>   
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr align="right">
+						<td style="padding-top: 15px;"><h:button value="Reset"
+								styleClass="green" style="height:30px; width:60px;" />&nbsp;&nbsp;&nbsp;
+							<h:commandButton value="Add" styleClass="green"
+								style="height:30px; width:60px;" execute="@form"
+								actionListener="#{holidayMasterMB.add}" />&nbsp;&nbsp;&nbsp; <h:commandButton
+								value="Update" styleClass="green"
+								style="height:30px; width:60px;" execute="@form"
+								actionListener="#{holidayMasterMB.updateHoliday}" />&nbsp;&nbsp;&nbsp;
+
+						</td>
+
+					</tr>
+
+				</tbody>
+			</table>
+   
+	</fieldset>
+	<fieldset class="fieldset">
+
+			<legend class="legend">
+				<font color="orange" size="4">Holiday Details</font>
+			</legend>
+			
+			
+			<table id="weekOff" class="table" cellpadding="10" style="width: 75%"
+				align="center">
+				
+				
+				<tr>
+        <td>
+   	    <label>Holiday Name: </label>
+   	   </td> <td>
+   	    	<h:inputText value="#{holidayMasterMB.model.holidayInfo.holidayName}"  styleClass="inputText" />
+   		</td>
+   		<td>     
+   		<a4j:commandButton action="#{holidayMasterMB.Display}" value="Search"  styleClass="green" style="height:30px; width:60px;" render="table" execute="@form"  id="btnSearch"  />
+        </td>   
+   </tr>
+				<tr>
+
+					<td colspan="2">
+						<div align="right" id="Holidaymaster"
+							style="float: left; right: 50px; top: 200px; height: 100%; width: 500px; margin-left: 20px;">
+
+							<rich:dataTable var="record" id="table"   value="#{holidayMasterMB.model.holidayList}" noDataLabel="No Emplooyee is Found"
+								style="width:100%;height:100%;text-align:center"
+								styleClass="HolidayTable" rows="5"
+								headerClass="HolidayTableHeader"
+								onrowmousemove="this.style.backgroundColor='#FFEBDA'"
+								onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+								rowClasses="odd-row,even-row">
+								<rich:column width="15%">
+									<f:facet name="header">
+										<h:outputText value="Year"></h:outputText>
+									</f:facet>
+								<h:outputText value="#{record.fromDate}" >
+									<f:convertDateTime pattern="yyyy" />
+								</h:outputText>
+
+
+
+								</rich:column>
+
+								<rich:column width="15%">
+									<f:facet name="header">
+										<h:outputText value="Holiday Name"></h:outputText>
+									</f:facet>
+								   <h:outputText value="#{record.holidayName}"></h:outputText>
+
+
+								</rich:column>
+
+								<rich:column width="15%">
+									<f:facet name="header">
+										<h:outputText value="From Date" ></h:outputText>
+									</f:facet>
+									<h:outputText value="#{record.fromDate}" >
+										<f:convertDateTime pattern="dd-MM-yyyy" />
+									</h:outputText>
+
+
+								</rich:column>
+								<rich:column width="15%">
+									<f:facet name="header">
+										<h:outputText value="To Date"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{record.toDate}" >
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+										
+									</h:outputText>
+								
+
+
+								</rich:column>
+								
+								
+								<rich:column width="15%">
+									<f:facet name="header">
+										<h:outputText value="Action"></h:outputText>
+									</f:facet>
+                               <a4j:commandLink   action="#{holidayMasterMB.selectHoliday}" execute="@this" id="edit">
+                                 
+                                 <h:graphicImage      value="/resources/images/editrecord.gif"/>
+                              </a4j:commandLink>
+								</rich:column>  
+								
+								
+
+
+
+
+								<f:facet name="footer">
+									<rich:dataScroller id="scroller" for="table" maxPages="10"    
+										renderIfSinglePage="false" boundaryControls="hide"
+										fastControls="hide" />
+								</f:facet>
+  
+							</rich:dataTable>     
+						</div>  
+
+					</td>
+				</tr>
+			</table>
+		</fieldset>  
+	</ui:composition>
+  
+</h:body>
+
+</html>

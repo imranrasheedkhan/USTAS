@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	 xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+   
+<h:body>
+	<ui:composition>  
+		<fieldset class="fieldset">
+			<legend class="legend">
+				<font color="orange" size="4">Leave Allotment</font>
+			</legend>
+		<table id="emp_leave_allot" class="table" cellpadding="10"
+				style="width: 80%" align="center">
+			<tr> 
+   	      <td>Allotment Date </td>
+   	      <td>
+   		    <h:inputText id="ALLOTMENT_DATE" value="#{shiftAllotmentMB.shiftModel.empshift.allotmentDate}" styleClass="inputText">
+   		      <f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+   		 
+   		     </h:inputText>
+   		   </td>
+   		
+   		</tr>
+
+       <tr>    
+        <td>
+   	    From Date: 
+   	   </td> <td>
+   	    	<rich:calendar value="#{shiftAllotmentMB.shiftModel.empshift.fromDate}" id="FROM_DT" enableManualInput="true"  ></rich:calendar>
+   		</td>
+   		    <td><rich:message  for="FROM_DT"/></td>
+   		
+   		    <td>
+   	    To Date: 
+   	   </td> <td>
+   		<rich:calendar value="#{shiftAllotmentMB.shiftModel.empshift.toDate}" id="TO_DATE" enableManualInput="true">
+   		<a4j:ajax  event="change" execute="FROM_DT,TO_DATE" listener="#{shiftAllotmentMB.displayShiftAllotment}"  render="empList_table,shift_list"></a4j:ajax>
+   	
+   		</rich:calendar>
+   		</td>
+   		  <td><rich:message for="TO_DATE"></rich:message> </td> 
+   		
+   		<td>     
+
+        </td>   
+       </tr>
+		</table>
+	  		  <div align="right" id="leave_Allotment" style="float:left;right:50px;top:200px;height:100%; width:800px; margin-left:20px;">
+			    <rich:dataTable
+							value="#{shiftAllotmentMB.shiftModel.empList}" var="empRecord"
+							id="empList_table" noDataLabel="No data is available"
+							style="width:100%;height:100%;text-align:center"
+							styleClass="searchTable" rows="10"
+							headerClass="searchTableHeader"
+							onrowmousemove="this.style.backgroundColor='#FFEBDA'"
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+							rowClasses="odd-row,even-row">
+							<rich:column width="15%">
+								<f:facet name="header">
+									<h:outputText value="Select"></h:outputText>
+								</f:facet>
+								<h:selectBooleanCheckbox value="#{empRecord.flag}" 
+								disabled="#{empRecord.shiftAlloted}">
+									<a4j:ajax event="change" render="empList_table"></a4j:ajax>
+								</h:selectBooleanCheckbox>
+							</rich:column>
+  
+							<rich:column width="15%">
+								<f:facet name="header">
+									<h:outputText value="Employee ID"></h:outputText>
+								</f:facet>
+								<h:outputText value="#{empRecord.empNo}"></h:outputText>
+							</rich:column>
+							<rich:column width="15%">
+								<f:facet name="header">
+									<h:outputText value="Name"></h:outputText>
+								</f:facet>
+								<h:outputText
+									value="#{empRecord.firstName} #{empRecord.lastName}"></h:outputText>
+							</rich:column>
+
+							<rich:column width="30%">
+								<f:facet name="header">
+									<h:outputText value="Allot Shift"></h:outputText>
+								</f:facet>
+
+
+								<h:selectOneMenu id="shift_number"
+									value="#{empRecord.empShiftAllotments[0].shiftInfo.indexNo}" >
+<!-- 									<f:selectItem itemLabel="Select shift" itemValue=" "></f:selectItem> -->
+									<f:selectItems value="#{shiftAllotmentMB.shiftModel.shiftItemList}" id="shift_list"></f:selectItems>
+									<a4j:ajax event="change" render="shift_number" ></a4j:ajax>
+								</h:selectOneMenu>
+  
+
+
+							</rich:column>
+
+							<f:facet name="footer">
+								<rich:dataScroller for="empList_table" execute="empList_table"
+									maxPages="10" renderIfSinglePage="false"
+									boundaryControls="hide" fastControls="hide">
+								</rich:dataScroller>
+							</f:facet>
+
+
+						</rich:dataTable>  
+			  
+			  </div>   
+				</fieldset>
+				 <br/>
+				 <div style="width:100%" align="right"> 
+             <h:button value="Clear" style="Width:70px;height:30px"></h:button>
+             &nbsp; 
+           <a4j:commandButton value="Save" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" 
+            execute="@form" actionListener="#{shiftAllotmentMB.addShiftAllotment}" style="Width:70px;height:30px"></a4j:commandButton>
+             &nbsp;
+         </div>  
+		<br />
+		<br />     
+		<br /> 
+		
+   
+				</ui:composition>
+		  </h:body>
+	    </html>

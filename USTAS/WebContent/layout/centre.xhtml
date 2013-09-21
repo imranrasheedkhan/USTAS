@@ -5,26 +5,59 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-  
-   <h:head></h:head>
-   <h:body>
-     
-   <div>
-   
-	<h:form id="centreContentForm">
-	  
-	     <a4j:jsFunction name="changePage" render="centreContentForm" >
+
+<h:head></h:head>
+<h:body>
+
+
+	<div class="wrap">
+		<center>
+			<a4j:status>
+				<f:facet name="start">  
+					<h:graphicImage value="/resources/images/ai.gif"
+						style="width:40px; height:40px;" alt="ai" />
+				</f:facet>
+			</a4j:status>  
+		</center>
+		<h:form id="centreContentForm">
+
+			<a4j:jsFunction name="changePage" render="centreContentForm">
 				<a4j:param name="name" assignTo="#{menuBean.pageName}"></a4j:param>
-		  </a4j:jsFunction>
-		  
-		<ui:include src="#{menuBean.pageName}"></ui:include>
-  
-           
-    </h:form>
+			</a4j:jsFunction>
+			
+			<a4j:jsFunction name="changeMode" render="centreContentForm">
+				<a4j:param name="mode" assignTo="#{menuBean.mode}"></a4j:param>
+			</a4j:jsFunction>
+
+			<ui:include src="#{menuBean.pageName}"></ui:include>
+
+
+		</h:form>
+		
+		   <rich:popupPanel id="confirmation" width="400" height="80"
+           onshow="autoHideMessagePanel();" >
        
+           <rich:messages  globalOnly="true" layout="table" id="statusMsg" styleClass="myModelClass" 
+           align="center" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg">
+		      
+		  </rich:messages>
+         
+        </rich:popupPanel> 
+        
+         <script>
+          
+        var messagesDialogTimer = 2000;
+        function autoHideMessagePanel() {
+            setTimeout(function() { 
+                #{rich:component('confirmation')}.hide();
+            }, messagesDialogTimer);
+        }
+        
+        </script> 
+
 	</div>
-	</h:body>
-	
+</h:body>
+
 
 
 </html>

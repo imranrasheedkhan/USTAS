@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+
+<h:body>
+	    <ui:composition>
+		    <fieldset class="fieldset">
+			<legend class="legend">
+				<font color="orange" size="4">Leave Application</font>
+			</legend>
+			<table id="shift_Creation" class="table" cellpadding="10"
+				style="width: 100%" align="center">
+			<tbody>
+			 <tr >
+			 <td style="width:50px">Employee ID :</td>
+			 <td style="width:100px"><h:inputText  id="emp_id" required="true" styleClass="inputText" value="#{leaveApplicationMB.model.empInfo.empNo}" 
+			 disabled="#{menuBean.mode eq 'approval'}" requiredMessage="Please Enter Employee ID" >
+			  <a4j:ajax event="change" listener="#{leaveApplicationMB.leaveInfo}" render="@form"></a4j:ajax>
+			 </h:inputText></td>
+			  <td style="width: 50px" align="left"><rich:message for="emp_id"/></td> 
+			 <td style="width: 50px">Name:</td>
+			 <td style="width: 100px"><h:inputText  id="emp_name" styleClass="inputText" value="#{leaveApplicationMB.model.empInfo.firstName} #{leaveApplicationMB.model.empInfo.lastName}"  readonly="true" disabled="#{menuBean.mode eq 'approval'}" ></h:inputText></td>
+			  <td style="width: 50px"></td>
+			 </tr>
+			
+			 
+			 <tr><td style="width: 200px;color: green;">Leave Info</td>
+			 
+			 </tr>
+			
+			   
+			  <tr> <td style="width: 50px">Total:</td>
+			       <td style="width: 50px"><h:inputText size="15" id="total_leave" styleClass="inputText" value="#{leaveApplicationMB.model.totalLeave}" disabled="#{menuBean.mode eq 'approval'}" readonly="true"></h:inputText></td>
+			       
+			       <td style="width: 50px">Taken:</td>
+			       <td style="width: 50px"><h:inputText size="15" id="taken_leave" styleClass="inputText" value="#{leaveApplicationMB.model.leaveTaken}" disabled="#{menuBean.mode eq 'approval'}" readonly="true"></h:inputText></td>
+			       
+			       <td style="width: 50px">Remaining:</td>
+			       <td style="width: 50px"><h:inputText size="15" id="remaing_leave" styleClass="inputText" value="#{leaveApplicationMB.model.remainingLeave}" disabled="#{menuBean.mode eq 'approval'}" readonly="true"></h:inputText></td>
+			  </tr>
+			
+			  <tr style="width: 200px;"><td style="width: 100%;color: green;">Application Info</td></tr>
+			  <tr><td style="width: 100px">Application Date:</td>
+			  <td style="width: 100px"><h:inputText id="app_date" readonly="true" disabled="#{menuBean.mode eq 'approval'}" value="#{leaveApplicationMB.model.leaveApplication.applicationDate}"
+			   styleClass="inputText">
+			   <f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+			   
+			   </h:inputText></td>
+			  </tr>  
+			   <tr><td style="width: 50px">Leave Type:</td>
+			  
+			   <td style="width: 50px"><h:selectOneMenu value="#{leaveApplicationMB.model.leaveAllotment.indexNo}" disabled="#{menuBean.mode eq 'approval'}" >
+			                          <f:selectItem itemLabel="Select "></f:selectItem>
+			                          <f:selectItems value="#{leaveApplicationMB.model.leaveTypeList}"></f:selectItems>
+			   </h:selectOneMenu></td> 
+			
+			  </tr>
+			  
+			  <tr><td style="width: 50px">From Date:</td>
+			  <td style="width: 100px"><rich:calendar required="true"  requiredMessage="Enter From date" id="from_date" disabled="#{menuBean.mode eq 'approval'}" value="#{leaveApplicationMB.model.leaveApplication.fromDate}" ></rich:calendar></td>
+			   <td style="width: 50px"><rich:message for="from_date"/></td>     
+			  <td style="width: 50px">To Date:</td>
+			  <td style="width: 100px"><rich:calendar required="true"   requiredMessage="Enter To date" id="to_date" disabled="#{menuBean.mode eq 'approval'}" value="#{leaveApplicationMB.model.leaveApplication.toDate}" ></rich:calendar></td>
+			  <td style="width: 50px"><rich:message for="to_date"/></td>   
+			  </tr>     
+			  <tr><td style="width: 50px">Is Half Day:</td>
+			     <td style="width: 100px"><h:selectBooleanCheckbox  disabled="#{menuBean.mode eq 'approval'}" id="half_day" value="#{leaveApplicationMB.model.leaveApplication.halfDayLeave}" /></td> 
+			  </tr>
+			  <tr><td style="width: 50px">Reason</td>
+	  		       <td style="width: 100px"><h:inputTextarea disabled="#{menuBean.mode eq 'approval'}" id="reason" value="#{leaveApplicationMB.model.leaveApplication.leaveReason}" styleClass="inputText" cols="40" rows="1"/></td>
+			   </tr>
+			  <tr><td style="width: 200px;color: green;">Approval:</td></tr>
+			    
+			   <tr><td style="width: 50px;">Approved By:</td>
+			       <td style="width: 100px;"><h:inputText value="#{leaveApplicationMB.model.approveBy.empNo}" styleClass="inputText"
+			        id="approve_by"  disabled="#{menuBean.mode ne 'approval'}" ></h:inputText></td>
+			   </tr>
+			    <tr><td style="width: 50px">IS Approved:</td>
+			       <td style="width: 50px;"><h:selectBooleanCheckbox  disabled="#{menuBean.mode ne 'approval'}" id="is_approved" value="#{leaveApplicationMB.model.leaveApplication.leaveStatus}" /></td>
+			   </tr>  
+			   
+			    <tr><td style="width: 100px">Approver Comments:</td>
+			       <td style="width: 100px"><h:inputTextarea disabled="#{menuBean.mode ne 'approval'}" id="approver_comment" value="#{leaveApplicationMB.model.leaveApplication.approverComments}" styleClass="inputText" cols="40" rows="1"/></td>
+			   </tr>
+			   
+			 
+			       
+			</tbody>	
+			 </table>    
+			</fieldset>
+			
+			<br />
+		<div style="width: 100%" align="right">
+			<h:button value="Clear" style="Width:70px;height:30px"></h:button>
+			&nbsp;
+			<a4j:commandButton execute="@form" value="Apply"
+				style="Width:70px;height:30px" action="#{leaveApplicationMB.addLeaveApp}" disabled="#{menuBean.mode eq 'approval'}"  oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"></a4j:commandButton>
+			&nbsp;
+			<a4j:commandButton value="Approve"  actionListener="#{leaveApplicationMB.approveLeave}" disabled="#{menuBean.mode ne 'approval'}" style="Width:70px;height:30px"></a4j:commandButton>
+		</div>
+		<br />
+		<br />     
+		<br />
+			</ui:composition>
+			</h:body>
+</html>

@@ -15,20 +15,21 @@
 				<font color="orange" size="4">Shift Creation</font>
 			</legend>
 			<table id="shift_Creation" class="table" cellpadding="10"
-				style="width: 75%" align="center">
+				style="width:100%" align="center">
 				<tbody>
 					<tr>
 						<td style="width: 100px"><h:outputText value="Shift Name:" /></td>
-						<td style="width: 50px"><h:inputText styleClass="inputText"
+						<td style="width: 50px"><h:inputText styleClass="inputText" required="true" id="shift_name" requiredMessage="Enter Shift name"
 								value="#{shiftMasterMB.model.shiftInfo.shiftName}" size="25" /></td>
-						<td style="width: 100px"><h:outputText value="In Time:" /></td>
-						<td style="width: 100px"><h:panelGroup>
+					    <td style="width: 50px"><rich:message for="shift_name"/></td>		
+						<td style="width: 50px"><h:outputText value="In Time:" /></td>
+			  			<td style="width:150px"><h:panelGroup>
 								<div align="left" style="float: left;">
 									<rich:inputNumberSpinner
 										value="#{shiftMasterMB.model.inTomeHr}"
 										id="shiftStartTimeDetail1" required="false" minValue="0"
 										maxValue="23" inputSize="2" />
-								</div>
+								</div>  
 								<div style="float: left; margin-left: 9px">
 									<rich:inputNumberSpinner
 										value="#{shiftMasterMB.model.inTimeMin}"
@@ -42,7 +43,7 @@
 										inputSize="2" />
 								</div>
 							</h:panelGroup></td>
-
+                            <td style="width: 50px"></td>	
 					</tr>
 					<tr>
 
@@ -99,10 +100,11 @@
 					<tr>
 
 						<td style="width: 100px"><h:outputText value="Description:" /></td>
-						<td style="width: 50px"><h:inputTextarea
-								styleClass="inputText"
+						<td style="width: 50px"><h:inputTextarea required="true" requiredMessage="Enter Description"
+								styleClass="inputText" id="shift_desc"
 								value="#{shiftMasterMB.model.shiftInfo.shiftDesc}" rows="2"
 								cols="20" /></td>
+					 <td style="width: 100px"><rich:message for="shift_desc"/></td>		
 					</tr>
 					<tr>
 					 <td style="width: 100px">Is Active :</td>
@@ -123,17 +125,18 @@
 				align="center">
 				<tbody>
 				 <tr><td  style="width: 10%">No of Week OFF</td>
-				    <td  style="width: 10%"><h:inputText styleClass="inputText" value="#{shiftMasterMB.model.shiftInfo.weekOfNo}" /></td>
+				    <td  style="width: 10%"><h:inputText styleClass="inputText" required="true" id="shift_off" requiredMessage="Enter Week Off" value="#{shiftMasterMB.model.shiftInfo.weekOfNo}" /></td>
+				    <td style="width: 100px"><rich:message for="shift_off"/></td>		
 				 </tr>
 					<tr>
 						<td style="width: 10%"></td>
-						<td style="width: 10%">Monday</td>
+						<td style="width: 10%">Monday</td>  
 						<td style="width: 10%">Tuesday</td>
 						<td style="width: 10%">Wednesday</td>
 						<td style="width: 10%">Thursday</td>
 						<td style="width: 10%">Friday</td>
 						<td style="width: 10%">Saturday</td>
-						<td style="width: 10%">Sunday</td>
+						<td style="width: 10%">Sunday</td>  
 					</tr>
 					<tr>
 						<td style="width: 10%">OFF</td>
@@ -157,7 +160,6 @@
 						<td style="width: 10%">Alternate OFF</td>
 						<td style="width: 10%"><h:selectBooleanCheckbox
 								value="#{shiftMasterMB.model.mondayAlternateOFF}" >
-								<a4j:ajax event="change"></a4j:ajax>
 								</h:selectBooleanCheckbox></td>
 						<td style="width: 10%"><h:selectBooleanCheckbox
 								value="#{shiftMasterMB.model.tueAlternateOFF}" /></td>
@@ -266,13 +268,13 @@
 			<h:button value="Clear" style="Width:70px;height:30px"></h:button>
 			&nbsp;&nbsp;
 			<a4j:commandButton execute="@form" value="Save"
-				style="Width:70px;height:30px" action="#{shiftMasterMB.addShift}"></a4j:commandButton>
+				style="Width:70px;height:30px" disabled="#{menuBean.mode ne 'addShift'}" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" action="#{shiftMasterMB.addShift}"></a4j:commandButton>
 			&nbsp;&nbsp;
-			<a4j:commandButton value="Update" actionListener="#{shiftMasterMB.updateShift}" style="Width:70px;height:30px"></a4j:commandButton>
+			<a4j:commandButton value="Update" disabled="#{menuBean.mode ne 'updateShift'}" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" actionListener="#{shiftMasterMB.updateShift}" style="Width:70px;height:30px"></a4j:commandButton>
 		</div>
 		<br />
 		<br />
-		<br />
+		<br />   
 	</ui:composition>
 </h:body>
   

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+   
+<h:body>
+	<ui:composition>
+	
+	  <fieldset class="fieldset">
+			<legend class="legend">
+				<font color="orange" size="4">Process Attendance</font>
+			</legend>
+		<table id="attendance_detail" class="table" cellpadding="10"  
+				style="width: 80%" align="center">
+				<tr>
+				
+				<td><a4j:commandButton value="Import Attendance" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"
+				 execute="@this" actionListener="#{attendanceProcessMB.processAttendance}"/></td>
+			    </tr>
+			  
+	      </table>
+	    </fieldset>
+		<fieldset class="fieldset"> 
+			<legend class="legend">
+				<font color="orange" size="4">View Attendance Detail</font>
+			</legend>
+		<table id="attendance_detail" class="table" cellpadding="10"
+				style="width: 80%" align="center">
+				<tr>
+				<td>Employee ID:</td>
+				<td><h:inputText value="#{attendanceProcessMB.model.serchEmpNo}" styleClass="inputText" id="employeeid"/></td>
+			    </tr>
+			    <tr>
+			      <td>
+			       For Month:
+			      </td>
+			       <td>
+			       <h:selectOneMenu value="#{attendanceProcessMB.model.month}" id="forMonth" >
+			         <f:selectItem itemLabel="Select" itemValue=""></f:selectItem>
+			         <f:selectItems value="#{attendanceProcessMB.model.months}"></f:selectItems>
+			       </h:selectOneMenu>
+			      </td>
+			      
+			       <td>
+			       For Date:
+			      </td>
+			       <td>
+			        <rich:calendar id="forDate" value="#{attendanceProcessMB.model.searchDate}" inputSize="10"></rich:calendar>
+			      </td>
+			         
+			   
+				<td>
+				 <a4j:commandButton render="table" value="Search" actionListener="#{attendanceProcessMB.viewAttendanceDetail}"  execute="employeeid,forMonth,forDate"  id="btnSearch"  oncomplete="navToDetail()" ></a4j:commandButton>
+				 </td> 
+				</tr>    
+			 </table>  
+	  		  <div align="right" id="attendanceView" style="visibility:hidden; float:left;right:50px;top:200px;height:100%; width:700px; margin-left:20px;">
+			     <rich:dataTable value="#{attendanceProcessMB.model.attendanceList}" 
+					var="record" id="table"  rowKeyVar="rowNo"  noDataLabel="No data is available"
+					style="width:100%;height:100%;text-align:center"
+					styleClass="searchTable" rows="5" headerClass="searchTableHeader" 
+					onrowmousemove="this.style.backgroundColor='#FFEBDA'" 
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"     
+					rowClasses="odd-row,even-row">    
+					<rich:column width="15%">       
+						<f:facet name="header">
+						<h:outputText value="Employee ID"></h:outputText>   
+						</f:facet>
+						<h:outputText value="#{record.empInfo.empNo}"></h:outputText>
+						</rich:column>
+						 <rich:column width="15%">
+						 <f:facet name="header">
+						<h:outputText value="Name"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{record.empInfo.firstName} #{record.empInfo.lastName}"></h:outputText>  
+					    </rich:column>
+					    
+					     <rich:column width="15%">
+						 <f:facet name="header">
+						<h:outputText value="Date"></h:outputText>  
+						</f:facet>
+						<h:outputText value="#{record.forDate}">
+						 <f:convertDateTime pattern="yyy-MM-dd"></f:convertDateTime>
+						</h:outputText>  
+					    </rich:column>
+					    <rich:column width="15%">
+						 <f:facet name="header">
+						  <h:outputText value="Status"></h:outputText>
+						 </f:facet>
+						<h:outputText value="#{record.status}"></h:outputText>
+					   </rich:column>
+					   
+					    <rich:column width="15%">
+						 <f:facet name="header">
+						  <h:outputText value="In time"></h:outputText>  
+						 </f:facet>
+						  <h:outputText value="#{record.inTime}"></h:outputText>
+					    </rich:column>
+					      <rich:column width="15%">
+						 <f:facet name="header">
+						  <h:outputText value="Shift"></h:outputText>
+						 </f:facet>
+						  <h:outputText value="#{record.shiftAllotments.shiftInfo.shiftName}"></h:outputText>
+					    </rich:column>
+					    
+					     <rich:column width="15%">  
+						 <f:facet name="header">
+						   <h:outputText value="Out Time"></h:outputText>
+						 </f:facet>
+						<h:outputText value="#{record.outTime}"></h:outputText>
+					</rich:column>
+					  <f:facet name="footer">
+               <rich:dataScroller for="table"   
+                maxPages="10" renderIfSinglePage="false" boundaryControls="hide" fastControls="hide"/>  
+               </f:facet>
+  
+   
+			 </rich:dataTable>
+			  
+			  </div>
+				</fieldset>
+				
+				<script>
+				   var navToDetail=  function() { 
+					   
+					    document.getElementById('attendanceView').style.visibility="visible";
+					   
+	                  };
+	                  
+				
+				</script>
+				</ui:composition>
+		  </h:body>
+	    </html>

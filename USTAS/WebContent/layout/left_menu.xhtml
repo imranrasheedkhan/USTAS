@@ -8,7 +8,7 @@
 
 
 
-
+<h:body>
 <ui:composition>
 
 
@@ -20,10 +20,12 @@
 			<div>
 				<ol
 					style="font-size: 10px; font-style: arial; padding-left: 0px; width: 100%">
-					<li id="item1" style="width: 100%">Shift Master</li>
+					<li id="item1" style="width: 100%">Add Shift </li>
+					<li id="item10" style="width: 100%">Update Shift</li>  
 					<li id="item2" style="width: 100%">Break Master</li>
+					
 					<li id="item3" style="width: 100%">Shift Allotment</li>
-					<li id="item4" style="width: 100%">View Shift Allotment</li>
+					<li id="item4" style="width: 100%">View/Update Shift Allotment</li>
 				</ol>
 			</div>
 			<h3 style="font-family: arial, sans-serif; color: #36c">
@@ -36,8 +38,8 @@
 					<li id="item6" style="width: 100%">Leave Master</li>
 					<li id="item7" style="width: 100%">Leave Allotment</li>
 					<li id="item8" style="width: 100%">Leave Application</li>
-					<li id="item9" style="width: 100%">Leave Inquire</li>
-				</ol>
+					<li id="item11" style="width: 100%">Leave Approve</li>
+				</ol> 
 			</div>
 			<h3 style="font-family: arial, sans-serif; color: #36c">
 				<b>Attendance Management</b>
@@ -45,7 +47,7 @@
 			<div>
 				<ol
 					style="font-size: 10px; font-style: arial; padding-left: 0px; width: 100%">
-					<li id="item4" style="width: 100%">Process Attendance</li>
+					<li id="item14" style="width: 100%">View Attendance</li>
 
 				</ol>
 			</div>
@@ -109,9 +111,9 @@
 	 }
 
 	$J("#item1").click(function() {    
-	//	setMgmtSubmenuMode("add");
-		changePage('/application/shift_management/shift_master.xhtml');
-		
+
+		  changePage('/application/shift_management/shift_master.xhtml');
+		  changeMode("addShift");  
 		//$J("#emp_mgmt_submenu")
 		//$J("#emp_management_add").css("visibility", "visible");
 		//$J("#emp_management_update").css("visibility", "hidden");
@@ -119,9 +121,10 @@
 		
 		
 	});  
-	$J("#item2").click(function() {  
+	$J("#item2").click(function() {     
 
-		setMgmtSubmenuMode("update");
+		  changePage('/application/shift_management/break_master.xhtml');
+		  changeMode("break_master");
 	
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "visible");
@@ -130,7 +133,8 @@
 	});
 	$J("#item3").click(function() {  
 
-		setMgmtSubmenuMode("view");
+		 changePage('/application/shift_management/shift_Allotment.xhtml');
+		  changeMode("shift_allotment");
 		
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
@@ -147,7 +151,8 @@
 	}
 	
 	$J("#item4").click(function() {  
-		changePage('/application/update_employee/search.xhtml');
+		changePage('/application/shift_management/update_alloted_shift.xhtml');
+		changeMode("updateAllotedShift");
 		
 		 
 		//setMgmtSubmenuMode("view");
@@ -158,8 +163,8 @@
 	});
 
 	$J("#item5").click(function() {  
-		changePage('/application/salary_process/salary_process.xhtml');
-		
+	     changePage('/application/leave_management/holiday_master.xhtml');
+	     changeMode("holidayMaster");
 		//setMgmtSubmenuMode("view");
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
@@ -167,16 +172,16 @@
 		
 	});
 	$J("#item6").click(function() {  
-		changePage('/application/salary_process/payslip.xhtml');
+		 changePage('/application/leave_management/leave_master.xhtml');
 		
 		//setMgmtSubmenuMode("view");
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
 		//$J("#emp_management_view").css("visibility", "visible");
-		
+		  
 	});
 	$J("#item7").click(function() {  
-		changePage('/application/salary_process/wps_file.xhtml');
+		changePage('/application/leave_management/emp_leave_allotment.xhtml');
 	
 		//setMgmtSubmenuMode("view");
 		//$J("#emp_management_add").css("visibility", "hidden");
@@ -185,12 +190,34 @@
 		
 	});
 	$J("#item8").click(function() {  
-		changePage('/application/hr_documents/hr_documents.xhtml');
-		
+		changePage('/application/leave_management/leave_application.xhtml');
+		changeMode("leaveApplication");
 		//setMgmtSubmenuMode("view");  
 		//$J("#emp_management_add").css("visibility", "hidden");
 		//$J("#emp_management_update").css("visibility", "hidden");
 		//$J("#emp_management_view").css("visibility", "visible");
+		
+	   });
+	$J("#item10").click(function() {  
+		changePage('/application/shift_management/search_shift.xhtml');
+		changeMode("updateShift");
+		  
+		
+	   });
+	
+	$J("#item11").click(function() {  
+		changePage('/application/leave_management/leave_approve.xhtml');
+		changeMode("approval");
+		
+		
+		
+	   });
+	
+	$J("#item14").click(function() {  
+		changePage('/application/attendance_management/attendance_detail.xhtml');
+		changeMode("attendanceDetail");
+		
+		
 		
 	   });
 
@@ -198,5 +225,6 @@
 
 
 </ui:composition>
+</h:body>
 
 </html>

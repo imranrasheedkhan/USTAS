@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<faces-config
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-    version="2.0">
-<!--  <navigation-rule> -->
-<!--     <from-view-id>/login.xhtml</from-view-id> -->
-<!--     <navigation-case> -->
-<!--         <from-action>#{menuBean.login}</from-action> -->
-<!--         <from-outcome>success</from-outcome> -->
-<!--         <to-view-id>/compositions/home.xhtml</to-view-id> -->
-<!--     </navigation-case> -->
-<!--     <navigation-case> -->
-<!--         <from-action>#{menueBean.login}</from-action> -->
-<!--         <from-outcome>failure</from-outcome> -->
-<!--         <to-view-id>/logon.jsp</to-view-id> -->
-<!--     </navigation-case> -->
-<!-- </navigation-rule> -->
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+<!-- 	<lifecycle> -->
+<!-- 		<phase-listener>com.ustas.helper.LifeCycleListener</phase-listener> -->
+<!-- 	</lifecycle> -->
+	   
+	
+	
+   
 </faces-config>
