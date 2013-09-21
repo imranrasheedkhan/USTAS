@@ -128,8 +128,10 @@ public class LeaveApplicationMB implements Serializable{
 		    String host =appBean.applicationPropreties.getProperty("HOST");
 		    model.getLeaveApplication().setApprovedBy(model.getApproveBy());
 		    this.addLeaveApp();
-		    if(model.getLeaveApplication().getLeaveStatus())
-		    LeaveApprovalMail.sendMail(model.getEmpInfo().getOffEmail(),from,host);
+		//    if(model.getLeaveApplication().getLeaveStatus())
+		//    LeaveApprovalMail.sendMail(model.getEmpInfo().getOffEmail(),from,host);
+		    String message = appBean.applicationPropreties.getProperty("LEAVE_APPROVE");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 		    
 	     }  
 	  

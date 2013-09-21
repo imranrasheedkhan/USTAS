@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="shift_allotment")
@@ -26,19 +27,23 @@ public class EmpShiftAllotment implements Serializable{
 	@Column(name="INDEX_NO")
 	private int indexNo;
 	
-	@Column(name="MONTH")
+	@Column(name="FOR_MONTH")
 	private String forMonth;
 	
-	@Column(name="YEAR")
+	@Column(name="FOR_YEAR")    
 	private int forYear;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="ALLOTED_DAY_MON")
-	private Date allotedDayofMonth;
+	@Column(name="FROM_DATE")
+	private Date fromDate;
 	
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
+	@Column(name="TO_DATE")
+	private Date toDate;
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name="ALLOTMENT_DATE")
-	private Date allotmentDate;
+	private Date allotmentDate;   
 	
 	@Column(name="REMARKS")
 	private String remarks;
@@ -50,6 +55,12 @@ public class EmpShiftAllotment implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="EMP_INFO_EMP_NO")
 	private EmpInfo empInfo;
+	
+	@Transient
+	private boolean shiftAlloted ;
+	
+	@Transient
+	private int tempShiftIndex ;
 
 	public int getIndexNo() {
 		return indexNo;
@@ -75,20 +86,20 @@ public class EmpShiftAllotment implements Serializable{
 		this.forYear = forYear;
 	}
 
-	public Date getAllotedDayofMonth() {
-		return allotedDayofMonth;
+	public Date getFromDate() {
+		return fromDate;
 	}
 
-	public void setAllotedDayofMonth(Date allotedDayofMonth) {
-		this.allotedDayofMonth = allotedDayofMonth;
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
 	}
 
-	public Date getAllotmentDate() {
-		return allotmentDate;
+	public Date getToDate() {
+		return toDate;
 	}
 
-	public void setAllotmentDate(Date allotmentDate) {
-		this.allotmentDate = allotmentDate;
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
 	}
 
 	public String getRemarks() {
@@ -114,6 +125,32 @@ public class EmpShiftAllotment implements Serializable{
 	public void setEmpInfo(EmpInfo empInfo) {
 		this.empInfo = empInfo;
 	}
+
+	public Date getAllotmentDate() {
+		return allotmentDate;
+	}
+
+	public void setAllotmentDate(Date allotmentDate) {
+		this.allotmentDate = allotmentDate;
+	}
+
+	public boolean isShiftAlloted() {
+		return shiftAlloted;
+	}
+
+	public void setShiftAlloted(boolean shiftAlloted) {
+		this.shiftAlloted = shiftAlloted;
+	}
+
+	public int getTempShiftIndex() {
+		return tempShiftIndex;
+	}
+
+	public void setTempShiftIndex(int tempShiftIndex) {
+		this.tempShiftIndex = tempShiftIndex;
+	}
+
+
 	
     
 }

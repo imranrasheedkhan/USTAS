@@ -28,18 +28,18 @@ public class EmpLeaveAllotment implements Serializable {
 	private int forYear;
 	
 	@Column(name="NO_OF_DAYS")
-	private float noOfDays;
+	private float noOfDays;  
 	
 	@Column(name="REMARKS")
 	private String remarks;   
 	
 	@ManyToOne
 	@JoinColumn(name="LEAVE_MASTER_INDEX")
-	private LeaveInfo leaveInfos; 
+	private LeaveInfo leaveInfos ; 
 	
 	@ManyToOne
 	@JoinColumn(name="EMP_INFO_EMP_NO")
-	private EmpInfo empInfo; 
+	private EmpInfo empInfo;    
 
 	public int getIndexNo() {
 		return indexNo;

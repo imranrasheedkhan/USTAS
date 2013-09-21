@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
@@ -17,6 +20,7 @@ import javax.transaction.UserTransaction;
 
 import org.richfaces.component.UIDataTable;
 
+import com.ustas.application.managedbean.ApplicationBean;
 import com.ustas.db.dao.ShiftMasterDAO;
 import com.ustas.db.model.BreakInfo;
 import com.ustas.view.model.SwiftMasterViewModel;
@@ -37,7 +41,8 @@ public class ShiftMasterMB implements Serializable {
 		@Resource 
 		UserTransaction ut;
 	  
-	   
+		@ManagedProperty(value="#{ApplicationBean}")
+	     private ApplicationBean appBean;
 		  
 		public ShiftMasterMB(){
 		    dao=new ShiftMasterDAO(em);
@@ -49,6 +54,16 @@ public class ShiftMasterMB implements Serializable {
 	
 	   
 	
+	public ApplicationBean getAppBean() {
+			return appBean;
+		}
+
+		public void setAppBean(ApplicationBean appBean) {
+			this.appBean = appBean;
+		}
+
+
+
 	//---------------------  View Model ------------------------------
 	private SwiftMasterViewModel model=new SwiftMasterViewModel();
 
@@ -114,10 +129,12 @@ public class ShiftMasterMB implements Serializable {
 	    { 
 		   System.out.println("In the add method");
 		   model.consolidateShift(model.getShiftInfo());
-	 	   dao.addShift(model.getShiftInfo(), em, ut);  
+	 	   dao.addShift(model.getShiftInfo(), em, ut); 
+	 	   String message = appBean.applicationPropreties.getProperty("ADD_SHIFT");
+	 	   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 	 	   
 	    }
-	 
+	    
 	 public void selectShiftDetail()
 	   {
 		   System.out.println("In the Select method");
@@ -129,7 +146,10 @@ public class ShiftMasterMB implements Serializable {
 	  {
 		 System.out.println("In update Shift");
 		 model.consolidateShift(model.getShiftInfo());
-		 dao.updateShift(model.getShiftInfo(), em, ut);  
+		 dao.updateShift(model.getShiftInfo(), em, ut); 
+		 String message = appBean.applicationPropreties.getProperty("UPDATE_SHIFT");
+	 	 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+		 
 	  }
 	  
 }

@@ -29,7 +29,7 @@ public class LeaveApplicationDAO implements Serializable{
 	   {
 		 this.em=em;
 	   }
-	
+	   
 	public EmpInfo leaveInfo(String empId,EntityManager em,UserTransaction ut)
 	   {
 		     EmpInfo empInfo=null;
@@ -80,8 +80,8 @@ public class LeaveApplicationDAO implements Serializable{
 
 					e1.printStackTrace();
 		      }
-		  } 
-	    
+		  }   
+	     
 		
 	    }
 

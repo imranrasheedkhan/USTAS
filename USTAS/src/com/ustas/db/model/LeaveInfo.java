@@ -25,6 +25,9 @@ public class LeaveInfo implements Serializable{
 	@Column(name="LEAVE_TYPE")
 	private String LeaveType;
 	
+	@Column(name="SHORT_NAME")
+	private String shortName;
+	
 	@Column(name="LEAVE_DESC")
 	private String desc;
 	      
@@ -76,6 +79,23 @@ public class LeaveInfo implements Serializable{
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public List<EmpLeaveAllotment> getEmpLeaveAllotments() {
+		return empLeaveAllotments;
+	}
+
+	public void setEmpLeaveAllotments(List<EmpLeaveAllotment> empLeaveAllotments) {
+		this.empLeaveAllotments = empLeaveAllotments;
+	}
+
 	
 	
 

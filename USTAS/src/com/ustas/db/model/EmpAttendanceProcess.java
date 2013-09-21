@@ -1,6 +1,7 @@
 package com.ustas.db.model;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -26,23 +27,24 @@ public class EmpAttendanceProcess implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="INDEX_NO")  
 	private int indexNo;
    
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE) 
 	@Column(name="FOR_DATE")
-	private Date forDate;
+	private Date forDate;  
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="PROCESS_DATE")
 	private Date processDate;
 	
 	@Column(name="IN_TIME")
-	private Timestamp inTime;
+	private Time inTime;
 	
 	@Column(name="OUT_TIME")
-	private Timestamp outTime;
+	private Time outTime;
 	
-	@Column(name="STATUS")
+	@Column(name="ATTENDANCE_STATUS")
 	private String status;
 	
 	@Column(name="OT_WORK")
@@ -60,9 +62,9 @@ public class EmpAttendanceProcess implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="SHIFT_MASTER_INDEX")
-	private ShiftInfo shiftInfos;
+	private EmpShiftAllotment shiftAllotments;
 
-	public int getIndexNo() {
+	public int getIndexNo() {  
 		return indexNo;
 	}
 
@@ -86,19 +88,19 @@ public class EmpAttendanceProcess implements Serializable{
 		this.processDate = processDate;
 	}
 
-	public Timestamp getInTime() {
+	public Time getInTime() {
 		return inTime;
 	}
 
-	public void setInTime(Timestamp inTime) {
+	public void setInTime(Time inTime) {
 		this.inTime = inTime;
 	}
 
-	public Timestamp getOutTime() {
+	public Time getOutTime() {
 		return outTime;
 	}
 
-	public void setOutTime(Timestamp outTime) {
+	public void setOutTime(Time outTime) {
 		this.outTime = outTime;
 	}
 
@@ -142,6 +144,15 @@ public class EmpAttendanceProcess implements Serializable{
 		this.empInfo = empInfo;
 	}
 
+	public EmpShiftAllotment getShiftAllotments() {
+		return shiftAllotments;
+	}
+
+	public void setShiftAllotments(EmpShiftAllotment shiftAllotments) {
+		this.shiftAllotments = shiftAllotments;
+	}
+
+	  
 	
 
 	

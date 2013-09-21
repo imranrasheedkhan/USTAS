@@ -29,8 +29,9 @@
 		<class>com.ustas.db.model.EmpShiftAllotment</class>
 		<class>com.ustas.db.model.EmpAttendanceProcess</class>
 	    <class>com.ustas.db.model.EmpLeaveAppEntry</class>
+	     <class>com.ustas.db.model.BadgeInfo</class>
 		<properties>
-			<property name="eclipselink.logging.level.sql" value="FINE" />
+<!-- 			<property name="eclipselink.logging.level.sql" value="FINE" /> -->
 			<property name="eclipselink.cache.shared.default" value="false" />
 		</properties>
 	</persistence-unit>   

@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name="shift_master")
@@ -40,7 +41,7 @@ public class ShiftInfo implements Serializable {
 	@Column(name="OUT_TIME")
 	private Time outTime;
 	
-	@Column(name="LATE_COMING_LIMIT")
+	@Column(name="LATE_COMING_LIMIT")  
 	private int lateComingLimit;
 	
 	@Column(name="EARLY_GOING_LIMIT")
@@ -67,14 +68,15 @@ public class ShiftInfo implements Serializable {
 	@Column(name="IS_ACTIVE")
 	private boolean isActive ;
 	
+	@OneToOne(mappedBy="shiftInfo")
+	private EmpShiftAllotment shiftAllotment;
+	
 	@ManyToMany
 	@JoinTable(name="SHIFT_BREAK_MASTER",joinColumns=@JoinColumn(name="SHIFT_INDEX"),
 	          inverseJoinColumns=@JoinColumn(name="BREAK_INDEX"))
     
 	private List <BreakInfo>  breakInfos=new ArrayList<>();
 	
-	@OneToMany(mappedBy="shiftInfos")
-	private List <EmpAttendanceProcess> empAttendanceProcess;
 	
 	public int getIndexNo() {
 		return indexNo;  
@@ -194,6 +196,14 @@ public class ShiftInfo implements Serializable {
 
 	public void setBreakInfo(List<BreakInfo> breakInfo) {
 		this.breakInfos = breakInfo;
+	}
+
+	public EmpShiftAllotment getShiftAllotment() {
+		return shiftAllotment;
+	}
+
+	public void setShiftAllotment(EmpShiftAllotment shiftAllotment) {
+		this.shiftAllotment = shiftAllotment;
 	}
 
 	

@@ -3,6 +3,7 @@ package com.ustas.db.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +25,7 @@ public class EmpInfo implements Serializable {
     
 	@Column(name="MIDDLE_NAME") 
 	private String middleName;
+	
 	@Column(name="LAST_NAME")
 	private String lastName;
 
@@ -44,8 +46,11 @@ public class EmpInfo implements Serializable {
 	private float totalAdj;  
 	
 	@Transient
-	private boolean flag=true;
+	private boolean flag ;
 	
+	@Transient
+	private boolean shiftAlloted ;
+	  
 	@Transient 
 	private String salayStatus="Pending";
 	
@@ -113,7 +118,7 @@ public class EmpInfo implements Serializable {
 	private List <HrDocuments> hrDocuments;
     
 	
-	//releations for the TimeAttandance
+	//releations for the TimeAttandance 
 	@OneToMany(mappedBy="empInfo",cascade=CascadeType.ALL)
 	private List <EmpAttendanceProcess> empAttendanceProcess;
 	
@@ -121,13 +126,16 @@ public class EmpInfo implements Serializable {
 	private List <EmpLeaveAllotment> empLeaveAllotment;
 	
 	@OneToMany(mappedBy="empInfo",cascade=CascadeType.ALL)
-	private List <EmpLeaveAppEntry> empLeaveAppEntry;
+	private List <EmpLeaveAppEntry> empLeaveAppEntry;   
 	
-	@OneToMany(mappedBy="empInfo")
-	private List <EmpShiftAllotment> empShiftAllotments;
+	@OneToMany(mappedBy="empInfo",cascade=CascadeType.ALL)
+	private List <EmpShiftAllotment> empShiftAllotments ;
 	
 	@OneToMany(mappedBy="approvedBy")
 	private List <EmpLeaveAppEntry> empLeaveApprovedBy;
+	
+	@OneToOne(mappedBy="empInfo")
+	private BadgeInfo badgeInfo;
 	
 	public EmpInfo() {
 		
@@ -407,6 +415,26 @@ public class EmpInfo implements Serializable {
 		this.empLeaveApprovedBy = empLeaveApprovedBy;
 	}
 
+
+	public BadgeInfo getBadgeInfo() {
+		return badgeInfo;
+	}
+
+
+	public void setBadgeInfo(BadgeInfo badgeInfo) {
+		this.badgeInfo = badgeInfo;
+	}
+    
+
+	public boolean isShiftAlloted() {
+		return shiftAlloted;
+	}
+
+
+	public void setShiftAlloted(boolean shiftAlloted) {
+		this.shiftAlloted = shiftAlloted;
+	}
+ 
 
 	@Transient
 	public void getTotalAdj(int year , int month,List<EmpAdjTrx> list,float total)
