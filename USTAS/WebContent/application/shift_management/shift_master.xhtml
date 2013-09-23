@@ -140,38 +140,38 @@
 					</tr>
 					<tr>
 						<td style="width: 10%">OFF</td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"  
 								value="#{shiftMasterMB.model.monWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.tueWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.wedWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.thursWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.friWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.satWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.sunWeekOff}" /></td>
 					</tr>
 
 					<tr>
 						<td style="width: 10%">Alternate OFF</td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.mondayAlternateOFF}" >
 								</h:selectBooleanCheckbox></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.tueAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.wedAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.thursAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.friAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.satAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox
+						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.sunAlternateOFF}" /></td>
 					</tr>
 
@@ -274,7 +274,29 @@
 		</div>
 		<br />
 		<br />
-		<br />   
+		<br />  
+		<script>
+		  function checkAllOff(obj){
+			   var off=document.getElementById("centreContentForm:shift_off").value;   
+			   var count=0;
+			   if(obj.checked){
+		           $(".booleanCheckBox").each(function()
+		       	      {  
+     	        	    if($(this).prop('checked')==true) 
+     	        	    	{
+		        	          count++;
+     	        	    	}
+		       		  
+		             if(count>off)  
+			    	    {
+			    	      alert("Please do not select More than number of week off");
+			    	      $(this).prop('checked', false);
+			    	      return false;
+			    	    }
+		       	     });
+		           }   
+		  }
+		</script> 
 	</ui:composition>
 </h:body>
   
