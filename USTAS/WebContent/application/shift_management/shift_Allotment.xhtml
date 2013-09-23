@@ -31,15 +31,15 @@
         <td>
    	    From Date: 
    	   </td> <td>
-   	    	<rich:calendar value="#{shiftAllotmentMB.shiftModel.empshift.fromDate}" id="FROM_DT" enableManualInput="true"  ></rich:calendar>
+   	    	<rich:calendar required="true" requiredMessage="Enter From Date" value="#{shiftAllotmentMB.shiftModel.empshift.fromDate}" id="FROM_DT" enableManualInput="true"  ></rich:calendar>
    		</td>
    		    <td><rich:message  for="FROM_DT"/></td>
    		
    		    <td>
    	    To Date: 
    	   </td> <td>
-   		<rich:calendar value="#{shiftAllotmentMB.shiftModel.empshift.toDate}" id="TO_DATE" enableManualInput="true">
-   		<a4j:ajax  event="change" execute="FROM_DT,TO_DATE" listener="#{shiftAllotmentMB.displayShiftAllotment}"  render="empList_table,shift_list"></a4j:ajax>
+   		<rich:calendar required="true" requiredMessage="Enter To Date" value="#{shiftAllotmentMB.shiftModel.empshift.toDate}" id="TO_DATE" enableManualInput="true" onchange="checkDate();"  >
+   		 <a4j:ajax  event="change" execute="FROM_DT,TO_DATE" listener="#{shiftAllotmentMB.displayShiftAllotment}"  render="empList_table,shift_list"></a4j:ajax>
    	
    		</rich:calendar>
    		</td>
@@ -124,7 +124,23 @@
 		<br />
 		<br />     
 		<br /> 
-		
+		     <script type="text/javascript">
+          function checkDate() {
+        	  var iDate=document.getElementById('centreContentForm:FROM_DTInputDate').value;
+    	      var issueDate=new Date(iDate);
+    	      var expiryDate=new Date(document.getElementById("centreContentForm:TO_DATEInputDate").value);
+          if(issueDate >expiryDate || iDate.length==0)
+             {
+              document.getElementById("centreContentForm:TO_DATEInputDate").value="";
+      	      alert("To Date Should be greater than From Date");
+      	      return false;
+      	     }
+          
+        
+       return true;
+       
+}
+</script>
    
 				</ui:composition>
 		  </h:body>
