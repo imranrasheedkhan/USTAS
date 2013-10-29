@@ -47,7 +47,10 @@
 			<div>
 				<ol
 					style="font-size: 10px; font-style: arial; padding-left: 0px; width: 100%">
-					<li id="item14" style="width: 100%">View Attendance</li>
+				
+				    <li id="item15" style="width: 100%">Add Badge</li>
+				    <li id="item16" style="width: 100%">Update Badge</li>
+				    <li id="item14" style="width: 100%">Attendance Process</li>
 
 				</ol>
 			</div>
@@ -133,7 +136,7 @@
 	});
 	$J("#item3").click(function() {  
 
-		 changePage('/application/shift_management/shift_Allotment.xhtml');
+		 changePage('/application/shift_management/shift_allotment.xhtml');
 		  changeMode("shift_allotment");
 		
 		//$J("#emp_management_add").css("visibility", "hidden");
@@ -216,6 +219,21 @@
 	$J("#item14").click(function() {  
 		changePage('/application/attendance_management/attendance_detail.xhtml');
 		changeMode("attendanceDetail");
+		
+		
+		
+	   });
+	$J("#item15").click(function() {  
+		changePage('/application/attendance_management/badge_allotment.xhtml');
+		changeMode("addBadge");
+		
+		
+		
+	   });
+	
+	$J("#item16").click(function() {  
+		changePage('/application/attendance_management/badge_update.xhtml');
+		changeMode("updateBadge");
 		
 		
 		

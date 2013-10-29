@@ -12,7 +12,7 @@
 	<ui:composition>  
 		<fieldset class="fieldset">
 			<legend class="legend">
-				<font color="orange" size="4">Leave Allotment</font>
+				<font color="orange" size="4">Shift Allotment</font>
 			</legend>
 		<table id="emp_leave_allot" class="table" cellpadding="10"
 				style="width: 80%" align="center">
@@ -20,9 +20,8 @@
    	      <td>Allotment Date </td>
    	      <td>
    		    <h:inputText id="ALLOTMENT_DATE" value="#{shiftAllotmentMB.shiftModel.empshift.allotmentDate}" styleClass="inputText">
-   		      <f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
-   		 
-   		     </h:inputText>
+   		       <f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+   		  </h:inputText>
    		   </td>
    		
    		</tr>
@@ -31,20 +30,20 @@
         <td>
    	    From Date: 
    	   </td> <td>
-   	    	<rich:calendar required="true" requiredMessage="Enter From Date" value="#{shiftAllotmentMB.shiftModel.empshift.fromDate}" id="FROM_DT" enableManualInput="true"  ></rich:calendar>
-   		</td>
+   	    	<rich:calendar required="true"  onchange="currentBusinessDate(document.getElementById('centreContentForm:FROM_DTInputDate'),document.getElementById('centreContentForm:TO_DATEInputDate'));" requiredMessage="Enter From Date" value="#{shiftAllotmentMB.shiftModel.empshift.fromDate}" id="FROM_DT" enableManualInput="true"  ></rich:calendar>
+   		</td>  
    		    <td><rich:message  for="FROM_DT"/></td>
-   		
-   		    <td>
+   		 
+   		    <td>   
    	    To Date: 
    	   </td> <td>
-   		<rich:calendar required="true" requiredMessage="Enter To Date" value="#{shiftAllotmentMB.shiftModel.empshift.toDate}" id="TO_DATE" enableManualInput="true" onchange="checkDate();"  >
+   		<rich:calendar required="true" onchange="if(!checkDate()) return false;" requiredMessage="Enter To Date" value="#{shiftAllotmentMB.shiftModel.empshift.toDate}" id="TO_DATE" enableManualInput="true" >
    		 <a4j:ajax  event="change" execute="FROM_DT,TO_DATE" listener="#{shiftAllotmentMB.displayShiftAllotment}"  render="empList_table,shift_list"></a4j:ajax>
    	
    		</rich:calendar>
    		</td>
    		  <td><rich:message for="TO_DATE"></rich:message> </td> 
-   		
+   		     
    		<td>     
 
         </td>   
@@ -64,7 +63,7 @@
 								<f:facet name="header">
 									<h:outputText value="Select"></h:outputText>
 								</f:facet>
-								<h:selectBooleanCheckbox value="#{empRecord.flag}" 
+								<h:selectBooleanCheckbox value="#{empRecord.flag}" styleClass="booleanCheckBox"
 								disabled="#{empRecord.shiftAlloted}">
 									<a4j:ajax event="change" render="empList_table"></a4j:ajax>
 								</h:selectBooleanCheckbox>
@@ -117,10 +116,10 @@
 				 <div style="width:100%" align="right"> 
              <h:button value="Clear" style="Width:70px;height:30px"></h:button>
              &nbsp; 
-           <a4j:commandButton value="Save" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" 
-            execute="@form" actionListener="#{shiftAllotmentMB.addShiftAllotment}" style="Width:70px;height:30px"></a4j:commandButton>
+           <a4j:commandButton value="Save" onclick="if(!selectCheckBox()) return false;" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" 
+            execute="@form" render="FROM_DT,TO_DATE" actionListener="#{shiftAllotmentMB.addShiftAllotment}" style="Width:70px;height:30px"></a4j:commandButton>
              &nbsp;
-         </div>  
+         </div>   
 		<br />
 		<br />     
 		<br /> 
@@ -137,7 +136,7 @@
       	     }
           
         
-       return true;
+           return true;
        
 }
 </script>

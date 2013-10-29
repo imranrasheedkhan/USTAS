@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Badge Master</title>
+<style type="css/text">
+</style>
+
+</head>
+
+<body>
+<ui:composition>
+<fieldset class="fieldset">
+
+<legend class="legend"><font color="orange" size="4">Badge Creation</font></legend>
+
+<table id="Badge_master" class="table" cellpadding="10" style="width: 75%">
+<tbody>
+<tr>
+ <td><h:outputText value="Employe ID/Name :"></h:outputText></td>
+ <td >
+    <h:inputText id="search_id"  value="#{badgeMasterMB.model.searchkey}" styleClass="inputText"></h:inputText>
+     </td>
+ <td>
+<a4j:commandButton action="#{badgeMasterMB.selectAllBadgeList}" value="Search" styleClass="orange" style="width:60px;height:30px" execute="search_id" render="table"  id="searchbtn"></a4j:commandButton>
+</td>
+</tr>
+
+
+
+
+	    
+	     
+ <tr>
+	          <td colspan="2" >
+	            <rich:dataTable var="record"  id="table" value="#{badgeMasterMB.model.badgeList}"
+                                style="width:100%;
+                                height:100%;
+                                text-align:center"
+                                styleClass="BreakTable"
+                                rows="10"
+                                headerClass="BreakTableHeader"
+                              	onrowmousemove="this.style.backgroundColor='#FFEBDA'"
+					           onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
+					          rowClasses="odd-row,even-row">
+                        
+                 <rich:column width="15%">
+                 <f:facet name="header">
+                 <h:outputText value="Select"></h:outputText>
+                 </f:facet>
+                 <h:selectBooleanCheckbox value="#{record.empInfo.flag}" styleClass="booleanCheckBox" ></h:selectBooleanCheckbox>
+                </rich:column>
+                
+                
+                <rich:column width="15%">
+                 <f:facet name="header">
+                  <h:outputText value="Employee ID"></h:outputText>
+                 </f:facet>
+                 <h:outputText value="#{record.empInfo.empNo}"></h:outputText>
+                </rich:column>    
+        
+         
+         
+                <rich:column width="15%">
+                 <f:facet name="header">
+                  <h:outputText value="Employee Name"></h:outputText>
+                 </f:facet>
+                 <h:outputText value="#{record.empInfo.firstName} #{record.empInfo.lastName}"></h:outputText>
+                </rich:column>    
+         
+         
+                <rich:column width="15%">
+                 <f:facet name="header">
+                  <h:outputText value="Badge Number"></h:outputText>
+                 </f:facet>
+                 <h:inputText  style="width:80px;height:12px" size="15" value="#{record.badgeNumber}" >
+                  <a4j:ajax event="change" render="@this" execute="@this"></a4j:ajax>
+                 
+                 </h:inputText>
+                </rich:column>
+                
+
+             
+                <f:facet name="footer">
+                  <rich:dataScroller for="table" execute="table" maxPages="10"
+                    renderIfSinglePage="false" boundaryControls="hide"
+										fastControls="hide"
+                   ></rich:dataScroller>
+                  </f:facet>
+              </rich:dataTable> 
+             </td>
+            
+                
+
+</tr>
+</tbody> 
+</table>
+
+</fieldset>
+
+
+     	<div style="width:100%;" align="right">
+	            <h:button value="Clear" style="Width:70px;height:30px"></h:button>
+		    	 &nbsp;
+             
+              
+                  
+              <a4j:commandButton value="Update"  styleClass="updateButton" 
+              onclick="if(!selectCheckBox()) return false;" render="@form" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" style="width:60px; height:30px;" actionListener="#{badgeMasterMB.updateBadge}" execute="@form"></a4j:commandButton>
+    
+        
+	   </div>
+	   <br></br>
+	   <br></br>
+	   <br></br>
+
+
+</ui:composition>	     
+
+</body>
+</html>

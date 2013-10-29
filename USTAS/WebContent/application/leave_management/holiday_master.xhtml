@@ -15,94 +15,92 @@
 			<legend class="legend">
 				<font color="orange" size="4">Holiday Creation</font>
 			</legend>
-
+            
 			<table id="Holiday_master" class="table" cellpadding="10"
 				style="width: 75%" align="center">
 				<tbody>
 
 
-					<tr>
+					<tr >
 						<td style="width: 100px"><h:outputText value="Holiday Name :" /></td>
-						<td style="width: 50px"><h:inputText styleClass="inputText"
-								value="#{holidayMasterMB.model.holidayInfo.holidayName}"
-								size="25" /></td>
+						<td style="width: 50px"><h:inputText styleClass="inputText" maxlength="50" id="txt_name" required="true" requiredMessage="Please Enter Name" 
+							value="#{holidayMasterMB.model.holidayInfo.name}"
+								/></td>
+						     <td style="width: 50px"><rich:message for="txt_name"></rich:message></td>
 
 					</tr>
 					<tr>
 						<td style="width: 100px"><h:outputText value="Description :" /></td>
-						<td style="width: 50px"><h:inputText styleClass="inputText"
+						<td style="width: 50px"><h:inputText styleClass="inputText" maxlength="100" id="description" required="true" requiredMessage="Please Enter Description"
 								value="#{holidayMasterMB.model.holidayInfo.holidayDesc}"
-								size="25" /></td>
-
+								/></td>
+                         <td style="width: 50px"><rich:message for="description"></rich:message></td>
 					</tr>
 
 					<tr>
 						<td style="width: 100px"><h:outputText value="Holiday Type :" /></td>
-						<td style="width: 50px"><h:inputText
+						<td style="width: 50px"><h:inputText styleClass="inputText" maxlength="50" id="txt_type" required="true" requiredMessage="Please Enter Type"
 								value="#{holidayMasterMB.model.holidayInfo.holidayType}"
-								size="25" /></td>
-
+								/></td>
+                          <td style="width: 50px"><rich:message for="txt_type"></rich:message></td>
 					</tr>
 					<tr>
 						<td><h:outputText value="From Date:" /></td>
-						<td><rich:calendar id="From_dt"
+						<td><rich:calendar id="From_dt" onchange="changeFromDate();" required="true" requiredMessage="Enter From Date"
 								value="#{holidayMasterMB.model.holidayInfo.fromDate}"
-								enableManualInput="true" datePattern="yyyy/mm/dd">
-							</rich:calendar> <!-- <h:inputText styleClass="inputText" value="#{holidayMasterMB.model.holidayInfo.fromDate}"></h:inputText> -->
+								enableManualInput="true">
+							</rich:calendar> 
 
 						</td>
+						 <td style="width: 50px"><rich:message for="From_dt"></rich:message></td>
 					</tr>
 					<tr>
 
 						<td><h:outputText value="To Date:" /></td>
-						<td><rich:calendar
-								value="#{holidayMasterMB.model.holidayInfo.toDate}"
-								enableManualInput="true" datePattern="yyyy/mm/dd">
+						<td><rich:calendar id="to_date" required="true" requiredMessage="Enter To Date"
+								value="#{holidayMasterMB.model.holidayInfo.toDate}"  onchange="checkDate();" 
+								enableManualInput="true" >
 							</rich:calendar></td>
 
 
-
+                      <td style="width: 50px"><rich:message for="to_date"></rich:message></td>
 
 					</tr>
 					<tr>
 						<td style="width: 100px"><h:outputText value="IS Active:" /></td>
-						<td style="width: 50px"><h:selectBooleanCheckbox
+						<td style="width: 50px"><h:selectBooleanCheckbox id="is_active"
 								value="#{holidayMasterMB.model.holidayInfo.active}" size="25" /></td>
-
+                          <td style="width: 50px"></td>
 					</tr>
 					<tr>
 
 						<td style="width: 100px"><h:outputText value="Remarks:" /></td>
-						<td style="width: 50px"><h:inputTextarea
-								styleClass="inputText"
+						<td style="width: 50px"><h:inputTextarea id="txt_area"
+								styleClass="inputText" onblur="maxTextAreaCharacter(this);"
 								value="#{holidayMasterMB.model.holidayInfo.remarks}" rows="2"
-								cols="10" /></td>
+								cols="40" /></td>
+				      <td style="width: 50px"></td>
 					</tr>
-
-					<tr>
-						<td></td>   
-					</tr>
-					<tr>
-						<td></td>
-					</tr>
-					<tr align="right">
-						<td style="padding-top: 15px;"><h:button value="Reset"
-								styleClass="green" style="height:30px; width:60px;" />&nbsp;&nbsp;&nbsp;
-							<h:commandButton value="Add" styleClass="green"
+					</tbody>
+                  </table>
+                  
+					</fieldset>
+						<div style="width:100%;" align="right">
+						<h:button value="Reset"
+								styleClass="green" style="height:30px; width:60px;" />&nbsp;
+							<a4j:commandButton value="Add" styleClass="addButton"  oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"
+								style="height:30px; width:60px;" execute="@form" render="@form"
+								actionListener="#{holidayMasterMB.add}" />&nbsp;
+							<a4j:commandButton onclick="disableAdd();" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"
+								value="Update" styleClass="updateButton" render="@form"
 								style="height:30px; width:60px;" execute="@form"
-								actionListener="#{holidayMasterMB.add}" />&nbsp;&nbsp;&nbsp; <h:commandButton
-								value="Update" styleClass="green"
-								style="height:30px; width:60px;" execute="@form"
-								actionListener="#{holidayMasterMB.updateHoliday}" />&nbsp;&nbsp;&nbsp;
+								actionListener="#{holidayMasterMB.updateHoliday}" />
 
-						</td>
-
-					</tr>
-
-				</tbody>
-			</table>
-   
-	</fieldset>
+					
+                      </div>
+			
+			
+                    
 	<fieldset class="fieldset">
 
 			<legend class="legend">
@@ -118,17 +116,17 @@
         <td>
    	    <label>Holiday Name: </label>
    	   </td> <td>
-   	    	<h:inputText value="#{holidayMasterMB.model.holidayInfo.holidayName}"  styleClass="inputText" />
+   	    	<h:inputText value="#{holidayMasterMB.model.searchKey}" id="searchKey" styleClass="inputText" />
    		</td>
    		<td>     
-   		<a4j:commandButton action="#{holidayMasterMB.Display}" value="Search"  styleClass="green" style="height:30px; width:60px;" render="table" execute="@form"  id="btnSearch"  />
+   		<a4j:commandButton action="#{holidayMasterMB.Display}" value="Search"  style="height:30px; width:60px;" render="table" execute="searchKey"  id="btnSearch"  />
         </td>   
    </tr>
 				<tr>
 
 					<td colspan="2">
 						<div align="right" id="Holidaymaster"
-							style="float: left; right: 50px; top: 200px; height: 100%; width: 500px; margin-left: 20px;">
+							style="float: left; right: 50px; top: 200px; height: 100%; width: 650px; margin-left: 20px;">
 
 							<rich:dataTable var="record" id="table"   value="#{holidayMasterMB.model.holidayList}" noDataLabel="No Emplooyee is Found"
 								style="width:100%;height:100%;text-align:center"
@@ -142,7 +140,7 @@
 										<h:outputText value="Year"></h:outputText>
 									</f:facet>
 								<h:outputText value="#{record.fromDate}" >
-									<f:convertDateTime pattern="yyyy" />
+									  <f:convertDateTime pattern="yyyy" />
 								</h:outputText>
 
 
@@ -153,7 +151,7 @@
 									<f:facet name="header">
 										<h:outputText value="Holiday Name"></h:outputText>
 									</f:facet>
-								   <h:outputText value="#{record.holidayName}"></h:outputText>
+								   <h:outputText value="#{record.name}"></h:outputText>
 
 
 								</rich:column>
@@ -163,7 +161,8 @@
 										<h:outputText value="From Date" ></h:outputText>
 									</f:facet>
 									<h:outputText value="#{record.fromDate}" >
-										<f:convertDateTime pattern="dd-MM-yyyy" />
+										<f:convertDateTime pattern="dd-MM-yyyy" locale="en_US"/>
+										 
 									</h:outputText>
 
 
@@ -171,9 +170,9 @@
 								<rich:column width="15%">
 									<f:facet name="header">
 										<h:outputText value="To Date"></h:outputText>
-									</f:facet>
+									</f:facet> 
 									<h:outputText value="#{record.toDate}" >
-									<f:convertDateTime pattern="dd-MM-yyyy" />
+									  <f:convertDateTime pattern="dd-MM-yyyy" locale="en_US"/>
 										
 									</h:outputText>
 								
@@ -186,8 +185,8 @@
 									<f:facet name="header">
 										<h:outputText value="Action"></h:outputText>
 									</f:facet>
-                               <a4j:commandLink   action="#{holidayMasterMB.selectHoliday}" execute="@this" id="edit">
-                                 
+                               <a4j:commandLink onclick="disableUpdate();" render="txt_name,txt_area,is_active,to_date,From_dt,txt_type,description" action="#{holidayMasterMB.selectHoliday}" execute="@this" id="edit">
+                                   <f:setPropertyActionListener target="#{holidayMasterMB.model.holidayInfo}" value="#{record}"></f:setPropertyActionListener>
                                  <h:graphicImage      value="/resources/images/editrecord.gif"/>
                               </a4j:commandLink>
 								</rich:column>  
@@ -210,6 +209,48 @@
 				</tr>
 			</table>
 		</fieldset>  
+		           <script>
+		           
+		             $( document ).ready(function() {
+                           $(".updateButton").prop('disabled', true); 
+                         });
+		                   function disableUpdate(){
+			             
+			                 $(".addButton").prop('disabled', true);
+			                 $(".updateButton").prop('disabled', false);
+		                   }
+			                  function disableAdd(){
+						      $(".addButton").prop('disabled', false);
+				              $(".updateButton").prop('disabled', true); 
+		                    }
+			                  
+			                function checkDate() {
+			                
+			                  var iDate=document.getElementById("centreContentForm:From_dtInputDate").value;
+			              	   
+			            	  var issueDate=new Date(iDate);
+			            	
+			            	  var expiryDate=new Date(document.getElementById("centreContentForm:to_dateInputDate").value);
+			            	 
+			            	  if(issueDate >expiryDate || iDate.length==0)
+			                     {
+			                      document.getElementById("centreContentForm:to_dateInputDate").value="";
+			              	      alert("To Date Should be greater than From Date");
+			              	      return false;
+			              	     }
+			                  
+			                
+			                   return true;
+			               
+			           }
+			                
+			         function changeFromDate()
+			            {
+			        	    document.getElementById("centreContentForm:to_dateInputDate").value="";
+			           	   
+			            }
+			                   
+		</script> 
 	</ui:composition>
   
 </h:body>

@@ -9,17 +9,17 @@
 </h:head>
 <h:body>
 	<ui:composition>
-	<a4j:region id="mainform">
+
 		<fieldset class="fieldset">
 			<legend class="legend">
 				<font color="orange" size="4">Leave Creation</font>
 			</legend>
 			<table id="shift_Creation" class="table" cellpadding="10"
-				style="width: 80%" align="center">
+				style="width: 90%" align="center">
 				<tbody>
 					<tr style="width: 50%">
 						<td style="width: 100px"><h:outputText value="Leave Type:" /></td>
-						<td style="width: 50px"><h:selectOneMenu
+						<td style="width: 50px"><h:selectOneMenu id="leaveType" required="true" requiredMessage="Please Select"
 								value="#{leaveMasterMB.model.leaveInfo.leaveType}">
 								<f:selectItem itemLabel="Sick Leave" itemValue="Sick Leave"></f:selectItem>
 								<f:selectItem itemLabel="Casual Leave" itemValue="Casual Leave"></f:selectItem>
@@ -28,34 +28,50 @@
 								<f:selectItem itemLabel="Vacation Leave" itemValue="Vacation Leave"></f:selectItem>
 								<f:selectItem itemLabel="Leave Without Pay" itemValue="Leave Without Pay"></f:selectItem>
 							</h:selectOneMenu></td>
+							<td><rich:message for="leaveType"></rich:message></td>
 					</tr >
 					<tr  style="width: 50%">
 						<td style="width: 100px"><h:outputText value="Short Name:"/>
 						</td>
-						<td style="width: 50px"><h:inputText styleClass="inputText" value="#{leaveMasterMB.model.leaveInfo.shortName}">
+						<td style="width: 50px"><h:inputText maxlength="10" required="true" requiredMessage="Please Enter Short Name" id="short_name" styleClass="inputText" value="#{leaveMasterMB.model.leaveInfo.shortName}">
 						</h:inputText></td>
+						<td><rich:message for="short_name"></rich:message></td>
 					</tr>
 					<tr  style="width: 50%">
 						<td style="width: 100px"><h:outputText
 								value="Leave Description:" /></td>
-						<td style="width: 50px"><h:inputTextarea styleClass="inputText"
+						<td style="width: 50px"><h:inputTextarea onkeyup="maxTextAreaCharacter(this);" styleClass="inputText"  required="true" requiredMessage="Please Enter Description"
 								value="#{leaveMasterMB.model.leaveInfo.desc}" rows="2"
-								cols="40" id="leave_desc" /></td>
+								cols="40" id="leave_desc" /></td>  
+						<td><rich:message for="leave_desc"></rich:message></td>
 					</tr>
 					<tr  style="width: 50%">
 						<td style="width: 100px"><h:outputText value="CF Allowed:" /></td>
-						<td width="10%"><h:selectBooleanCheckbox
+						<td width="10%"><h:selectBooleanCheckbox id="caryForward"
 								value="#{leaveMasterMB.model.leaveInfo.cfAllowed}" /></td>
 					</tr>
-					<tr  style="width: 50%">
+					<tr  style="width: 50%"> 
 						<td style="width: 100px"><h:outputText value="IS Active:" /></td>
-						<td width="10%"><h:selectBooleanCheckbox
+						<td width="10%"><h:selectBooleanCheckbox id="isActive"
 								value="#{leaveMasterMB.model.leaveInfo.active}" /></td>
 					</tr>
 				</tbody>
 			</table>
 		</fieldset>
-		</a4j:region>
+	          <div style="width:100%" align="right">
+				
+
+	           <h:button  value="Clear" style="Width: 70px;height:30px"/>
+	             &nbsp;
+				<a4j:commandButton execute="@form" render="@form" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" styleClass="addButton" value="Add" actionListener="#{leaveMasterMB.addLeaveInfo}"
+				 style="Width:70px;height:30px" ></a4j:commandButton>
+				 &nbsp;
+				<a4j:commandButton execute="@form" render="@form" onclick="disableAdd();" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" value="Update" styleClass="updateButton"  actionListener="#{leaveMasterMB.updateLeaveInfo}" 
+				style="Width:70px;height:30px">
+				</a4j:commandButton>
+		
+			  
+			</div>
 		<fieldset class="fieldset">
      	   <legend class="legend">
 		   		<font color="orange" size="4">Leave Details</font>
@@ -72,7 +88,9 @@
      </td> 
     </tr>
     </table>  
-       <div align="left" id="leaveDetail" style=" visibility:hidden; float:left;right:50px;top:200px;height:100%; width:500px; margin-left:20px;">	 
+       
+    
+       <div align="left" id="leaveDetail" style=" visibility:visible; float:left;right:50px;top:200px;height:100%; width:600px; margin-left:20px;">	 
 			   
 				
 				
@@ -83,13 +101,19 @@
 					onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
 	   				rowClasses="odd-row,even-row">
 				  					
-				   <rich:column width="15%" >
+				   <rich:column width="20%" >
 						<f:facet name="header">
 							<h:outputText value="Leave Type"></h:outputText>
 						</f:facet>
 						    <h:outputText value="#{record.leaveType}"></h:outputText>
 					</rich:column>
-					<rich:column width="10%">
+					  <rich:column width="20%" >
+						<f:facet name="header">
+							<h:outputText value="Short Name"></h:outputText>
+						</f:facet>
+						    <h:outputText value="#{record.shortName}"></h:outputText>
+					</rich:column>
+					<rich:column width="30%">
 						<f:facet name="header">
 							<h:outputText value="Description"></h:outputText>
 						</f:facet>
@@ -100,15 +124,15 @@
 						<f:facet name="header">
 							<h:outputText value="Carry Forward"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{record.cfAllowed}"></h:outputText>
+						<h:outputText value="#{record.cfAllowed ? 'Yes' : 'No'}"></h:outputText>
 					</rich:column>
-					 <rich:column>
+					 <rich:column width="20%">
        					<f:facet name="header">
        						<h:outputText value="Action"/> 
        					</f:facet>
-       					<a4j:commandLink action="#{leaveMasterMB.selectLeaveUpdate}" execute="@this" render="centreContentForm">
+       					<a4j:commandLink onclick="disableUpdate();" action="#{leaveMasterMB.selectLeaveUpdate}" execute="@this" render="leaveType,short_name,leave_desc,caryForward,isActive">
        					 <h:graphicImage value="/resources/images/editrecord.gif" />
-       					   <f:setPropertyActionListener target="#{leaveMasterMB.model.leaveInfo}" value="#{record}"></f:setPropertyActionListener>
+       					      <f:setPropertyActionListener target="#{leaveMasterMB.model.leaveInfo}" value="#{record}"></f:setPropertyActionListener>
        					 </a4j:commandLink>
        				 </rich:column>
 					    
@@ -122,28 +146,31 @@
                document.getElementById('leaveDetail').style.visibility="visible";
         
                    };
+                   
+                   
     
            </script>
 			
-			<div style="width:100%" align="right">
-				
-
-	           <h:button  value="Clear" style="Width: 70px;height:30px"/>
-	             &nbsp;
-				<a4j:commandButton execute="@form" value="Add" actionListener="#{leaveMasterMB.addLeaveInfo}"
-				 style="Width:70px;height:30px" ></a4j:commandButton>
-				 &nbsp;
-				<a4j:commandButton execute="@form" value="Update"  actionListener="#{leaveMasterMB.updateLeaveInfo}" 
-				style="Width:70px;height:30px">
-				</a4j:commandButton>
-		
-			  
-			</div>
+			
 		 <br/>
 		 <br/>
 		  <br/>
 		 <br/>
-  
+             <script>
+		           
+		             $( document ).ready(function() {
+                           $(".updateButton").prop('disabled', true); 
+                         });
+		                   function disableUpdate(){
+			             
+			                 $(".addButton").prop('disabled', true);
+			                 $(".updateButton").prop('disabled', false);
+		                   }
+			                  function disableAdd(){
+						      $(".addButton").prop('disabled', false);
+				              $(".updateButton").prop('disabled', true); 
+		                 }
+		</script> 
 	</ui:composition>
 </h:body>
 

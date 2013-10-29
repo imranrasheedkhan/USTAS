@@ -1,113 +1,131 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org./1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:a4j="http://richfaces.org/a4j"
-	  xmlns:rich="http://richfaces.org/rich"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
-     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
-         <title>Break Creation Screen</title>
-            <style type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-            </style>  
-
-</head>
-    <body>
+<h:head></h:head>
+    <h:body>
       <ui:composition>
+       
 	    <fieldset class="fieldset">
 	 
-	      <legend class="legend"><font color="orange" size="6">Break Creation</font></legend>
-	       <CENTER>
-	         <table id="Break_master" class="table" cellpadding="10" style="width: 75%" align="center">
-	          <tbody>
-	   <TR>
-	        <TD style="width: 100px"><h:outputText value="Break Name"></h:outputText></TD>
-	        <TD style="width: 50px"><h:inputText styleClass="inputText" value="#{breakMasterMB.model.breakInfo.breakType}" required="true" requiredMessage="Enter Break Name" size="25" maxlength="15" ></h:inputText></TD>
-	   </TR>
+	      <legend class="legend"><font color="orange" size="4">Break Creation</font></legend>
+	     
+	         <table id="Break_master" class="table" cellpadding="10" style="width:100%" align="center">
+	          <tbody style="width: 90%">  
+	   <tr>
+	        <td style="width: 100px"><h:outputText value="Break Name:"></h:outputText></td>
+	        <td style="width: 50px"><h:inputText id="txt_name"  styleClass="inputText" value="#{breakMasterMB.model.breakInfo.breakType}" required="true" requiredMessage="Enter Break Name" size="25" maxlength="15" ></h:inputText></td>
+	        <td> <rich:message  for="txt_name"/></td>
+	   </tr>  
 	      
-	   <TR>
-	        <TD style="width: 100px"><h:outputText value="Break Description"></h:outputText></TD>
-	        <TD style="width: 50px"><h:inputText styleClass="inputText" value="#{breakMasterMB.model.breakInfo.desc}" size="25" maxlength="30"></h:inputText></TD>
-	   </TR> 
+	   <tr>
+	        <td style="width: 100px"><h:outputText value="Break Description:"></h:outputText></td>
+	        <td style="width: 50px"><h:inputText id="break_desc" styleClass="inputText" required="true" requiredMessage="Please Enter Description" value="#{breakMasterMB.model.breakInfo.desc}" size="25" maxlength="30"></h:inputText></td>
+	         <td> <rich:message  for="break_desc"/></td>
+	   </tr> 
 	      
-	   <TR>
-	        <TD style="width: 100px"><h:outputText value="Start Time"></h:outputText></TD>
-	        <TD><rich:inputNumberSpinner value="#{breakMasterMB.model.starttimehr}" pattern="HH" minValue="0" maxValue="23" cycled="true"></rich:inputNumberSpinner>&nbsp;&nbsp;
-	            <rich:inputNumberSpinner value="#{breakMasterMB.model.starttimemin}" pattern="mm" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner>&nbsp;&nbsp;
-	            <rich:inputNumberSpinner value="#{breakMasterMB.model.starttimesec}" pattern="ss" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner>  </TD>
-<!--        <TD style="width: 50px"><h:inputText styleClass="inputText" value="#{breakMasterMB.model.breakInfo.startTime}" size="25"><f:convertDateTime pattern="HH:mm:ss"></f:convertDateTime> </h:inputText></TD> --> 
-	   </TR>   
+	   <tr>
+	        <td style="width: 140px"><h:outputText value="Start Time(hh:mm:ss):"></h:outputText></td>
+	        <td>
+	        
+	           <h:panelGroup id="txt_intime">
+	              <rich:inputNumberSpinner id="breakStartTimeDetail1" value="#{breakMasterMB.model.starttimehr}" inputSize="2" pattern="HH" minValue="0" maxValue="23" cycled="true"></rich:inputNumberSpinner>&nbsp;
+	              <rich:inputNumberSpinner id="breakStartTimeDetail2" value="#{breakMasterMB.model.starttimemin}" inputSize="2" pattern="mm" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner>&nbsp;
+	              <rich:inputNumberSpinner id="breakStartTimeDetail3" value="#{breakMasterMB.model.starttimesec}" inputSize="2" pattern="ss" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner>  
+                 </h:panelGroup></td>
+	   </tr>   
+	             
 	      
-	      
-	   <TR>
-	        <TD style="width: 100px"><h:outputText value="End Time"></h:outputText></TD>
-	        <TD><rich:inputNumberSpinner value="#{breakMasterMB.model.endtimehr}" pattern="HH" minValue="0" maxValue="24" cycled="true"></rich:inputNumberSpinner>&nbsp;&nbsp;
-	            <rich:inputNumberSpinner value="#{breakMasterMB.model.endtimemin}"  pattern="mm" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner>&nbsp;&nbsp;
-	            <rich:inputNumberSpinner value="#{breakMasterMB.model.endtimesec}"  pattern="ss" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner> </TD>
-<!-- 	    <TD style="width: 50px"><h:inputText styleClass="inputText" value="#{breakMasterMB.model.breakInfo.endTime}" size="25"><f:convertDateTime pattern="HH:mm:ss"></f:convertDateTime></h:inputText></TD> -->
-	   </TR> 
+	   <tr>
+	        <td style="width: 140px"><h:outputText value="End Time(hh:mm:ss) :"></h:outputText></td>
+	        <td>
+	              <h:panelGroup id="txt_out" >    
+	           <rich:inputNumberSpinner   id="breakEndTimeDetail1" value="#{breakMasterMB.model.endtimehr}" inputSize="2" pattern="HH" minValue="0" maxValue="24" cycled="true"></rich:inputNumberSpinner>&nbsp;
+	            <rich:inputNumberSpinner  id="breakEndTimeDetail2" value="#{breakMasterMB.model.endtimemin}" inputSize="2"  pattern="mm" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner>&nbsp;
+	            <rich:inputNumberSpinner  id="breakEndTimeDetail3" value="#{breakMasterMB.model.endtimesec}" inputSize="2" pattern="ss" minValue="0" maxValue="59" cycled="true"></rich:inputNumberSpinner>
+                
+                </h:panelGroup>
+                  </td>
+	   </tr> 
 	   
-	   <TR>
-	        <TD style="width: 100px"><h:outputText value="Remarks"></h:outputText></TD>
-	        <TD><h:inputText style="width:283px; height:60px;" styleClass="inputText" value="#{breakMasterMB.model.breakInfo.comments}" size="25" maxlength="30"></h:inputText></TD>
-	   </TR> 
+	   <tr>
+	        <td style="width: 100px"><h:outputText value="Remarks :"></h:outputText></td>
+	        <td><h:inputTextarea style="width:283px; height:60px;" onkeyup="maxTextAreaCharacter(this);" id="remarks" styleClass="inputText" value="#{breakMasterMB.model.breakInfo.comments}" size="25" /></td>
+	   </tr> 
 	      
-	   <TR>
-	        <TD style="width: 100px"><h:outputText value="Is Active"></h:outputText></TD>
-	        <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h:selectBooleanCheckbox value="#{breakMasterMB.model.breakInfo.active}"></h:selectBooleanCheckbox></TD>
-	   </TR>  
+	   <tr>
+	        <td style="width: 100px"><h:outputText value="Is Active :"></h:outputText></td>
+	        <td><h:selectBooleanCheckbox id="isActive" value="#{breakMasterMB.model.breakInfo.active}"></h:selectBooleanCheckbox></td>
+	   </tr>  
 	          </tbody>
 	        </table>
-	       </CENTER>
+	      
 	    
-	    
-	    <TABLE>
-	      <TR align="right">
-           <TD>
-               <h:button value="Clear" styleClass="orange" style="width:60px; height:30px;" ></h:button>&nbsp;&nbsp;
-               <a4j:commandButton   value="Add" styleClass="orange" style="width:60px; height:30px;"    actionListener="#{breakMasterMB.addBreak}" ></a4j:commandButton>&nbsp;&nbsp;
-               <a4j:commandButton id="update" value="Update" styleClass="orange" style="width:60px; height:30px;" rendered="#{menuBean.mode eq 'break'}" oncomplete="updatebreak()" actionListener="#{breakMasterMB.updateBreak}" ></a4j:commandButton>
-    
-           </TD>
-          </TR>  
-	     </TABLE>  
+	      
+	       
+        
 	    </fieldset>
-	  
+	
+	     <div style="width:100%;" align="right">
+               <h:button value="Clear" styleClass="orange" style="width:60px; height:30px;" ></h:button>&nbsp;
+           
+               <a4j:commandButton   value="Add" render="@form" onclick="if(!validateBreakTime()) return false;" 
+                oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"  styleClass="addButton" style="width:60px; height:30px;"   
+                actionListener="#{breakMasterMB.addBreak}" ></a4j:commandButton>&nbsp;
+            
+               <a4j:commandButton id="update" render="@form" onclick="if(!validateBreakTime()) return false;" 
+               oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"  value="Update" 
+               styleClass="updateButton" style="width:60px; height:30px;"   actionListener="#{breakMasterMB.updateBreak}" ></a4j:commandButton>
+           </div>
+	    
 	      <script>
-	                   var updatebreak= function() {
-						
-	                     document.getElementById('update').style.visibiliy="visible";
-				    };
-	               
+	              
+	      $( document ).ready(function() {
+              $(".updateButton").prop('disabled', true); 
+            });
+              function disableUpdate(){
+            
+                $(".addButton").prop('disabled', true);
+                $(".updateButton").prop('disabled', false);
+              }
+                 function disableAdd(){
+			      $(".addButton").prop('disabled', false);
+	              $(".updateButton").prop('disabled', true); 
+               }
+                 
+                 
 	      
 	      </script>
 	  
 	  
 	    <fieldset class="fieldset">
-	     <LEGEND class="legend"><FONT color="orange" size="6" > Break Detail</FONT></LEGEND>
-	      <CENTER>
-	       <TABLE id="Break_detail" class="table" cellpadding="10" style="width: 75%" align="center" >
-	        <TBODY>
-             <TR align="center">
-              <TD >
+	     <legend class="legend"><font color="orange" size="4" > Break Detail </font></legend>
+	
+	       <table id="Break_detail" class="table" cellpadding="10" style="width: 75%" align="center" >
+	        <tbody>
+             <tr align="center">
+              <td >
                <h:inputText id="serch_id" value="#{breakMasterMB.model.searchKey}" styleClass="inputText"></h:inputText>
-              </TD>
-              <TD>
+              </td>
+              <td>
 	           <a4j:commandButton action="#{breakMasterMB.display}" value="Search" styleClass="orange" style="width:60px;height:30px" render="table" execute="serch_id" id="searchbtn"></a4j:commandButton>
-	          </TD>  
+	          </td>  
               
-             </TR>	        
-	         <TR>
-	          <TD colspan="2" >
+             </tr>	        
+	         <tr>
+	          <td colspan="2" >
 	            <rich:dataTable var="record"  id="table" value="#{breakMasterMB.model.breakList}"
-                                style="width:100%;
+                                style="width:100%; 
                                 height:100%;
                                 text-align:center"
                                 styleClass="BreakTable"
-                                rows="6"
+                                rows="6" noDataLabel="No Record is Exist"
                                 headerClass="BreakTableHeader"
-                                onrowmousemove="this.style.backgroundColor='orange'" 
+                               	onrowmousemove="this.style.backgroundColor='#FFEBDA'"
                                 onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
                                 rowClasses="odd-row,even-row">
                         
@@ -139,15 +157,16 @@
          
                 <rich:column width="15%">
                  <f:facet name="header">
-                  <h:outputText value="Total Break Time"></h:outputText>
+                  <h:outputText value="Total Time"></h:outputText>
                  </f:facet>
+                     <h:outputText value="#{record.totalTime}"></h:outputText>
                 </rich:column>
                 
                 <rich:column width="15%">
                  <f:facet name="header">
                   <h:outputText value="Action"></h:outputText>
                  </f:facet>
-                 <a4j:commandLink action="#{breakMasterMB.edit}" execute="@this" id="edit" render="centreContentForm">
+                 <a4j:commandLink action="#{breakMasterMB.edit}" execute="@this" id="edit" render="txt_name,break_desc,remarks,isActive,txt_intime,txt_out" onclick="disableUpdate();" >
                   <f:setPropertyActionListener target="#{breakMasterMB.model.breakInfo}" value="#{record}"></f:setPropertyActionListener>
                  <h:graphicImage      value="/resources/images/editrecord.gif"/>
                  </a4j:commandLink>
@@ -159,13 +178,13 @@
                    </f:facet>  
                 
                </rich:dataTable>    
-              </TD>
-             </TR>	
-            </TBODY>
-	       </TABLE>
-	      </CENTER>
+              </td>
+             </tr>	
+            </tbody>
+	       </table>  
+	    
 	     </fieldset>
 	    </ui:composition>
+  </h:body>
 
-</body>
 </html>

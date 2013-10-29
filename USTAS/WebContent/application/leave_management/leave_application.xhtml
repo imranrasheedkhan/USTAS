@@ -21,9 +21,11 @@
 			 <td style="width:50px">Employee ID :</td>
 			 <td style="width:100px"><h:inputText  id="emp_id" required="true" styleClass="inputText" value="#{leaveApplicationMB.model.empInfo.empNo}" 
 			 disabled="#{menuBean.mode eq 'approval'}" requiredMessage="Please Enter Employee ID" >
-			  <a4j:ajax event="change" listener="#{leaveApplicationMB.leaveInfo}" render="@form"></a4j:ajax>
-			 </h:inputText></td>
-			  <td style="width: 50px" align="left"><rich:message for="emp_id"/></td> 
+			   <a4j:ajax event="change" listener="#{leaveApplicationMB.leaveInfo}" render="@form"></a4j:ajax>
+			 </h:inputText>
+			
+			 </td>
+			  <td style="width: 50px" align="left"> <rich:message for="emp_id"/></td> 
 			 <td style="width: 50px">Name:</td>
 			 <td style="width: 100px"><h:inputText  id="emp_name" styleClass="inputText" value="#{leaveApplicationMB.model.empInfo.firstName} #{leaveApplicationMB.model.empInfo.lastName}"  readonly="true" disabled="#{menuBean.mode eq 'approval'}" ></h:inputText></td>
 			  <td style="width: 50px"></td>
@@ -55,18 +57,20 @@
 			  </tr>  
 			   <tr><td style="width: 50px">Leave Type:</td>
 			  
-			   <td style="width: 50px"><h:selectOneMenu value="#{leaveApplicationMB.model.leaveAllotment.indexNo}" disabled="#{menuBean.mode eq 'approval'}" >
+			   <td style="width: 50px"><h:selectOneMenu id="leaveType" value="#{leaveApplicationMB.model.selectedLeave.indexNo}" disabled="#{menuBean.mode eq 'approval'}" >
 			                          <f:selectItem itemLabel="Select "></f:selectItem>
 			                          <f:selectItems value="#{leaveApplicationMB.model.leaveTypeList}"></f:selectItems>
+			                       
 			   </h:selectOneMenu></td> 
 			
 			  </tr>
 			  
 			  <tr><td style="width: 50px">From Date:</td>
-			  <td style="width: 100px"><rich:calendar required="true"  requiredMessage="Enter From date" id="from_date" disabled="#{menuBean.mode eq 'approval'}" value="#{leaveApplicationMB.model.leaveApplication.fromDate}" ></rich:calendar></td>
+			  <td style="width: 100px"><rich:calendar required="true" onchange="currentBusinessDate(document.getElementById('centreContentForm:FROM_DTInputDate'),document.getElementById('centreContentForm:TO_DATEInputDate'));" 
+			   requiredMessage="Enter From date" id="FROM_DT" disabled="#{menuBean.mode eq 'approval'}" value="#{leaveApplicationMB.model.leaveApplication.fromDate}" ></rich:calendar></td>
 			   <td style="width: 50px"><rich:message for="from_date"/></td>     
 			  <td style="width: 50px">To Date:</td>
-			  <td style="width: 100px"><rich:calendar required="true"   requiredMessage="Enter To date" id="to_date" disabled="#{menuBean.mode eq 'approval'}" value="#{leaveApplicationMB.model.leaveApplication.toDate}" ></rich:calendar></td>
+			  <td style="width: 100px"><rich:calendar required="true" onchange="checkDate();"  requiredMessage="Enter To date" id="TO_DATE" disabled="#{menuBean.mode eq 'approval'}" value="#{leaveApplicationMB.model.leaveApplication.toDate}" ></rich:calendar></td>
 			  <td style="width: 50px"><rich:message for="to_date"/></td>   
 			  </tr>     
 			  <tr><td style="width: 50px">Is Half Day:</td>
@@ -100,13 +104,31 @@
 			<h:button value="Clear" style="Width:70px;height:30px"></h:button>
 			&nbsp;
 			<a4j:commandButton execute="@form" value="Apply"
-				style="Width:70px;height:30px" action="#{leaveApplicationMB.addLeaveApp}" disabled="#{menuBean.mode eq 'approval'}"  oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"></a4j:commandButton>
+				style="Width:70px;height:30px" render="@form" action="#{leaveApplicationMB.addLeaveApp}" disabled="#{menuBean.mode eq 'approval'}"  oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"></a4j:commandButton>
 			&nbsp;
-			<a4j:commandButton value="Approve"  actionListener="#{leaveApplicationMB.approveLeave}" disabled="#{menuBean.mode ne 'approval'}" style="Width:70px;height:30px"></a4j:commandButton>
+			<a4j:commandButton value="Approve" render="@form" actionListener="#{leaveApplicationMB.approveLeave}" disabled="#{menuBean.mode ne 'approval'}" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" style="Width:70px;height:30px"></a4j:commandButton>
 		</div>
 		<br />
 		<br />     
 		<br />
+		
+		     <script type="text/javascript">
+          function checkDate() {
+        	  var iDate=document.getElementById('centreContentForm:FROM_DTInputDate').value;
+    	      var issueDate=new Date(iDate);
+    	      var expiryDate=new Date(document.getElementById("centreContentForm:TO_DATEInputDate").value);
+          if(issueDate >expiryDate || iDate.length==0)
+             {
+              document.getElementById("centreContentForm:TO_DATEInputDate").value="";
+      	      alert("To Date Should be greater than From Date");
+      	      return false;
+      	     }
+          
+        
+           return true;
+       
+      }
+</script>
 			</ui:composition>
 			</h:body>
 </html>

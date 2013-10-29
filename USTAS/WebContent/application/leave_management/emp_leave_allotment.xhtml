@@ -16,7 +16,7 @@
 			</legend>
 		<table id="emp_leave_allot" class="table" cellpadding="10"
 				style="width: 40%" align="center">
-				<tr>
+				<tr> 
 				<td>For Year:</td>
 				<td>
                 <h:selectOneMenu value="#{empLeaveAllotmentMB.model.empLeaveAllotmnet.forYear}" id="for_year" required="true" requiredMessage="Select Year">
@@ -30,7 +30,7 @@
                   <f:selectItem  itemLabel="2015" itemValue="2015"></f:selectItem>
                   <f:selectItem  itemLabel="2015" itemValue="2015"></f:selectItem>
                   <f:selectItem  itemLabel="2016" itemValue="2016"></f:selectItem>
-                  <a4j:ajax render="empList_table" event="change" listener="#{empLeaveAllotmentMB.selectLeaveTypeList}"></a4j:ajax>  
+                  <a4j:ajax render="empList_table" event="change"  listener="#{empLeaveAllotmentMB.selectEmployees}"></a4j:ajax>  
                 </h:selectOneMenu>
         
                </td>
@@ -47,16 +47,24 @@
 					onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"       
 					rowClasses="odd-row,even-row"> 
 					<rich:column width="15%">       
-						<f:facet name="header">
-						<h:outputText value="Select"></h:outputText>   
+						<f:facet name="header">   
+						 <h:outputText  value="Select"  ></h:outputText>
+<!--                            <br></br> -->
+<!--                             <h:selectBooleanCheckbox id="allSelect"   onchange="checkAllCheckboxesInTable(this);" > -->
+<!--                                   <a4j:ajax  event="change"   render="dataTable,empList_table" > -->
+						     
+<!-- 						    </a4j:ajax> -->
+<!--                             </h:selectBooleanCheckbox>  -->
 						</f:facet>    
-						 <h:selectBooleanCheckbox  value="#{empRecord.flag}"    valueChangeListener="#{empLeaveAllotmentMB.selectLeaveEmployee}">
+						 <h:selectBooleanCheckbox  value="#{empRecord.flag}" id="checkBox"  styleClass="booleanCheckBox">
 						    
-						    <a4j:ajax  event="change" execute="empList_table" render="dataTable,empList_table"  oncomplete="#{rich:component('Allot_LeavePanel')}.show();" ></a4j:ajax>
+						    <a4j:ajax  event="change"   render="dataTable,empList_table"   >
+						     
+						    </a4j:ajax>
 						 
-						 </h:selectBooleanCheckbox>   
+						 </h:selectBooleanCheckbox>    
 						</rich:column>
-					   
+					    
 					<rich:column width="15%">       
 						<f:facet name="header">
 						<h:outputText value="Employee ID"></h:outputText>   
@@ -70,16 +78,16 @@
 						<h:outputText value="#{empRecord.firstName} #{empRecord.lastName}"></h:outputText>  
 					    </rich:column>
 					    
-<!-- 					     <rich:column width="30%"> -->
-<!-- 						 <f:facet name="header"> -->
-<!-- 						<h:outputText value="Allot Leave"></h:outputText>   -->
-<!-- 						</f:facet> -->
-<!--                             <a4j:commandLink value="Allot" render="dataTable,empList_table"  action="#{empLeaveAllotmentMB.selectLeaveEmployee}" execute="@this" oncomplete="#{rich:component('Allot_LeavePanel')}.show();" > -->
+					     <rich:column width="30%">
+						 <f:facet name="header">
+						<h:outputText value="Allot Leave"></h:outputText>  
+						</f:facet>
+                            <a4j:commandLink disabled="#{!(empRecord.flag)}" value="Click" render="dataTable,empList_table"  action="#{empLeaveAllotmentMB.selectLeaveEmployee}" execute="@this" oncomplete="#{rich:component('Allot_LeavePanel')}.show();" >
                                  
-<!--                                   <f:setPropertyActionListener  target="#{empLeaveAllotmentMB.model.empInfo}" value="#{empRecord}"></f:setPropertyActionListener> -->
+                                  <f:setPropertyActionListener  target="#{empLeaveAllotmentMB.model.empInfo}" value="#{empRecord}"></f:setPropertyActionListener>
                               
-<!--                             </a4j:commandLink> -->
-<!-- 					    </rich:column>  -->
+                            </a4j:commandLink>
+					    </rich:column> 
 					        
 					  <f:facet name="footer"> 
                <rich:dataScroller for="empList_table"  execute="empList_table"
@@ -96,7 +104,7 @@
 			     <h:button value="Clear" style="Width:70px;height:30px"></h:button>
 			    &nbsp;
 			   <a4j:commandButton execute="@form" value="Save"
-				style="Width:70px;height:30px" render="empList_table" actionListener="#{empLeaveAllotmentMB.addAllotedLeave}"   oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"></a4j:commandButton>
+				style="Width:70px;height:30px" render="empList_table" onclick="if(!selectCheckBox()) return false;" actionListener="#{empLeaveAllotmentMB.addAllotedLeave}"   oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();"></a4j:commandButton>
 			   &nbsp;
 <!-- 			<a4j:commandButton value="Update"   style="Width:70px;height:30px"></a4j:commandButton> -->
 		   </div>
@@ -104,9 +112,10 @@
 		<br />     
 		<br /> 
 		
-      <rich:popupPanel id="Allot_LeavePanel"  
-            autosized="true" modal="true" moveable="false" zindex="2000" height="200" width="500" 
+      <rich:popupPanel id="Allot_LeavePanel"  domElementAttachment="form"
+            autosized="true"  moveable="false" zindex="2000" height="200" width="500" 
             onmaskclick="#{rich:component('Allot_LeavePanel')}.hide()"   >
+        
             <rich:dataTable value="#{empLeaveAllotmentMB.model.empInfo.empLeaveAllotment}" var="record" 
              id="dataTable"	style="width:100%;height:100%;text-align:center"  >
 				  <rich:column width="15%">       
@@ -115,19 +124,19 @@
 					</f:facet>
 				    <h:outputText value="#{record.leaveInfos.shortName}"></h:outputText>
 				  </rich:column>
-			     <rich:column width="15%">       
+			     <rich:column width="15%">           
 				  <f:facet name="header">
-				   <h:outputText value="Days"></h:outputText>   
+				   <h:outputText value="Days"></h:outputText>    
 					</f:facet>
-		            <h:inputText value="#{record.noOfDays}"  size="10">  
-		               <a4j:ajax event="change" ></a4j:ajax>
-		            </h:inputText> 
+		            <h:inputText  styleClass="dayInputText" id="days"   onblur="validateDays(this);" maxlength="5" value="#{record.noOfDays}"  size="10">    
+		                    <a4j:ajax  event="change" execute="days"  render="days"/>
+		            </h:inputText>     
 		   </rich:column>
 						   
 			 </rich:dataTable>
-           
          
-        </rich:popupPanel>  
+        </rich:popupPanel>   
+          
 				</ui:composition>
 		  </h:body>
 	    </html>

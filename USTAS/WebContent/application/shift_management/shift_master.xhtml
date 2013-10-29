@@ -10,6 +10,7 @@
 
 <h:body>
 	<ui:composition>
+	
 		<fieldset class="fieldset">
 			<legend class="legend">
 				<font color="orange" size="4">Shift Creation</font>
@@ -19,25 +20,25 @@
 				<tbody>
 					<tr>
 						<td style="width: 100px"><h:outputText value="Shift Name:" /></td>
-						<td style="width: 50px"><h:inputText styleClass="inputText" required="true" id="shift_name" requiredMessage="Enter Shift name"
+						<td style="width: 50px"><h:inputText maxlength="60" styleClass="inputText" required="true" id="shift_name" requiredMessage="Enter Shift name"
 								value="#{shiftMasterMB.model.shiftInfo.shiftName}" size="25" /></td>
 					    <td style="width: 50px"><rich:message for="shift_name"/></td>		
-						<td style="width: 50px"><h:outputText value="In Time:" /></td>
-			  			<td style="width:150px"><h:panelGroup>
+						<td style="width: 50px"><h:outputText value="In Time:(hh:mm:ss)" /></td>
+			  			<td style="width:200px"><h:panelGroup>
 								<div align="left" style="float: left;">
 									<rich:inputNumberSpinner
 										value="#{shiftMasterMB.model.inTomeHr}"
-										id="shiftStartTimeDetail1" required="false" minValue="0"
-										maxValue="23" inputSize="2" />
+										id="shiftStartTimeDetail1" required="true" minValue="0"
+										maxValue="23" inputSize="2"  />
 								</div>  
 								<div style="float: left; margin-left: 9px">
 									<rich:inputNumberSpinner
 										value="#{shiftMasterMB.model.inTimeMin}"
-										id="shiftStartTimeDetail2" required="false" minValue="0"
+										id="shiftStartTimeDetail2" required="true" minValue="0"
 										maxValue="59" inputSize="2" />
 								</div>
-								<div style="float: left; margin-left: 10px">
-									<rich:inputNumberSpinner
+								<div style="float: left; margin-left: 10px">  
+									<rich:inputNumberSpinner required="true"
 										value="#{shiftMasterMB.model.inTimeSec}"
 										id="shiftStartTimeDetail3" minValue="0" maxValue="59"
 										inputSize="2" />
@@ -47,22 +48,22 @@
 					</tr>
 					<tr>
 
-						<td style="width: 100px"><h:outputText value="Out Time:" /></td>
+						<td style="width: 100px"><h:outputText value="Out Time:(hh:mm:ss)" /></td>
 						<td style="width: 50px"><h:panelGroup>
 								<div align="left" style="float: left;">
-									<rich:inputNumberSpinner
+									<rich:inputNumberSpinner required="true"
 										value="#{shiftMasterMB.model.outTimeHr}"
 										id="shiftEndTimeDetail1" minValue="0" maxValue="23"
-										inputSize="2" />
+										inputSize="2"  />
 								</div>
 								<div style="float: left; margin-left: 9px">
 									<rich:inputNumberSpinner
 										value="#{shiftMasterMB.model.outTimeMin}"
-										id="shiftEndTimeDetail2" required="false" minValue="0"
-										maxValue="59" inputSize="2" />
+										id="shiftEndTimeDetail2" required="true" minValue="0"
+										maxValue="59" inputSize="2"  />
 								</div>
 								<div style="float: left; margin-left: 10px">
-									<rich:inputNumberSpinner
+									<rich:inputNumberSpinner required="true"
 										value="#{shiftMasterMB.model.outTimeSec}"
 										id="shiftEndTimeDetail3" minValue="0" maxValue="59"
 										inputSize="2" />
@@ -74,7 +75,7 @@
 								<div align="left" style="float: left;">
 									<rich:inputNumberSpinner
 										value="#{shiftMasterMB.model.shiftInfo.lateComingLimit}"
-										id="shiftLateTimeDetail1" minValue="0" maxValue="200"
+										id="shiftLateTimeDetail1" minValue="0" maxValue="60"
 										inputSize="2" />
 								</div>
 
@@ -90,7 +91,7 @@
 								<div align="left" style="float: left;">
 									<rich:inputNumberSpinner
 										value="#{shiftMasterMB.model.shiftInfo.earlyGoingLimit}"
-										id="shiftEarlyTimeDetail1" minValue="0" maxValue="200"
+										id="shiftEarlyTimeDetail1" minValue="0" maxValue="60"
 										inputSize="2" />
 								</div>
 
@@ -100,7 +101,7 @@
 					<tr>
 
 						<td style="width: 100px"><h:outputText value="Description:" /></td>
-						<td style="width: 50px"><h:inputTextarea required="true" requiredMessage="Enter Description"
+						<td style="width: 50px"><h:inputTextarea required="true" onkeyup="maxTextAreaCharacter(this);" requiredMessage="Enter Description"
 								styleClass="inputText" id="shift_desc"
 								value="#{shiftMasterMB.model.shiftInfo.shiftDesc}" rows="2"
 								cols="20" /></td>
@@ -125,14 +126,14 @@
 				align="center">
 				<tbody>
 				 <tr><td  style="width: 10%">No of Week OFF</td>
-				    <td  style="width: 10%"><h:inputText styleClass="inputText" required="true" id="shift_off" requiredMessage="Enter Week Off" value="#{shiftMasterMB.model.shiftInfo.weekOfNo}" /></td>
+				    <td  style="width: 10%"><h:inputText styleClass="inputText" onchange="validateOFF(this);" required="true" id="shift_off" requiredMessage="Enter Week Off" value="#{shiftMasterMB.model.shiftInfo.weekOfNo}" /></td>
 				    <td style="width: 100px"><rich:message for="shift_off"/></td>		
 				 </tr>
 					<tr>
 						<td style="width: 10%"></td>
 						<td style="width: 10%">Monday</td>  
 						<td style="width: 10%">Tuesday</td>
-						<td style="width: 10%">Wednesday</td>
+						<td style="width: 10%">Wednesday</td>  
 						<td style="width: 10%">Thursday</td>
 						<td style="width: 10%">Friday</td>
 						<td style="width: 10%">Saturday</td>
@@ -140,38 +141,38 @@
 					</tr>
 					<tr>
 						<td style="width: 10%">OFF</td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"  
+						<td style="width: 10%"><h:selectBooleanCheckbox id="monOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"  
 								value="#{shiftMasterMB.model.monWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="tuesOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.tueWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="wedOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.wedWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="thursOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.thursWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="friOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.friWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="satOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.satWeekOff}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="sunOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.sunWeekOff}" /></td>
 					</tr>
 
 					<tr>
 						<td style="width: 10%">Alternate OFF</td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="monAltOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.mondayAlternateOFF}" >
 								</h:selectBooleanCheckbox></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="tuesAltOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.tueAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="wedAltOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.wedAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="thursAltOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.thursAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="friAltOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.friAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="satAltOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.satAlternateOFF}" /></td>
-						<td style="width: 10%"><h:selectBooleanCheckbox styleClass="booleanCheckBox" onchange="checkAllOff(this);"
+						<td style="width: 10%"><h:selectBooleanCheckbox id="sunAltOFF" styleClass="booleanCheckBox" onchange="checkAllOff(this);"
 								value="#{shiftMasterMB.model.sunAlternateOFF}" /></td>
 					</tr>
 
@@ -191,7 +192,7 @@
 							<div align="left" style="float: left;">
 								<rich:inputNumberSpinner
 									value="#{shiftMasterMB.model.overTimeHr}"
-									id="shiftOverTimeDetail1" minValue="0" maxValue="23"
+									id="shiftOverTimeDetail1" minValue="0" maxValue="4"
 									inputSize="2" />
 							</div>
 							<div style="float: left; margin-left: 9px">
@@ -219,7 +220,7 @@
 				<rich:dataTable value="#{shiftMasterMB.model.breakList}" 
 					var="breakrecord" id="table"   
 					style="width:70%;height:100%;text-align:center"
-					styleClass="searchTable" rows="5" headerClass="searchTableHeader"
+					styleClass="searchTable" headerClass="searchTableHeader"
 					onrowmousemove="this.style.backgroundColor='#FFEBDA'"
 					onrowmouseout="this.style.backgroundColor='#{a4jSkin.rowBackgroundColor}'"
 					rowClasses="odd-row,even-row">
@@ -242,7 +243,7 @@
 							<h:outputText value="Start Time"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{breakrecord.startTime}">
-					      <f:convertDateTime pattern="hh:mm:ss" />
+
 						</h:outputText>
 					</rich:column>
 
@@ -251,8 +252,19 @@
 							<h:outputText value="End Time"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{breakrecord.endTime}" >
-						 <f:convertDateTime pattern="hh:mm:ss" />
+
 						</h:outputText>
+					</rich:column>
+					<rich:column width="10%">
+						<f:facet name="header">
+							<h:outputText value="Action"></h:outputText>
+						</f:facet>
+					    
+						<a4j:commandLink action="#{shiftMasterMB.deleteBreak}"  execute="@this" title="Delete Break" render="table">
+						      <h:graphicImage      value="/resources/images/close.gif" />
+						      <f:setPropertyActionListener target="#{shiftMasterMB.model.breakInfo}" value="#{breakrecord}"></f:setPropertyActionListener>
+						     
+						</a4j:commandLink> 
 					</rich:column>
 
 				</rich:dataTable>
@@ -268,14 +280,20 @@
 			<h:button value="Clear" style="Width:70px;height:30px"></h:button>
 			&nbsp;&nbsp;
 			<a4j:commandButton execute="@form" value="Save"
-				style="Width:70px;height:30px" disabled="#{menuBean.mode ne 'addShift'}" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" action="#{shiftMasterMB.addShift}"></a4j:commandButton>
+				style="Width:70px;height:30px" styleClass="addButton" onclick="if(!validateShiftTime()) return false;"  
+				render="@form" disabled="#{menuBean.mode ne 'addShift'}" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" action="#{shiftMasterMB.addShift}"></a4j:commandButton>
 			&nbsp;&nbsp;
-			<a4j:commandButton value="Update" disabled="#{menuBean.mode ne 'updateShift'}" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" actionListener="#{shiftMasterMB.updateShift}" style="Width:70px;height:30px"></a4j:commandButton>
+			<a4j:commandButton value="Update" styleClass="updateButton" onclick="if(!validateShiftTime()) return false;" render="@form" disabled="#{menuBean.mode ne 'updateShift'}" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" actionListener="#{shiftMasterMB.updateShift}" style="Width:70px;height:30px">
+			  
+			</a4j:commandButton>
 		</div>
-		<br />
+		<br />   
 		<br />
 		<br />  
 		<script>
+		
+
+		
 		  function checkAllOff(obj){
 			   var off=document.getElementById("centreContentForm:shift_off").value;   
 			   var count=0;
@@ -294,10 +312,57 @@
 			    	      return false;
 			    	    }
 		       	     });
-		           }   
+		           }
+			   if(document.getElementById("centreContentForm:monOFF").checked==true)
+				   document.getElementById("centreContentForm:monAltOFF").checked=false;
+			   if(document.getElementById("centreContentForm:tuesOFF").checked==true)
+				   document.getElementById("centreContentForm:tuesAltOFF").checked=false;
+			   if(document.getElementById("centreContentForm:wedOFF").checked==true)
+				   document.getElementById("centreContentForm:wedAltOFF").checked=false;
+			   if(document.getElementById("centreContentForm:thursOFF").checked==true)
+				   document.getElementById("centreContentForm:thursAltOFF").checked=false;
+			   if(document.getElementById("centreContentForm:friOFF").checked==true)
+				   document.getElementById("centreContentForm:friAltOFF").checked=false;
+			   if(document.getElementById("centreContentForm:satOFF").checked==true)
+				   document.getElementById("centreContentForm:satAltOFF").checked=false;
+			   if(document.getElementById("centreContentForm:sunOFF").checked==true)
+				   document.getElementById("centreContentForm:sunAltOFF").checked=false;
 		  }
+		  
+		  function validateOFF(obj)
+		    {
+			   var val=obj.value;
+			  if(isNaN(obj.value))
+				 {
+				  alert("Please enter Number only");
+				  obj.value="";
+				 }
+			  if(val>3)
+				  {
+				  alert("Week Off can not be greater than 3");
+				  obj.value="";     
+				  }
+			   $(".booleanCheckBox").each(function(){   
+				   $(this).prop('disabled', false); 
+			   });
+			   $(".booleanCheckBox").each(function(){   
+				   $(this).prop('checked', false); 
+			   }); 
+			  
+		    }
+		  
+		  function disableAdd(){
+		      $(".addButton").prop('disabled', false);
+              $(".updateButton").prop('disabled', true); 
+           }
+		  
+		
+		   
+		  
 		</script> 
+	
 	</ui:composition>
+	
 </h:body>
   
 </html>

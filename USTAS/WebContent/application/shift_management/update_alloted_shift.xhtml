@@ -44,7 +44,7 @@
 									<h:outputText value="Select"></h:outputText>
 								</f:facet>
 								
-								<h:selectBooleanCheckbox value="#{shiftRecord.shiftAlloted}" id="selectEmp" >
+								<h:selectBooleanCheckbox value="#{shiftRecord.shiftAlloted}" id="selectEmp" styleClass="booleanCheckBox" >
 									   <a4j:ajax event="change" render="selectEmp"  ></a4j:ajax>  
 								</h:selectBooleanCheckbox> 
 							</rich:column>
@@ -69,7 +69,7 @@
 								<f:facet name="header">
 									<h:outputText value="From Date"></h:outputText>
 								</f:facet>
-								<rich:calendar
+								<rich:calendar id="FROM_DT"
 									value="#{shiftRecord.fromDate}">
 							</rich:calendar>
                            </rich:column>
@@ -77,8 +77,8 @@
 								<f:facet name="header">
 									<h:outputText value="To Date "></h:outputText>
 								</f:facet>
-								<rich:calendar
-									value="#{shiftRecord.toDate}">
+								<rich:calendar id="TO_DATE" 
+									value="#{shiftRecord.toDate}"> 
 							    </rich:calendar>
                            </rich:column>
                            
@@ -115,15 +115,30 @@
 				 <div style="width:100%" align="right"> 
              <h:button value="Clear" style="Width:70px;height:30px"></h:button>
              &nbsp; 
-           <a4j:commandButton value="Update" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" 
+           <a4j:commandButton value="Update" onclick="if(!selectCheckBox()) return false;" oncomplete="if(#{!facesContext.validationFailed})#{rich:component('confirmation')}.show();" 
               execute="@form" actionListener="#{shiftAllotmentMB.updateShiftAllotment}" style="Width:70px;height:30px"></a4j:commandButton>
              &nbsp;
          </div>  
 		<br />
 		<br />     
 		<br /> 
-		
-   
+		    <script type="text/javascript">
+            function checkDate() {
+        	  var iDate=document.getElementById("centreContentForm:FROM_DTInputDate").value;
+        	  alert("Hi");
+    	      var issueDate=new Date(iDate);
+    	      var expiryDate=new Date(document.getElementById("centreContentForm:TO_DATEInputDate").value);
+            if(issueDate >expiryDate || iDate.length==0)
+                {
+               document.getElementById("centreContentForm:TO_DATEInputDate").value="";  
+      	       alert("To Date Should be greater than From Date");
+      	       return false;
+      	       }
+                return true;
+       
+            }  
+        </script>
+           
 				</ui:composition>
 		  </h:body>
 	    </html>
