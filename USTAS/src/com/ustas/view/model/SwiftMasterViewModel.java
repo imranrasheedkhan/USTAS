@@ -369,24 +369,26 @@ public class SwiftMasterViewModel implements Serializable {
 		  
 		   }catch(Exception e){e.getStackTrace();}
 		  
-		  if(this.monWeekOff==true)
+		  if(this.monWeekOff==true )
 		   {
 			  if(shiftInfo.getWeekOfDay1()==null)
 			    shiftInfo.setWeekOfDay1("Monday");
-			  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null)
+			  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Monday")))
 			    shiftInfo.setWeekOfDay2("Monday");
-		      if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+		      if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Monday"))
+		    		  && shiftInfo.getWeekOfDay2()!=null && !(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Monday")))
 				shiftInfo.setWeekOfDay3("Monday");
 		   }
 		  if(this.tueWeekOff==true)
 		   {
-			  if(shiftInfo.getWeekOfDay1()==null)
+			  if(shiftInfo.getWeekOfDay1()==null)    
 			   shiftInfo.setWeekOfDay1("Tuesday");
 			  
-			  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null)
+			  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Tuesday")))
 			   shiftInfo.setWeekOfDay2("Tuesday");
 			  
-			  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+			  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Tuesday"))
+					  && shiftInfo.getWeekOfDay2()!=null && !(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Tuesday")))
 				shiftInfo.setWeekOfDay3("Tuesday");
 			 
 			 
@@ -396,10 +398,11 @@ public class SwiftMasterViewModel implements Serializable {
 			      if(shiftInfo.getWeekOfDay1()==null)
 				   shiftInfo.setWeekOfDay1("Wednesday");
 				  
-				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Wednesday")) )
 				   shiftInfo.setWeekOfDay2("Wednesday");
 				  
-				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Wednesday"))
+						  && shiftInfo.getWeekOfDay2()!=null && !(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Wednesday")))
 				    shiftInfo.setWeekOfDay3("Wednesday");
 		      }
 		  if(this.thursWeekOff==true)
@@ -407,10 +410,11 @@ public class SwiftMasterViewModel implements Serializable {
 			      if(shiftInfo.getWeekOfDay1()==null)
 				   shiftInfo.setWeekOfDay1("Thursday");
 				  
-				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Thursday")) )
 				   shiftInfo.setWeekOfDay2("Thursday");
 				  
-				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Thursday"))
+						  && shiftInfo.getWeekOfDay2()!=null && !(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Thursday")))
 				    shiftInfo.setWeekOfDay3("Thursday");
 		     }
 		   if(this.friWeekOff==true)
@@ -418,21 +422,23 @@ public class SwiftMasterViewModel implements Serializable {
 			      if(shiftInfo.getWeekOfDay1()==null)
 				   shiftInfo.setWeekOfDay1("Friday");
 				  
-				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
-				   shiftInfo.setWeekOfDay2("Thursday");
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Friday")))
+				   shiftInfo.setWeekOfDay2("Friday");
 				  
-				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
-				    shiftInfo.setWeekOfDay3("Thursday");
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()!=null &&  !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Friday"))
+						  && shiftInfo.getWeekOfDay2()!=null && !(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Friday")))
+				    shiftInfo.setWeekOfDay3("Friday");
 		     }
 		   if(this.satWeekOff==true)
 		     {
 			      if(shiftInfo.getWeekOfDay1()==null )
 				   shiftInfo.setWeekOfDay1("Saturday");
 				  
-				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null ) 
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()!=null &&  !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Saturday"))) 
 				   shiftInfo.setWeekOfDay2("Saturday");
 				  
-				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()!=null &&  !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Saturday"))
+						  && shiftInfo.getWeekOfDay2()!=null &&  !(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Saturday")))
 				    shiftInfo.setWeekOfDay3("Saturday");
 		     }
 		   if(this.sunWeekOff==true)
@@ -440,10 +446,11 @@ public class SwiftMasterViewModel implements Serializable {
 			      if(shiftInfo.getWeekOfDay1()==null)
 				   shiftInfo.setWeekOfDay1("Sunday");
 				  
-				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()==null )
+				  if(shiftInfo.getWeekOfDay2()==null && shiftInfo.getWeekOfDay1()!=null &&  !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Sunday")) )
 				   shiftInfo.setWeekOfDay2("Sunday");
 				  
-				  if(shiftInfo.getWeekOfDay3()==null && shiftInfo.getWeekOfDay1()==null && shiftInfo.getWeekOfDay2()==null)
+				  if(shiftInfo.getWeekOfDay3()==null  && shiftInfo.getWeekOfDay1()!=null && !(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Sunday"))
+						  && shiftInfo.getWeekOfDay2()!=null && !(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Sunday")))
 				    shiftInfo.setWeekOfDay3("Sunday");
 		     }
 		   if(this.mondayAlternateOFF && shiftInfo.getAlternateWeekOff()==null)
@@ -464,7 +471,7 @@ public class SwiftMasterViewModel implements Serializable {
 		  
 	    }
 	
-	public void breakShift()
+	public void breakShift()  
 	  {
 		 inTimeHr=shiftInfo.getInTime().getHours();
 		 inTimeMin=shiftInfo.getInTime().getMinutes();
@@ -492,7 +499,7 @@ public class SwiftMasterViewModel implements Serializable {
 			 if(shiftInfo.getWeekOfDay1().equalsIgnoreCase("Sunday"))
 			 sunWeekOff=true;
 			 
-			 shiftInfo.setWeekOfDay1("");
+			 shiftInfo.setWeekOfDay1(null);
 			  
 		  }
 		  
@@ -513,7 +520,7 @@ public class SwiftMasterViewModel implements Serializable {
 			 if(shiftInfo.getWeekOfDay2().equalsIgnoreCase("Sunday"))
 			 sunWeekOff=true;
 			 
-			 shiftInfo.setWeekOfDay2("");
+			 shiftInfo.setWeekOfDay2(null);
 			  
 		  }
 		  
@@ -533,7 +540,7 @@ public class SwiftMasterViewModel implements Serializable {
 			 satWeekOff=true;
 			 if(shiftInfo.getWeekOfDay3().equalsIgnoreCase("Sunday"))
 			 sunWeekOff=true;
-			 shiftInfo.setWeekOfDay3("");
+			 shiftInfo.setWeekOfDay3(null);
 			  
 		  }
 		  if(shiftInfo.getAlternateWeekOff()!=null && shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Monday"))
@@ -550,15 +557,44 @@ public class SwiftMasterViewModel implements Serializable {
 				 satWeekOff=true;
 		  if(shiftInfo.getAlternateWeekOff()!=null &&shiftInfo.getAlternateWeekOff().equalsIgnoreCase("Sunday"))
 				 sunAlternateOFF=true;
-		  if(shiftInfo.getAlternateWeekOff()==null &&shiftInfo.getBreakInfo()!=null) 
+		  if(shiftInfo.getBreakInfo()!=null) 
 		   setBreakList(shiftInfo.getBreakInfo());
 		   
-		  shiftInfo.setAlternateWeekOff("");
+		  shiftInfo.setAlternateWeekOff(null);
 		 
 	  }
 	 
 	
-	
+	public void clearShiftDetail()
+	  {
+		       inTimeHr=0;
+		       inTimeMin=0; 
+		       inTimeSec=0;  
+		       outTimeHr=0;
+		       outTimeMin=0;
+	           outTimeSec=0;
+		       overTimeHr=0;
+		       overTimeMin=0;
+		       overTimeSec =0;
+		       mondayAlternateOFF=false; 
+		   	   tueAlternateOFF=false;
+		   	   wedAlternateOFF=false;
+		   	   thursAlternateOFF=false;
+		   	   friAlternateOFF=false;
+		   	   satAlternateOFF=false;
+		   	   sunAlternateOFF=false;
+		   	   monWeekOff=false;
+			   tueWeekOff=false;
+			   wedWeekOff=false;
+			   thursWeekOff=false;
+			   friWeekOff=false;
+			   satWeekOff=false;
+			   sunWeekOff=false;
+	           shiftInfo=new ShiftInfo();
+			   breakList=new ArrayList<>();
+			   
+		
+	  }
 	
 	
 	

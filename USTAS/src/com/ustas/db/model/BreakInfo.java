@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="BREAK_MASTER")
@@ -47,6 +48,9 @@ public class BreakInfo implements Serializable {
     
     @Column(name="IS_ACTIVE")
 	private boolean isActive;
+    
+    @Transient
+    private Time totalTime;
 
 	public int getIndexNo() {
 		return indexNo;
@@ -110,6 +114,14 @@ public class BreakInfo implements Serializable {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public Time getTotalTime() {
+		return totalTime;
+	}
+
+	public void setTotalTime(Time totalTime) {
+		this.totalTime = totalTime;
 	}
 	
     

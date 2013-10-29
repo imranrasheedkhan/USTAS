@@ -98,7 +98,7 @@ public class ShiftAllotmentMB implements Serializable {
 			System.out.println("save");
 			String message = appBean.applicationPropreties.getProperty("ADD_SHIFT");
 		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
-			
+			shiftModel.setEmpshift(new EmpShiftAllotment());
 			
 		}
 		public void updateShiftAllotment(){
@@ -132,7 +132,8 @@ public class ShiftAllotmentMB implements Serializable {
 				{
 				 for(EmpShiftAllotment shiftAllotment : empInfo.getEmpShiftAllotments())
 				     {
-					  if(shiftAllotment.getToDate().after(shiftModel.getEmpshift().getFromDate())){
+					  if(shiftModel.getEmpshift().getFromDate().compareTo(shiftAllotment.getToDate())<=0
+							  && shiftModel.getEmpshift().getToDate().compareTo(shiftAllotment.getFromDate())>=0){  
 						empInfo.getEmpShiftAllotments().add(0,shiftAllotment); 
 						empInfo.setShiftAlloted(true);
 					   }
@@ -142,7 +143,7 @@ public class ShiftAllotmentMB implements Serializable {
 						  newShiftInfo=new ShiftInfo();
 						  newAllotment.setShiftInfo(newShiftInfo);
 					      empInfo.getEmpShiftAllotments().add(0,newAllotment); 
-					  }
+					  }  
 					  break;
 				     }
 				  }

@@ -25,15 +25,14 @@ public class HolidayMasterDAO implements Serializable {
 	{
 		System.out.println("reached 4"+holidayInfo);
 		try {  
-			System.out.println("reached 5");
+		
 			ut.begin();
-			System.out.println("reached 6");
+			
 	  		emm.persist(holidayInfo);
-	  		System.out.println("reached 6"+holidayInfo);
-			//emm.flush();
-			System.out.println("reached 3");
+	  
+		
 		   	ut.commit();
-		   	System.out.println("commit");
+		   
 		   } catch (Exception e) {
 			System.out.println(e.getMessage());
 			try {
@@ -51,14 +50,13 @@ public class HolidayMasterDAO implements Serializable {
 		List<HolidayInfo> HolidayList = new ArrayList<HolidayInfo>();
 		
 		try{
-			//System.out.println(name+"test");
+			
 			ut.begin();
-			//emm.createQuery("select ");
-			//  Query q = emm.createQuery("Select A from HolidayInfo A where (A.holidayName:name)");
-			  Query q 	 = emm.createQuery("Select A from HolidayInfo A where (A.holidayName LIKE :name)");
-			q.setParameter("name",name);
+			
+			  Query q 	 = emm.createQuery("Select A from HolidayInfo A where (A.name LIKE :name)");
+			q.setParameter("name","%"+name+"%");
 			HolidayList	=q.getResultList(); 
-		//	System.out.println(HolidayList+"test1");
+	
 			ut.commit();
 		}catch(Exception e){
 			System.out.println(e.getMessage());

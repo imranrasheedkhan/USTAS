@@ -2,8 +2,10 @@ package com.ustas.managedbeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +25,7 @@ import org.richfaces.component.UIDataTable;
 import com.ustas.application.managedbean.ApplicationBean;
 import com.ustas.db.dao.ShiftMasterDAO;
 import com.ustas.db.model.BreakInfo;
+import com.ustas.db.model.ShiftInfo;
 import com.ustas.view.model.SwiftMasterViewModel;
 
 @ManagedBean
@@ -79,6 +82,7 @@ public class ShiftMasterMB implements Serializable {
 	 
 	 List<BreakInfo> list=null ;
 	 
+	 @PostConstruct
 	 public void selectBreakListItem()
 	   {   
 		 List<SelectItem> itemList=new ArrayList<>();
@@ -94,8 +98,9 @@ public class ShiftMasterMB implements Serializable {
 	  {
 		
 		 System.out.println("In the addMore filed");
-		 selectBreakListItem();
-		 model.getBreakList().add(new BreakInfo());
+	// 	 selectBreakListItem();
+		 if(model.getBreakList().size()<model.getBreakSelectItemList().size())
+		    model.getBreakList().add(new BreakInfo());
 		 
 	  }
 	 
@@ -103,6 +108,7 @@ public class ShiftMasterMB implements Serializable {
 	  {
 		   System.out.println("In the break change ");
 	    	int breakValue= (int) e.getNewValue();
+	    	int oldValue= (int) e.getOldValue();
 	    	UIDataTable data = (UIDataTable) e.getComponent().findComponent("table");
 	        int rowIndex = data.getRowIndex();
 		 for(BreakInfo itemInfo:list)
@@ -111,16 +117,42 @@ public class ShiftMasterMB implements Serializable {
 			 {  
 				model.getBreakList().get(rowIndex).setStartTime(itemInfo.getStartTime());
 				model.getBreakList().get(rowIndex).setEndTime(itemInfo.getEndTime());
-				 
-			 }  
+				break; 
+			 } 
+		 
 		 }
+		
+			  Iterator<SelectItem> iterator=model.getBreakSelectItemList().iterator();
+			  while(iterator.hasNext())
+			   {
+				  SelectItem item=iterator.next();
+			   if(Integer.toString(breakValue).equalsIgnoreCase(item.getValue().toString()))
+				   item.setDisabled(true);
+			   if(Integer.toString(oldValue).equalsIgnoreCase(item.getValue().toString()))
+				   item.setDisabled(false);
+				
+			   }
+		 
 	   } 
-	
+	 
 	  public void selectShiftupdate()
 	    {
 	 	   System.out.println("in the select shift");
 	 	   selectBreakListItem();
 	 	   model.breakShift();
+	 	   
+	 	  for(BreakInfo breaknfo:model.getBreakList())
+	 	  {
+	 	    Iterator<SelectItem> iterator=model.getBreakSelectItemList().iterator();
+		     while(iterator.hasNext())
+		      {
+			    SelectItem item=iterator.next();
+			    if(Integer.toString(breaknfo.getIndexNo()).equalsIgnoreCase(item.getValue().toString()))
+			    item.setDisabled(true);
+			    
+		      }
+	   
+	 	  } 
 	    }
 		 
 	 
@@ -132,6 +164,8 @@ public class ShiftMasterMB implements Serializable {
 	 	   dao.addShift(model.getShiftInfo(), em, ut); 
 	 	   String message = appBean.applicationPropreties.getProperty("ADD_SHIFT");
 	 	   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+	 	   model.clearShiftDetail();
+	 	   
 	 	   
 	    }
 	    
@@ -149,7 +183,21 @@ public class ShiftMasterMB implements Serializable {
 		 dao.updateShift(model.getShiftInfo(), em, ut); 
 		 String message = appBean.applicationPropreties.getProperty("UPDATE_SHIFT");
 	 	 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+	 	 model.clearShiftDetail();  
 		 
 	  }
+	 
+	 public void deleteBreak()  
+	   {
+		  System.out.println("In the delete Row");
+		  model.getBreakList().remove(model.getBreakInfo());
+		  Iterator<SelectItem> iterator=model.getBreakSelectItemList().iterator();
+		  while(iterator.hasNext())
+		   {
+			SelectItem item=iterator.next();
+		   if(Integer.toString(model.getBreakInfo().getIndexNo()).equalsIgnoreCase(item.getValue().toString()))
+			   item.setDisabled(false);
+		   }
+	   }
 	  
 }

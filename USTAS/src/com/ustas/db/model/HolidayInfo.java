@@ -26,7 +26,7 @@ public class HolidayInfo implements Serializable {
 	private String holidayType;
 	
 	@Column(name="HOLIDAY_NAME")
-	private String holidayName;
+	private String name;
 	
 	@Column(name="HOLIDAY_DES")
 	private String holidayDesc;  
@@ -61,13 +61,7 @@ public class HolidayInfo implements Serializable {
 		this.holidayType = holidayType;
 	}
 
-	public String getHolidayName() {
-		return holidayName;
-	}
 
-	public void setHolidayName(String holidayName) {
-		this.holidayName = holidayName;
-	}
 
 	public String getHolidayDesc() {
 		return holidayDesc;
@@ -79,6 +73,16 @@ public class HolidayInfo implements Serializable {
 
 	public Date getFromDate() {
 		return fromDate;
+	}
+
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setFromDate(Date fromDate) {

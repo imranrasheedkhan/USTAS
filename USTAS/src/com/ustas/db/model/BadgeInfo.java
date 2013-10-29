@@ -37,15 +37,26 @@ public class BadgeInfo implements Serializable {
 	@Column(name="DEPARTMENT")
 	private String department;
 	
-	@Column(name="REMARKS") 
+	@Column(name="REMARKS")
 	private String remarks;
-    
+	
 	@OneToOne
 	@JoinColumn(name="EMP_INFO_EMP_NO")
 	private EmpInfo empInfo;
 	
+
+	
 	public int getIndexNo() {
 		return indexNo;
+	}
+
+	public EmpInfo getEmpInfo() {
+		return empInfo;
+	}
+
+	public void setEmpInfo(EmpInfo empInfo) {
+		System.out.println("in empinfo");
+		this.empInfo = empInfo;
 	}
 
 	public void setIndexNo(int indexNo) {
@@ -53,10 +64,13 @@ public class BadgeInfo implements Serializable {
 	}
 
 	public String getEmpName() {
+		
+		//System.out.println("hello");
 		return empName;
 	}
 
 	public void setEmpName(String empName) {
+		//System.out.println("hell");
 		this.empName = empName;
 	}
 

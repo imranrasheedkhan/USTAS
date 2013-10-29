@@ -3,10 +3,12 @@ package com.ustas.view.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import com.sun.xml.rpc.processor.modeler.j2ee.xml.securityRoleRefType;
 import com.ustas.db.model.EmpInfo;
 import com.ustas.db.model.EmpLeaveAllotment;
 import com.ustas.db.model.EmpLeaveAppEntry;
@@ -22,6 +24,18 @@ public class LeaveApplicationViewModel implements Serializable {
 	
 	private LeaveInfo leaveInfo=new LeaveInfo();
 	
+	private LeaveInfo selectedLeave=new LeaveInfo();
+	
+	public LeaveInfo getSelectedLeave() {
+		return selectedLeave;
+	}
+
+	public void setSelectedLeave(LeaveInfo selectedLeave) {
+		this.selectedLeave = selectedLeave;
+	}
+
+    private boolean isApprove;
+
 	private EmpLeaveAllotment leaveAllotment=new EmpLeaveAllotment();
 	
 	private EmpInfo  empInfo=new EmpInfo();
@@ -52,6 +66,14 @@ public class LeaveApplicationViewModel implements Serializable {
 
 	public float getTotalLeave() {
 		return totalLeave;
+	}
+
+	public boolean isApprove() {
+		return isApprove;
+	}
+
+	public void setApprove(boolean isApprove) {
+		this.isApprove = isApprove;
 	}
 
 	public void setTotalLeave(float totalLeave) {
@@ -239,7 +261,17 @@ public class LeaveApplicationViewModel implements Serializable {
 		     }
 
 
-		    
+		 public void clearData()
+		   {
+			 setEmpInfo(new EmpInfo());
+			 totalLeave=0;
+			 leaveTaken=0;
+			 remainingLeave=0;
+			 setLeaveTypeList(new ArrayList<SelectItem>());
+			 setLeaveApplication(new EmpLeaveAppEntry());
+			 getLeaveApplication().setApplicationDate(new Date());
+			 setApproveBy(new EmpInfo());
+		   }
 	      
 	 
 	

@@ -79,7 +79,7 @@ public class ShiftInfo implements Serializable {
 	
 	
 	public int getIndexNo() {
-		return indexNo;  
+		return indexNo;     
 	}
 
 	public void setIndexNo(int indexNo) {  

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -18,6 +19,7 @@ import com.ustas.application.managedbean.ApplicationBean;
 import com.ustas.db.dao.LeaveApplicationDAO;
 import com.ustas.db.model.EmpInfo;
 import com.ustas.db.model.EmpLeaveAllotment;
+import com.ustas.db.model.EmpLeaveAppEntry;
 import com.ustas.helper.LeaveApprovalMail;
 import com.ustas.view.model.LeaveApplicationViewModel;
 
@@ -75,9 +77,20 @@ public class LeaveApplicationMB implements Serializable{
 	     {
 		      System.out.println("In the leave Info");
 		      EmpInfo empInfo=dao.leaveInfo(model.getEmpInfo().getEmpNo(), em, ut);
-		      model.setEmpInfo(empInfo);
-		      model.consolidateLeave(empInfo);
-		      leaveType();
+		      if(empInfo==null)
+		        {
+		    	  String message = appBean.applicationPropreties.getProperty("INVALID_EMPID");
+				  FacesContext.getCurrentInstance().addMessage("centreContentForm:emp_id", new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+		          model.getEmpInfo().setEmpNo("");
+		          model.setTotalLeave(0);
+		          model.setRemainingLeave(0);
+		          model.setLeaveTaken(0);
+		        }
+		      else{
+		            model.setEmpInfo(empInfo);
+		            model.consolidateLeave(empInfo);
+		            leaveType();
+		      }
 		    
 		  }
 	   
@@ -88,7 +101,7 @@ public class LeaveApplicationMB implements Serializable{
 		   {
 		    for(EmpLeaveAllotment leaveAllotment:model.getEmpInfo().getEmpLeaveAllotment())
 		     {
-			   SelectItem leaveType=new SelectItem(leaveAllotment.getIndexNo(),leaveAllotment.getLeaveInfos().getLeaveType());
+			   SelectItem leaveType=new SelectItem(leaveAllotment.getLeaveInfos().getIndexNo(),leaveAllotment.getLeaveInfos().getLeaveType());
 			   
 			   model.getLeaveTypeList().add(leaveType);
 			   
@@ -104,7 +117,7 @@ public class LeaveApplicationMB implements Serializable{
 		   model.getLeaveApplication().setEmpInfo(model.getEmpInfo());
 		   for(EmpLeaveAllotment leaveAllotInfo:model.getEmpInfo().getEmpLeaveAllotment())
 		    {
-			   if(leaveAllotInfo.getLeaveInfos().getIndexNo()==model.getLeaveAllotment().getIndexNo())
+			   if(leaveAllotInfo.getLeaveInfos().getIndexNo()==model.getSelectedLeave().getIndexNo())
 			   {
 				   model.getLeaveApplication().setLeaveInfo(leaveAllotInfo.getLeaveInfos());
 				   break;
@@ -115,14 +128,20 @@ public class LeaveApplicationMB implements Serializable{
 		 
 		    model.getEmpInfo().getEmpLeaveAppEntry().add(model.getLeaveApplication());
 		    model.consolidateAddLeave();
-		    dao.addLeaveApp(model.getEmpInfo(), em, ut); 
-		    String message = appBean.applicationPropreties.getProperty("ADD_SUCCESS");
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+		    dao.addLeaveApp(model.getEmpInfo(), em, ut);
+		    if(!model.isApprove())
+		     {	
+		      String message = appBean.applicationPropreties.getProperty("ADD_SUCCESS");
+			  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+			  model.clearData();
+		     }
+			
 		   
 		   } 
 	      
 	   public void approveLeave()  
 	     {
+		    model.setApprove(true);
 		    System.out.println("In the Approval of leave application ");
 		    String from= appBean.applicationPropreties.getProperty("LEAVE_CONFIRM_MAIL_FROM");
 		    String host =appBean.applicationPropreties.getProperty("HOST");
@@ -132,6 +151,8 @@ public class LeaveApplicationMB implements Serializable{
 		//    LeaveApprovalMail.sendMail(model.getEmpInfo().getOffEmail(),from,host);
 		    String message = appBean.applicationPropreties.getProperty("LEAVE_APPROVE");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+			model.setApprove(false);
+			model.clearData();
 		    
 	     }  
 	  
@@ -148,11 +169,12 @@ public class LeaveApplicationMB implements Serializable{
 	      {
 		   
 		   System.out.println("select leave for the approval");
-		   this.leaveType();
+		 
+		   model.getSelectedLeave().setIndexNo(model.getLeaveApplication().getLeaveInfo().getIndexNo());
 		   model.getLeaveAllotment().setIndexNo(model.getLeaveApplication().getLeaveInfo().getIndexNo());
 		   model.setEmpInfo(model.getLeaveApplication().getEmpInfo());
-		   model.setLeaveInfo(model.getLeaveApplication().getLeaveInfo());  
-		   
+		   model.setLeaveInfo(model.getLeaveApplication().getLeaveInfo());   
+		   leaveType();
 		   model.consolidateLeave(model.getEmpInfo());
 		      
 		  }

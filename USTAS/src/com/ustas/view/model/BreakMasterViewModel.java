@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.zip.DataFormatException;
 
 import com.sun.tools.ws.processor.model.Model;
 import com.ustas.db.model.BreakInfo;
@@ -127,7 +128,7 @@ public void consolidateBreak(BreakInfo breakinfo) throws ParseException
 
 {
 System.out.println("hello");
-//	breakinfo.setBreakInfos(breakList);
+
 	
 	String tempstartTime=Integer.toString(this.starttimehr)+":"+Integer.toString(this.starttimemin)+":"+Integer.toString(this.starttimesec);
 	String tempendtime=Integer.toString(this.endtimehr)+":"+Integer.toString(this.endtimemin)+":"+Integer.toString(this.endtimesec);
@@ -140,8 +141,8 @@ System.out.println("hello");
 	    breakinfo.setStartTime(new Time(startTime.getTime()));
 	    breakinfo.setEndTime(new Time(endTime.getTime()));
 	    
-	    String STARTtime = null;
-	    String ENDtime = null;
+	     String STARTtime = null;
+	     String ENDtime = null;
 		 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 		 Date STARTTIME = format.parse(STARTtime);
 		 Date ENDTIME = format.parse(ENDtime);
@@ -149,7 +150,7 @@ System.out.println("hello");
 	    
 	    System.out.println("result"+totalBreakTime);
 	        
-    }catch(Exception e){e.getStackTrace();
+      }catch(Exception e){e.getStackTrace();
     
     }
 
@@ -164,8 +165,39 @@ System.out.println("hello");
 	  this.starttimemin=breakInfo.getStartTime().getMinutes();
 	  this.starttimesec=breakInfo.getStartTime().getSeconds();
 	  this.endtimehr=breakInfo.getEndTime().getHours();
-	  this.endtimemin=breakInfo.getEndTime().getHours();
-	  this.endtimesec=breakInfo.getEndTime().getHours();
+	  this.endtimemin=breakInfo.getEndTime().getMinutes();
+	  this.endtimesec=breakInfo.getEndTime().getSeconds();
    }
+  
+  public void clearBreak()
+   {
+	  starttimehr=0;
+	  starttimemin=0;
+	  starttimesec=0;
+	  endtimehr=0;
+	  endtimemin=0;
+	  endtimesec=0;
+	  
+   }
+  
+ 
+  public void totalBreakTime(BreakInfo breakInfo) 
+   {
+	   Date totalTime = new Date() ;
+	   String  totalTimes=Integer.toString(breakInfo.getEndTime().getHours()-breakInfo.getStartTime().getHours())+
+			  ":"+Integer.toString(breakInfo.getEndTime().getMinutes()-breakInfo.getStartTime().getMinutes())+
+			  ":"+Integer.toString(breakInfo.getEndTime().getSeconds()-breakInfo.getStartTime().getSeconds());
+	  
+	   try
+	     {
+	    	DateFormat df = new SimpleDateFormat("HH:mm:ss");
+	    	totalTime=(Date) df.parse(totalTimes);
+	    	
+	      }catch(ParseException e){
+	    	 
+	    	 System.out.println("Parse Exception" +e.getStackTrace());
+	      }
+	      breakInfo.setTotalTime(new Time(totalTime.getTime()));
 
+     }
 }

@@ -1,6 +1,10 @@
 package com.ustas.managedbeans;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
@@ -101,27 +105,66 @@ public class AttendanceProcessMB implements Serializable {
 	    	    String port=appBean.applicationPropreties.getProperty("port");
 	    	    String user=appBean.applicationPropreties.getProperty("userName");
 	    	    String password=appBean.applicationPropreties.getProperty("passWord");
-	    	    FileUtil.downloadAttendanceFile(server,Integer.parseInt(port),user,password);
+	    	    String unsyncPath=appBean.applicationPropreties.getProperty("UNSYNC_FILE_PATH");
+	    	    String syncPath=appBean.applicationPropreties.getProperty("SYNC_FILE_PATH");
+	    	    FileUtil.downloadAttendanceFile(server,Integer.parseInt(port),user,password,unsyncPath);
+	    	    File sourceFile=new File(unsyncPath+File.separator+"attendance.txt");
+	   // 	    File sourceFile=new File("D:"+File.separator+"AttendanceProcess"+File.separator+"Unsynchronized"+File.separator+"attendance.txt");
 	    	    String[] ar = null ;
 	    	    try {
-	                BufferedReader in = new BufferedReader(new FileReader("D:\\AttendanceProcess\\attendance.txt"));
+	                BufferedReader in = new BufferedReader(new FileReader(sourceFile));
 	                String str;
 	                str = in.readLine();  
 	                while ((str = in.readLine()) != null) {  
-	                    System.out.println(str);
+	                    System.out.println(str); 
 	                    ar=str.split(",");
 	                    importAttendance(ar);
 	                 }
 	             
-	               
 	                in.close();
 	               } catch (IOException e) {
 	                System.out.println("File Read Error");
 	             }
 	    	    String message = appBean.applicationPropreties.getProperty("ATTENDANCE_SUCCESS");
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
-	        }
+		        Date toDay=new Date();
+		        SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy");
+			//	File dir = new File("D:"+File.separator+"AttendanceProcess"+File.separator+"Synchronized");
+				File dir = new File(syncPath);
+				dir.mkdir();
+                File targetFile=new File(dir,df.format(toDay)+"_"+sourceFile.getName());
+                FileInputStream inStream;
+                FileOutputStream outStream;
+                try{
+                	inStream = new FileInputStream(sourceFile);
+             	    outStream = new FileOutputStream(targetFile);
+          
+             	    byte[] buffer = new byte[1024];
+          
+             	    int length;
+             	 
+             	    while ((length = inStream.read(buffer)) > 0){
+          
+             	    	outStream.write(buffer, 0, length);
+          
+             	    }
+          
+             	       inStream.close();
+             	       outStream.close();
+                     }catch(FileNotFoundException e){ 
+                   
+                	  System.out.println("File Not Found Exception "+e.getMessage());
+                        }catch(IOException e){ 
+               
+         	               System.out.println("Input output Exceptuion"+e.getMessage());
+                         }
+                    sourceFile.delete();
+                }
+	        
+	          
+	        
 	     
+
 	       private void importAttendance(String [] data)
 	           {
 	    	    List<EmpInfo> empList=dao.selectAllEmployee(em, ut);
@@ -132,19 +175,19 @@ public class AttendanceProcessMB implements Serializable {
 	    	        {
 	    		     if(empInfo.getEmpNo().equalsIgnoreCase(data[0]))
 	    		       {
-					   EmpAttendanceProcess attenDance = new EmpAttendanceProcess();
-					   attenDance.setForDate(df.parse(data[1]));
-					   attenDance.setInTime(Time.valueOf(data[2]));
-					   attenDance.setOutTime(Time.valueOf(data[3]));  
-					   attenDance.setStatus("P");
-					   attenDance.setShiftAllotments(empCurrentShiftDetail(empInfo, attenDance.getForDate()));
-					   attenDance.setProcessDate(new Date());    
-					   attenDance.setEmpInfo(empInfo);
-					   attendanceList.add(attenDance);
-					   empInfo.setEmpAttendanceProcess(attendanceList);
-					   dao.processAttendance(em, ut, empInfo);
+					    EmpAttendanceProcess attenDance = new EmpAttendanceProcess();
+					    attenDance.setForDate(df.parse(data[1]));
+					    attenDance.setInTime(Time.valueOf(data[2]));
+					    attenDance.setOutTime(Time.valueOf(data[3]));  
+					    attenDance.setStatus("P");
+					    attenDance.setShiftAllotments(empCurrentShiftDetail(empInfo, attenDance.getForDate()));
+					    attenDance.setProcessDate(new Date());    
+					    attenDance.setEmpInfo(empInfo);
+					    attendanceList.add(attenDance);
+					    empInfo.setEmpAttendanceProcess(attendanceList);
+					    dao.processAttendance(em, ut, empInfo);
 		    		    break;
-	    		        }
+	    		       }
 	    		     
 	    		       
 	    	         }
@@ -158,11 +201,11 @@ public class AttendanceProcessMB implements Serializable {
 	          {
 			    EmpShiftAllotment shiftAlloted=null;
 	    	    for(EmpShiftAllotment currentShift:empInfo.getEmpShiftAllotments())
-	    	      {
+	    	       {
 	    	    	 if(attendanceDate.after(currentShift.getFromDate()) && attendanceDate.before(currentShift.getToDate()))
 	    	    		shiftAlloted=currentShift;		
 	    	    		
-	    	      }  
+	    	       }  
 	    	   
 	    	      return shiftAlloted;
 	    	   

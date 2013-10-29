@@ -20,8 +20,18 @@ public class EmpLeaveAllotmentViewModel implements Serializable{
 	
 	private LeaveInfo leaveInfo=new LeaveInfo();
 	
-	private EmpLeaveAllotment empLeaveAllotmnet=new EmpLeaveAllotment();  
+	private EmpLeaveAllotment empLeaveAllotmnet=new EmpLeaveAllotment(); 
 	
+	private List<EmpLeaveAllotment> tempLeaveAlloment=new ArrayList<>();
+	
+	public List<EmpLeaveAllotment> getTempLeaveAlloment() {
+		return tempLeaveAlloment;
+	}
+
+	public void setTempLeaveAlloment(List<EmpLeaveAllotment> tempLeaveAlloment) {
+		this.tempLeaveAlloment = tempLeaveAlloment;
+	}
+
 	public EmpLeaveAllotment getEmpLeaveAllotmnet() {
 		return empLeaveAllotmnet;
 	}

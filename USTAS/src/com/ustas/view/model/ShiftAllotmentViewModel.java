@@ -69,7 +69,7 @@ public class ShiftAllotmentViewModel implements Serializable  {
 			
 			final String to =empInfo.getOffEmail();
 			 DateFormat df=new SimpleDateFormat("dd-MM-yyyy");
-			javax.mail.PasswordAuthentication authenticator = new javax.mail.PasswordAuthentication("tariq.amu2008@gmail.com","t@riqkhan");  
+			javax.mail.PasswordAuthentication authenticator = new javax.mail.PasswordAuthentication("tariq.amu2008@gmail.com","pass");  
 			try{
 			 String from ="tariq.amu2008@gmail.com";
 			 String SOCKET_FACTORY = "javax.net.ssl.SSLSocketFactory";
@@ -114,7 +114,7 @@ public class ShiftAllotmentViewModel implements Serializable  {
 				 msg.setSubject("Shift Allotment");		    
 			     msg.setContent(multipart);	
 			
-		        transport.connect( "smtp.gmail.com" , "tariq.amu2008@gmail.com" , "t@riqkhan" );
+		        transport.connect( "smtp.gmail.com" , "tariq.amu2008@gmail.com" , "pass" );
 		         
 			 
 			 transport.sendMessage(msg, msg.getAllRecipients());

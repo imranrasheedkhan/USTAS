@@ -51,21 +51,21 @@ public class EmpLeaveAllotmentDAO implements Serializable {
 		  
 	    }
 	  
-	  public  List<EmpInfo> selectemployees(EntityManager em,UserTransaction ut)
+	  public  List<EmpInfo> selectemployees(int year,EntityManager em,UserTransaction ut)
 	  {
 		  List<EmpInfo> list=null;   
 		  try {
 			    
 	    	  ut.begin();
 		    
-	    	  Query q = em.createQuery("Select A from EmpInfo A");  
-		     
-	    	  list= q.getResultList();
-	     	  ut.commit();    
-			
+	    	  Query q = em.createQuery("Select A from EmpInfo A");    
+		//      q.setParameter("year", year);
+	    	  list= q.getResultList();      
+	     	  ut.commit();      
+			  
     	    }catch (Exception e)   
 		     {
-		    System.out.println(e.getMessage());
+		    System.out.println(e.getMessage());  
 			  try
 			    {   
 					ut.rollback();

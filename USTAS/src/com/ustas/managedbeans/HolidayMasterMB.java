@@ -1,106 +1,104 @@
 package com.ustas.managedbeans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
-import com.sun.xml.bind.v2.schemagen.xmlschema.List;
+import com.ustas.application.managedbean.ApplicationBean;
 import com.ustas.db.dao.HolidayMasterDAO;
 import com.ustas.db.model.HolidayInfo;
 import com.ustas.view.model.HolidayMasterViewModel;
 
-
-
 @ManagedBean
 @ViewScoped
-public class HolidayMasterMB implements Serializable{
+public class HolidayMasterMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	
-	
-    
-	
-	
-	
-	//---------------------   Injections               ------------------------------
-	
-		@PersistenceContext(unitName="USTAS")
-		EntityManager em;
-		
-		@Resource
-		UserTransaction ut;       
-		  
-		
-		//----------------------- Data Access Object -------------------------------------
-				private HolidayMasterDAO HolidayDAO;
-				
-				public HolidayMasterViewModel getModel() {
-					return Model;
-				}
 
-				public void setModel(HolidayMasterViewModel model) {
-					Model = model;
-				}
-		
-		public HolidayMasterMB(){
-			Model = new HolidayMasterViewModel();
-			HolidayDAO= new HolidayMasterDAO(em);
-		}
-		 
-		//----------------------- Getter & Setter - View Model -------------------------------------
-		private HolidayMasterViewModel Model;
+	// --------------------- Injections ------------------------------
 
-		
-		
-		
-		
-		public  void  add() 
-		 {
-//			System.out.println("Hello");
-//			
-//			System.out.println(Model.getHolidayInfo().getHolidayName());
-//			System.out.println(Model.getHolidayInfo().getHolidayDesc());
-//			System.out.println(Model.getHolidayInfo().getHolidayType());
-//			System.out.println(Model.getHolidayInfo().getToDate());
-//			System.out.println(Model.getHolidayInfo().getRemarks());
-//			System.out.println(Model.getHolidayInfo());
-			  
-			HolidayDAO.saveHoliday(Model.getHolidayInfo(), em, ut);
-			
-		 }
-		
-		
-		
-		
-		
-		public void  Display(){
-		//System.out.println("In Display function");
-		//List <HolidayInfo>holidayList = HolidayDAO.displatHoliday(Model.getHolidayInfo(),em,ut);
-		java.util.List<HolidayInfo> holidayList=HolidayDAO.displayHoliday(Model.getHolidayInfo().getHolidayName(),em,ut);
-		Model.setHolidayList(holidayList);
-		
-			
-		}  
-		
-		
-		
-         public void selectHoliday(){
-			
-			System.out.println("helooooooooo");  
-		}
-		
-		public void updateHoliday(){
-		//	System.out.println("In Update function");
-			HolidayDAO.updateHoliday(Model.getHolidayInfo(), em, ut);
-		}
-		
-		
+	@PersistenceContext(unitName = "USTAS")
+	EntityManager em;
+
+	@Resource
+	UserTransaction ut;
+
+	// ----------------------- Data Access Object
+	// -------------------------------------
+	 @ManagedProperty(value="#{ApplicationBean}")
+	 private ApplicationBean appBean;
+	   
+	 
+	
+	public ApplicationBean getAppBean() {
+		return appBean;
+	}
+
+	public void setAppBean(ApplicationBean appBean) {
+		this.appBean = appBean;
+	}
+
+	private HolidayMasterDAO dao;
+
+	
+
+	public HolidayMasterMB() {
+		model = new HolidayMasterViewModel();
+		dao = new HolidayMasterDAO(em);
+	}
+
+	// ----------------------- Getter & Setter - View Model
+	// -------------------------------------
+	private HolidayMasterViewModel model;
 	
 	
+	
+
+	public HolidayMasterViewModel getModel() {
+		return model;
+	}
+
+	public void setModel(HolidayMasterViewModel model) {
+		this.model = model;
+	}
+
+	public void add() {
+
+		dao.saveHoliday(model.getHolidayInfo(), em, ut);
+		String message = appBean.applicationPropreties.getProperty("ADD_HOLIDAY");
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+	    model.setHolidayInfo(new HolidayInfo());
+	    
+
+	}
+
+	public void Display() {
+
+		List<HolidayInfo> holidayList = dao.displayHoliday(model.getSearchKey(), em, ut);
+		model.setHolidayList(holidayList);
+
+	}
+
+	public void selectHoliday() {
+
+		System.out.println("helooooooooo");
+	}
+
+	public void updateHoliday() {
+		
+		dao.updateHoliday(model.getHolidayInfo(), em, ut);
+		String message = appBean.applicationPropreties.getProperty("UPDATE_HOLIDAY");
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+	    model.setHolidayInfo(new HolidayInfo());
+	}
+
 }
